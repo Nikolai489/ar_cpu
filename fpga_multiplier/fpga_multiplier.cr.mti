@@ -1,0 +1,20 @@
+D:/GradStuff/AnalogRails/fpga_multiplier/top_gen.sv {0 {vlog -work work -sv -stats=none D:/GradStuff/AnalogRails/fpga_multiplier/top_gen.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+** Error: (vlog-13069) D:/GradStuff/AnalogRails/fpga_multiplier/top_gen.sv(80): near "always_ff": syntax error, unexpected "SystemVerilog keyword 'always_ff'", expecting class.
+
+} {3.0 4.0} {}} D:/GradStuff/AnalogRails/fpga_multiplier/fpga_multiplier_tb.sv {1 {vlog -work work -sv -stats=none D:/GradStuff/AnalogRails/fpga_multiplier/fpga_multiplier_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module top
+-- Compiling module tb
+
+Top level modules:
+	tb
+
+} {} {}} D:/GradStuff/AnalogRails/fpga_multiplier/top.sv {1 {vlog -work work -sv -stats=none D:/GradStuff/AnalogRails/fpga_multiplier/top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module top
+
+Top level modules:
+	top
+
+} {} {}}
