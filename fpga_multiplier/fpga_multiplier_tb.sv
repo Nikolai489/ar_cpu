@@ -8,7 +8,7 @@ logic reset = 1'b1;
 logic[34:0] a;
 logic[34:0] b;
 logic[69:0] mul;
-bit done;
+
 top dut(
   .clk(clk),
   .reset(reset),
@@ -19,16 +19,16 @@ top dut(
 
 initial 
 begin
-  clk                     = 1'b0;
+  clk = 1'b0;
   forever #5 clk = ~clk;
 end
 
 initial
 begin
   #10ns reset = 1'b0;
-  a = 'h5abcd;
-  b = 'h7adef;
-  mm_full = 'h2B8CFFED63;
+  a = $random();
+  b = $random();
+  mm_full = a*b;
   #10ns
   $display("expected value: %h \n",mm_full);
   $display("actual value: %h \n", mul);
