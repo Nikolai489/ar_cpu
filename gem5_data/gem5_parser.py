@@ -13,4 +13,4 @@ def run_parser(filename):
     input_file.close()
     output_file.close()
 
-run_parser('Test.txt')
+run_parser('./logs/Test.txt')
