@@ -1,4 +1,3 @@
-
 ---------- Begin Simulation Statistics ----------
 simSeconds                                   0.000139                       # Number of seconds simulated (Second)
 simTicks                                    138517000                       # Number of ticks simulated (Tick)
