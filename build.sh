@@ -1,7 +1,4 @@
 #! /bin/bash
-# This script runs all commands.
-set -e
-mkdir -p out
 
 display_usage() {
     echo "Usage: $0 [options] <tlv_src> <top_module_name> <yes/no for FEV> <true/false for gate level simulation> <gate_level_simulation_file.v>"
@@ -16,20 +13,24 @@ if [[ $1 == "-h" ]]; then
     exit 0
 fi
 
+# This script runs all commands.
+set -e
+mkdir -p out
+
 # Args: <description>, <extra-iverilog-args>
 function build_tlv {
   echo
   echo "Building $MODEL"
   echo
 
-  sandpiper-saas -i $MODEL.tlv -o $MODEL.sv --outdir out --clkAlways --inlineGen --noline --bestsv --hdl verilog # --debugSigs
+  sandpiper-saas -i src/$MODEL.tlv -o $MODEL.sv --outdir out --clkAlways --inlineGen --noline --bestsv --hdl verilog # --debugSigs
 }
 
 function rtl_sim {
   echo
   echo "Compiling $MODEL"
   echo
-  iverilog -g2012 -I -Wtimescale -D DUMPFILE=\"out/$MODEL.vcd\" -o out/$MODEL out/$MODEL.sv ./makerchip_tb.v $1
+  iverilog -g2012 -I -Wtimescale -D DUMPFILE=\"out/$MODEL.vcd\" -o out/$MODEL out/$MODEL.sv ./generic_tb.v $1
   echo
   echo "Simulating $MODEL"
   echo
@@ -41,7 +42,7 @@ function rtl_sim {
 # $1: simulate
 # $2: additional verilog files (e.g. gate library)
 function gates {
-  vlib="/lib/ARlogic.v"
+  vlib="lib/ARlogic.v"
   # if [[ "$LIB" == "ar" ]]; then vlib="/lib/ARlogic.v"; fi
   # if [[ "$LIB" == "cmos" ]]; then vlib="../warpv_cmos/cmos_cells.v"; fi
   echo
@@ -53,7 +54,7 @@ function gates {
     echo
     echo "Compiling Gate-Level $MODEL in $LIB"
     echo
-    cmd="iverilog -g2012 -I ../extern -Wtimescale -D DUMPFILE=\"out/${MODEL}_${LIB}.vcd\" -o out/${MODEL}_${LIB} out/${MODEL}_${LIB}.v ./makerchip_tb.v $vlib $2"
+    cmd="iverilog -g2012 -I ../extern -Wtimescale -D DUMPFILE=\"out/${MODEL}_${LIB}.vcd\" -o out/${MODEL}_${LIB} out/${MODEL}_${LIB}.v ./generic_tb.v $vlib $2"
     echo "$cmd"
     $cmd
     echo
@@ -71,6 +72,7 @@ YOSYS=/opt/homebrew/bin/yosys
 export MODEL=$1
 build_tlv
 rtl_sim
+export LIB=ar
 export TOP=$2
 export FEV=$3
 gates $4 $5

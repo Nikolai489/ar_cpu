@@ -31,7 +31,7 @@ if { [info exists ::env(FEV)] } {
 # }
 
 # ! Override liberty file set
-yosys read_liberty /lib/ARlogic.yosys.lib
+yosys read_liberty lib/ARlogic.yosys.lib
 yosys design -save lib
 
 # Synthesize    read_verilog -sv out/fib.sv; hierarchy -top top; proc; clean; design -save gold; synth; design -stash gate; design -copy-from gold -as gold top; design -copy-from gate -as gate top; miter -equiv -make_assert -flatten gold gate miter
@@ -82,8 +82,8 @@ yosys synth
 
 # ! Override liberty map set
 
-yosys dfflibmap -liberty /lib/ARlogic.yosys.lib
-yosys abc -liberty /lib/ARlogic.yosys.lib
+yosys dfflibmap -liberty lib/ARlogic.yosys.lib
+yosys abc -liberty lib/ARlogic.yosys.lib
 yosys write_verilog out/$::env(MODEL)_$lib.v
 yosys techmap -map %lib
 
