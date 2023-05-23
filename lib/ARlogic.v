@@ -1,4 +1,4 @@
-`include "variables.v"
+`include "lib/variables.v"
 
 `timescale 1ps/10fs
 `celldefine
@@ -6316,5 +6316,3 @@ assign y = (invalid_y ? 1'bx : data_y);
 endmodule
 `endcelldefine
 //END XOR2_X1X1
-
-
