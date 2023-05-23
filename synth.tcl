@@ -22,13 +22,18 @@ if { [info exists ::env(FEV)] } {
 }
 
 
-if { $lib == "cmos" } {
-  yosys read_liberty ../warpv_cmos/cmos_cells.lib
-  yosys design -save lib
-} elseif { $lib == "ar" } {
-  yosys read_liberty ../extern/ARlogic.yosys.lib
-  yosys design -save lib
-}
+# if { $lib == "cmos" } {
+#   yosys read_liberty ../warpv_cmos/cmos_cells.lib
+#   yosys design -save lib
+# } elseif { $lib == "ar" } {
+#   yosys read_liberty ../extern/ARlogic.yosys.lib
+#   yosys design -save lib
+# }
+
+# ! Override liberty file set
+yosys read_liberty /lib/ARlogic.yosys.lib
+yosys design -save lib
+
 # Synthesize    read_verilog -sv out/fib.sv; hierarchy -top top; proc; clean; design -save gold; synth; design -stash gate; design -copy-from gold -as gold top; design -copy-from gate -as gate top; miter -equiv -make_assert -flatten gold gate miter
 # Fib FEV: sat -seq 9 -prove-asserts -enable_undef -set-at 1 in_reset 1 -set-at 2 in_reset 1 -set-at 3 in_reset 1 -set-at 4 in_reset 0 -set-at 5 in_reset 0 -set-at 6 in_reset 0 -set-at 7 in_reset 0 -set-at 8 in_reset 0 -set-at 9 in_reset 0 -set-at 1 in_clk 0 -set-at 2 in_clk 1 -set-at 3 in_clk 0 -set-at 4 in_clk 1 -set-at 5 in_clk 0 -set-at 6 in_clk 1 -set-at 7 in_clk 0 -set-at 8 in_clk 1 -set-at 9 in_clk 0 -dump_vcd fib_sat.vcd miter
 #          sat -show-all -seq 9 -prove-asserts -enable_undef  -dump_vcd fib_sat.vcd miter
@@ -54,26 +59,33 @@ yosys synth
 #yosys techmap
 #yosys opt
 
-if { $lib == "cmos" } {
-  yosys dfflibmap -liberty ../warpv_cmos/cmos_cells.lib
-  yosys abc -liberty ../warpv_cmos/cmos_cells.lib
-  #yosys clean
-} elseif { $lib == "ar" } {
-  yosys dfflibmap -liberty ../extern/ARlogic.yosys.lib
-  yosys abc -liberty ../extern/ARlogic.yosys.lib
-  #yosys clean
-} elseif { $lib == "default" } {
-  # No liberty file.
-} else {
-  puts "Illegal library: $lib"
-  exit 1
-}
+# if { $lib == "cmos" } {
+#   yosys dfflibmap -liberty ../warpv_cmos/cmos_cells.lib
+#   yosys abc -liberty ../warpv_cmos/cmos_cells.lib
+#   #yosys clean
+# } elseif { $lib == "ar" } {
+#   yosys dfflibmap -liberty ../extern/ARlogic.yosys.lib
+#   yosys abc -liberty ../extern/ARlogic.yosys.lib
+#   #yosys clean
+# } elseif { $lib == "default" } {
+#   # No liberty file.
+# } else {
+#   puts "Illegal library: $lib"
+#   exit 1
+# }
+# yosys write_verilog out/$::env(MODEL)_$lib.v
+# if { $lib == "cmos" } {
+#   yosys techmap -map %lib
+# } elseif { $lib == "ar" } {
+#   yosys techmap -map %lib
+# }
+
+# ! Override liberty map set
+
+yosys dfflibmap -liberty /lib/ARlogic.yosys.lib
+yosys abc -liberty /lib/ARlogic.yosys.lib
 yosys write_verilog out/$::env(MODEL)_$lib.v
-if { $lib == "cmos" } {
-  yosys techmap -map %lib
-} elseif { $lib == "ar" } {
-  yosys techmap -map %lib
-}
+yosys techmap -map %lib
 
 
 # FEV:
