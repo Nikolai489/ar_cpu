@@ -11,9 +11,9 @@
 \TLV
    |mul
       // Random stimulus
-      //@0
-         //m4_rand($aa, 34, 0)
-         //m4_rand($bb, 34, 0)
+      @0
+         m4_rand($aa, 34, 0)
+         m4_rand($bb, 34, 0)
       // 1. A.lower * B.lower (green rectangle in surf-vhdl diagram)
       @1
          $pp1[33:0] = $aa[16:0] * $bb[16:0];
@@ -50,12 +50,12 @@
       @7
          $mm_full[69:0] = $aa * $bb;
          // Sticky error flag.
-         //$Error <= *reset ? 0 : $Error || ($mm_full != $mm);
+         $Error <= *reset ? 0 : $Error || ($mm_full != $mm);
 
 
          // Assert these to end simulation (before Makerchip cycle limit).
-         //*passed = *cyc_cnt > 40;
-         //*failed = $Error;
+         *passed = *cyc_cnt > 40;
+         *failed = $Error;
  
 \SV
    endmodule
