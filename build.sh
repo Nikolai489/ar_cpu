@@ -60,7 +60,7 @@ function gates {
     echo
     echo "Simulating Gate-Level $LIB $MODEL"
     echo
-    out/fib_ar
+    out/${MODEL}_ar
     # gtkwave out/${MODEL}_${LIB}.vcd &
   fi
   sleep 3
@@ -70,8 +70,8 @@ function gates {
 YOSYS=/opt/homebrew/bin/yosys
 
 export MODEL=$1
-build_tlv
-rtl_sim
+# build_tlv
+# rtl_sim
 export LIB=ar
 export TOP=$2
 export FEV=$3
