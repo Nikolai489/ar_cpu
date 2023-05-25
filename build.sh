@@ -1,7 +1,7 @@
 #! /bin/bash
 
 display_usage() {
-    echo "Usage: $0 [options] <tlv_src> <top_module_name> <yes/no for FEV> <true/false for gate level simulation> <gate_level_simulation_file.v>"
+    echo "Usage: $0 [options] <tlv_src> <top_module_name> <yes/no for FEV> <true/false for gate level simulation> <gate_level_simulation_file.v> <behavioral_sim_file.v>"
     echo "Options:"
     echo "  -h  Display this help message"
     # Add additional options and their descriptions here
@@ -70,8 +70,8 @@ function gates {
 YOSYS=/opt/homebrew/bin/yosys
 
 export MODEL=$1
-# build_tlv
-# rtl_sim
+build_tlv
+rtl_sim $6
 export LIB=ar
 export TOP=$2
 export FEV=$3
