@@ -1,2 +1,2 @@
-+incdir+/Users/harry/Desktop/ar_cpu/src/dr32e
++incdir+${DR32E_SRC}
 dr32e_pkg.sv
