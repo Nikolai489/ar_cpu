@@ -1,2 +1,2 @@
-+incdir+${DR32E_SRC}
++incdir+src/dr32e
 dr32e_pkg.sv

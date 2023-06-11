@@ -1,6 +1,5 @@
-build:
-	export DR32E_SRC=src/dr32e
-	verilator -f ${DR32E_SRC}/dr32e_core.f --lint-only -Wall ${DR32E_SRC}/dr32e_alu.sv
+lint:
+	$(shell verilator -f src/dr32e/dr32e_core.f --lint-only -Wall src/dr32e/dr32e_alu.sv)
 
-clean: 
+clean:
 	rm -r out
