@@ -15,7 +15,7 @@
 #include "Vcve2_alu.h"
 #include "Vcve2_alu___024unit.h"
 #include "Vcve2_alu_cve2_pkg.h"
-#include "cve2_alu_tbf.cpp"
+#include "cve2_alu_tbf.h"
 #include "testb.h"
 #include "verilated.h"
 
