@@ -1,4 +1,4 @@
-export VERILATOR_PATH = /opt/homebrew/Cellar/verilator/5.006/share/verilator/include
+export VERILATOR_PATH = /usr/local/share/verilator/include
 export VERILATOR_BUILD_PATH = obj_dir
 
 .PHONY: all
@@ -24,6 +24,7 @@ ${TOP}: ${TOP}_tb.cpp ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a
 			${VERILATOR_PATH}/verilated_threads.cpp 	\
 			${VERILATOR_PATH}/verilated_vcd_c.cpp 		\
 			${TOP}_tb.cpp 														\
+			${TOP}_tbf.cpp								\
 			${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a 		\
 			-o ${TOP}
 

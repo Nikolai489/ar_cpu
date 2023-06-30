@@ -12,6 +12,11 @@
 #include "Vcve2_alu_cve2_pkg.h"
 #include "testb.h"
 
+int getRandomValue(){
+  int arr[16] = {0, 1, 2, 3, 4, 8, 9, 10, 25, 26, 27, 28, 29, 30, 43, 44};
+  int index = rand() % 16;
+  return arr[index];
+}
 void ALUScoreboard::writeIn(ALUInTxn *tx) {
   in_q.push_back(tx);
 }
@@ -201,7 +206,7 @@ ALUSequencer::ALUSequencer() {}
 ALUInTxn *ALUSequencer::generateTxn() {
   ALUInTxn *tx = new ALUInTxn();
   // ! Randomize to 5 enum values only
-  tx->op = ALUInTxn::Operation(rand() % 5);
+  tx->op = ALUInTxn::Operation(getRandomValue());
   tx->a = rand() % 100000000;
   tx->b = rand() % 210987097;
   return tx;
