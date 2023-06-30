@@ -123,7 +123,7 @@ void ALUScoreboard::writeOut(ALUOutTxn *tx) {
       break;
 
     case ALUInTxn::ne:
-      if ((in->a != in->b) != tx->is_equal_result) {
+      if ((in->a != in->b) == tx->is_equal_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: NEQ MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a != in->b, tx->is_equal_result);
       } else {
         printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: NEQ PASSED\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a != in->b, tx->is_equal_result);
@@ -182,7 +182,7 @@ void ALUInMonitor::monitor() {
   tx->op = ALUInTxn::Operation(dut->m_core->operator_i);
   tx->a = dut->m_core->operand_a_i;
   tx->b = dut->m_core->operand_b_i;
-
+  printf("A: %d B: %d op: %d\t\t",tx->a, tx->b, tx->op);
   scb->writeIn(tx);
 }
 
