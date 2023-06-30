@@ -153,16 +153,11 @@ ALUDriver::ALUDriver(TESTB<Vcve2_alu> *dut) {
 }
 
 void ALUDriver::drive(ALUInTxn *tx) {
-  // tx = nullptr;
   if (tx != NULL) {
     dut->m_core->operand_a_i = tx->a;
     dut->m_core->operand_b_i = tx->b;
     dut->m_core->instr_first_cycle_i = (tx->first_cycle) ? 1 : 0;
     dut->m_core->operator_i = tx->op;
-  }
-  if (tx != NULL) {
-    // TODO: Fix null pointer bug
-    // delete tx;
   }
 }
 

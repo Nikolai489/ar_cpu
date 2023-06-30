@@ -38,6 +38,10 @@ int main(int argc, char **argv) {
       tx = seq->generateTxn();
 
     drv->drive(tx);
+
+    if (clocks % 10 == 9)
+      delete tx;
+
     if (clocks % 10 == 5) {
       inMon->monitor();
       outMon->monitor();
@@ -52,7 +56,6 @@ int main(int argc, char **argv) {
   delete inMon;
   delete scb;
   delete drv;
-  delete tx;
   delete seq;
   exit(EXIT_SUCCESS);
 }
