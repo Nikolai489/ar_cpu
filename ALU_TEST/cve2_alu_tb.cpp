@@ -31,9 +31,12 @@ int main(int argc, char **argv) {
   ALUOutMonitor *outMon = new ALUOutMonitor(dut, scb);
   ALUSequencer *seq = new ALUSequencer();
 
+  int step_or_clock = (TICK_MODE ? SIM_TIME_STEP : CLOCK_PERIOD);
+  int time_or_clocks = (TICK_MODE ? (SIM_TIME / SIM_TIME_STEP) : SIM_TIME);
+
   dut->openTrace("cve2_alu.vcd");
 
-  for (unsigned clocks = 0; clocks < 100; clocks++) {
+  for (unsigned clocks = 0; clocks <= time_or_clocks; clocks++) {
     if (clocks % 10 == 0)
       tx = seq->generateTxn();
 
@@ -47,7 +50,12 @@ int main(int argc, char **argv) {
       outMon->monitor();
     }
 
-    dut->tick();
+    try {
+      dut->tick(TICK_MODE, step_or_clock, TIME_UNIT);
+    } catch (std::invalid_argument &e) {
+      std::cerr << e.what() << std::endl;
+      dut->tick(TICK_MODE, step_or_clock, "ps");
+    }
   }
 
   printf("\n\nSimulation Complete\n");
