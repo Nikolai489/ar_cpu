@@ -25,7 +25,7 @@ ${VERILATOR_BUILD_PATH}/V${TOP}.cpp: ${TOP}.sv
 ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a: ${VERILATOR_BUILD_PATH}/V${TOP}.cpp
 	make --no-print-directory -C ${VERILATOR_BUILD_PATH} -f V${TOP}.mk
 
-${TOP}: ${TOP}_tb.cpp ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a
+${TOP}: ${TOP}_tb.cpp ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a testb.h ${TOP}_tbf.h ${TOP}_tbf.cpp
 	g++ -I ${VERILATOR_PATH} 											\
 			-I ${VERILATOR_BUILD_PATH} 								\
 			--std=c++11 															\
