@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include <verilated_vcd_c.h>
 
 #define TBASSERT(TB, A) \
@@ -12,6 +13,30 @@
     }                   \
     assert(A);          \
   } while (0);
+
+#ifndef PROBE_DEPTH
+#define PROBE_DEPTH 99
+#endif
+
+#ifndef SIM_TIME
+#define SIM_TIME 100
+#endif
+
+#ifndef SIM_TIME_STEP
+#define SIM_TIME_STEP 1
+#endif
+
+#ifndef CLOCK_PERIOD
+#define CLOCK_PERIOD 10
+#endif
+
+#ifndef TIME_UNIT
+#define TIME_UNIT "ps"
+#endif
+
+#ifndef TICK_MODE
+#define TICK_MODE 0
+#endif
 
 template <class VA>
 class TESTB {
@@ -36,7 +61,7 @@ class TESTB {
   virtual void openTrace(const char *vcd_name) {
     if (!m_trace) {
       m_trace = new VerilatedVcdC;
-      m_core->trace(m_trace, 99);
+      m_core->trace(m_trace, PROBE_DEPTH);
       m_trace->open(vcd_name);
     }
   }
@@ -53,18 +78,33 @@ class TESTB {
     m_core->eval();
   }
 
-  virtual void tick(void) {
-    m_tick_count++;
-    eval();
-    if (m_trace) m_trace->dump((vluint64_t)(10 * m_tick_count - 2));
-    m_core->clk_i = 1;
-    eval();
-    if (m_trace) m_trace->dump((vluint64_t)(10 * m_tick_count));
-    m_core->clk_i = 0;
-    eval();
-    if (m_trace) {
-      m_trace->dump((vluint64_t)(10 * m_tick_count + 5));
-      m_trace->flush();
+  virtual void tick(int tick_mode, int time_step, char *time_unit) {
+    if (tick_mode == 0) {
+      m_tick_count++;
+      eval();
+      if (m_trace) m_trace->dump((vluint64_t)(time_step * m_tick_count * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                                                         : throw std::invalid_argument("Invalid time units!\nDefaulting to ps"))) -
+                                              2 * (time_step / (float)10) * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                                                            : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")))));
+      m_core->clk_i = 1;
+      eval();
+      if (m_trace) m_trace->dump((vluint64_t)(time_step * m_tick_count * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                                                         : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")))));
+      m_core->clk_i = 0;
+      eval();
+      if (m_trace) {
+        m_trace->dump((vluint64_t)(time_step * m_tick_count * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                                              : throw std::invalid_argument("Invalid time units!\nDefaulting to ps"))) +
+                                   5 * (time_step / (float)10) * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                                                 : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")))));
+        m_trace->flush();
+      }
+    } else {
+      m_core->clk_i ^= 1;
+      eval();
+      m_trace->dump(m_tick_count);
+      m_tick_count += time_step * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
+                                                                                                                                  : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")));  // * Smallest Time-step = 1ps
     }
   }
 
