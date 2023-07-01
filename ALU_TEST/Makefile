@@ -1,4 +1,11 @@
-export VERILATOR_PATH = /opt/homebrew/Cellar/verilator/5.006/share/verilator/include
+#export VERILATOR_PATH = $(shell find /usr/local -name verilated.cpp)
+OS := $(shell uname)
+
+ifeq ($(OS),Linux)
+  VERILATOR_PATH = /usr/local/share/verilator/include
+else ifeq ($(OS),Darwin)
+  VERILATOR_PATH = /opt/homebrew/Cellar/verilator/5.006/share/verilator/include
+endif
 export VERILATOR_BUILD_PATH = obj_dir
 
 CFLAGS := -DSIM_TIME=${SIM_TIME} -DSIM_TIME_STEP=${SIM_TIME_STEP} -DPROBE_DEPTH=${PROBE_DEPTH} -DTIME_UNIT=\"${TIME_UNIT}\" -DCLOCK_PERIOD=${CLOCK_PERIOD} -DTICK_MODE=${TICK_MODE}
