@@ -111,7 +111,7 @@ void ALUScoreboard::writeOut(ALUOutTxn *tx) {
       break;
 
     case ALUInTxn::ne:
-      if ((in->a != in->b) != tx->is_equal_result) {
+      if ((in->a != in->b) == tx->is_equal_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: NEQ MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a != in->b, tx->is_equal_result);
       } else {
         printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: NEQ PASSED\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a != in->b, tx->is_equal_result);
