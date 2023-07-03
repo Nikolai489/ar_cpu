@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <verilated_vcd_c.h>
+#include "defines.h"
 
 #define TBASSERT(TB, A) \
   do {                  \
@@ -13,30 +14,6 @@
     }                   \
     assert(A);          \
   } while (0);
-
-#ifndef PROBE_DEPTH
-#define PROBE_DEPTH 99
-#endif
-
-#ifndef SIM_TIME
-#define SIM_TIME 100
-#endif
-
-#ifndef SIM_TIME_STEP
-#define SIM_TIME_STEP 1
-#endif
-
-#ifndef CLOCK_PERIOD
-#define CLOCK_PERIOD 10
-#endif
-
-#ifndef TIME_UNIT
-#define TIME_UNIT "ps"
-#endif
-
-#ifndef TICK_MODE
-#define TICK_MODE 0
-#endif
 
 template <class VA>
 class TESTB {

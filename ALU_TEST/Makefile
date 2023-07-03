@@ -26,7 +26,7 @@ ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a: ${VERILATOR_BUILD_PATH}/V${TOP}.cpp
 	make --no-print-directory -C ${VERILATOR_BUILD_PATH} -f V${TOP}.mk
 
 ${TOP}: ${TOP}_tb.cpp ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a
-	g++ -I ${VERILATOR_PATH} 											\
+	g++ -w -I ${VERILATOR_PATH} 											\
 			-I ${VERILATOR_BUILD_PATH} 								\
 			--std=c++11 															\
 			${CFLAGS}																	\
@@ -34,7 +34,10 @@ ${TOP}: ${TOP}_tb.cpp ${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a
 			${VERILATOR_PATH}/verilated_threads.cpp 	\
 			${VERILATOR_PATH}/verilated_vcd_c.cpp 		\
 			${TOP}_tb.cpp 														\
-			${TOP}_tbf.cpp														\
+			${TOP}_scoreboard.cpp														\
+			${TOP}_driver.cpp														\
+			${TOP}_monitor.cpp														\
+			${TOP}_sequencer.cpp														\
 			${VERILATOR_BUILD_PATH}/V${TOP}__ALL.a 		\
 			-o ${TOP}
 

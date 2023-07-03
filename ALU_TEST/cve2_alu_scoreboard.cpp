@@ -1,12 +1,5 @@
 #include "cve2_alu_tbf.h"
 
-#include <stdlib.h>
-
-#include <cstdlib>
-#include <deque>
-#include <iostream>
-#include <memory>
-
 #include "Vcve2_alu.h"
 #include "Vcve2_alu___024unit.h"
 #include "Vcve2_alu_cve2_pkg.h"
@@ -146,58 +139,4 @@ void ALUScoreboard::writeOut(ALUOutTxn *tx) {
 
   delete in;
   delete tx;
-}
-
-ALUDriver::ALUDriver(TESTB<Vcve2_alu> *dut) {
-  this->dut = dut;
-}
-
-void ALUDriver::drive(ALUInTxn *tx) {
-  if (tx != NULL) {
-    dut->m_core->operand_a_i = tx->a;
-    dut->m_core->operand_b_i = tx->b;
-    dut->m_core->instr_first_cycle_i = (tx->first_cycle) ? 1 : 0;
-    dut->m_core->operator_i = tx->op;
-  }
-}
-
-ALUInMonitor::ALUInMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
-  this->dut = dut;
-  this->scb = scb;
-}
-
-void ALUInMonitor::monitor() {
-  // TODO: Monitor at half clock cycle
-  ALUInTxn *tx = new ALUInTxn();
-  tx->op = ALUInTxn::Operation(dut->m_core->operator_i);
-  tx->a = dut->m_core->operand_a_i;
-  tx->b = dut->m_core->operand_b_i;
-
-  scb->writeIn(tx);
-}
-
-ALUOutMonitor::ALUOutMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
-  this->dut = dut;
-  this->scb = scb;
-}
-
-void ALUOutMonitor::monitor() {
-  // TODO: Monitor at half clock cycle
-  ALUOutTxn *tx = new ALUOutTxn();
-  tx->result = dut->m_core->result_o;
-  tx->comparison_result = dut->m_core->comparison_result_o;
-  tx->is_equal_result = dut->m_core->is_equal_result_o;
-
-  scb->writeOut(tx);
-}
-
-ALUSequencer::ALUSequencer() {}
-
-ALUInTxn *ALUSequencer::generateTxn() {
-  ALUInTxn *tx = new ALUInTxn();
-  // ! Randomize to 5 enum values only
-  tx->op = ALUInTxn::Operation(rand() % 5);
-  tx->a = rand() % 100000000;
-  tx->b = rand() % 210987097;
-  return tx;
 }
