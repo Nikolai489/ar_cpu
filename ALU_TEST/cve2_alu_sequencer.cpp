@@ -5,13 +5,27 @@
 #include "Vcve2_alu_cve2_pkg.h"
 #include "testb.h"
 
+int32_t genSignedRandom(){
+  return rand();
+}
+
+uint32_t genUnsignedRandom(){
+  return static_cast<unsigned int>(rand());
+}
+
 ALUSequencer::ALUSequencer() {}
 
 ALUInTxn *ALUSequencer::generateTxn() {
   ALUInTxn *tx = new ALUInTxn();
   // ! Randomize to 5 enum values only
   tx->op = ALUInTxn::Operation(rand() % 5);
-  tx->a = rand() % 100000000;
-  tx->b = rand() % 210987097;
+  if(tx->op == ALUInTxn::Operation::sltu || tx->op == ALUInTxn::Operation::geu || tx->op == ALUInTxn::Operation::ltu){
+    tx->a = genUnsignedRandom() % UNSIGNED_CEIL;
+    tx->b = genUnsignedRandom() % UNSIGNED_CEIL;
+  }
+  else{
+    tx->a = genSignedRandom() % SIGNED_CEIL;
+    tx->b = genSignedRandom() % SIGNED_CEIL;
+  }
   return tx;
 }
