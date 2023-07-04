@@ -1,9 +1,0 @@
-#define ILLEGAL 0x0FFFFFFF
-#define JUMP  0xD90006F
-#define BRANCH 0xD9C8063
-#define WFI 0x10500073
-#define ECALL 0x73
-#define EBREAK 0x100073
-#define DEBUG 0x7B200073
-#define MRET 0x30200073
-#define DEFAULT 0
