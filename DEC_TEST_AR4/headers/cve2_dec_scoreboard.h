@@ -32,58 +32,72 @@ void DECScoreboard::writeOut(DECOutTxn *tx) {
   switch (in->instr) {
     case ILLEGAL:
       if (tx->illegal_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Illegal instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Illegal instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect an illegal instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect an illegal instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case JUMP:
       if (tx->jump_set) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Jump instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Jump instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a jump instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a jump instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case BRANCH:
       if (tx->branch_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Branch instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Branch instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a branch instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a branch instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case WFI:
       if (tx->wfi_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: WFI instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: WFI instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a WFI instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a WFI instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case ECALL:
       if (tx->ecall_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Syscall instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Syscall instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a syscall instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a syscall instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case EBREAK:
       if (tx->ebreak_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Trap instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Trap instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a trap instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a trap instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case DEBUG:
       if (tx->debug_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Debug instruction successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Debug instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a debug type instruction\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a debug type instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
     case MRET:
       if (tx->mret_instr) {
-        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Return from exception successfully detected\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Return from exception successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       } else {
-        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a return from exception\n\n" ANSI_COLOR_RESET);
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a return from exception\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
+      }
+      break;
+    case CSR:
+      if (tx->csr_access) {
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: CSR access successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
+      } else {
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect CSR access\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
+      }
+      break;
+    case STORE:
+      if (tx->store_instr) {
+        printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: Store instruction successfully detected\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
+      } else {
+        printf(ANSI_COLOR_RED "DEC SCOREBOARD: Failed to detect a store instruction\t\t Input Instruction -> 0x%x\n\n" ANSI_COLOR_RESET, in->instr);
       }
       break;
   }

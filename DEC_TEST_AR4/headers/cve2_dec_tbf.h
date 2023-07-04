@@ -61,7 +61,8 @@ class DECOutTxn {
   int wfi_instr, jump_set,
       illegal_instr, branch_instr,
       ecall_instr, ebreak_instr,
-      mret_instr, debug_instr;
+      mret_instr, debug_instr,
+      csr_access, store_instr;
 };
 
 class DECScoreboard {

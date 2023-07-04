@@ -31,5 +31,7 @@ void DECOutMonitor::monitor() {
   tx->ebreak_instr = dut->m_core->ebrk_insn_o;
   tx->debug_instr = dut->m_core->dret_insn_o;
   tx->mret_instr = dut->m_core->mret_insn_o;
+  tx->csr_access = dut->m_core->csr_access_o;
+  tx->store_instr = dut->m_core->data_we_o;
   scb->writeOut(tx);
 }

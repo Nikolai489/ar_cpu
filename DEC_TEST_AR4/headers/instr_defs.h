@@ -6,3 +6,5 @@
 #define EBREAK 0x100073
 #define DEBUG 0x7B200073
 #define MRET 0x30200073
+#define CSR 0xE073
+#define STORE 0x18023

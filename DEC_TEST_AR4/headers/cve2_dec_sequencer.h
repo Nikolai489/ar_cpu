@@ -33,6 +33,12 @@ DECInTxn *DECSequencer::generateTxn() {
     case 160:
         tx->instr = MRET;
         break;
+    case 180:
+        tx->instr = CSR;
+        break;
+    case 200:
+        tx->instr = STORE;
+        break;
   }
   //tx->op = DECInTxn::Operation(getRandomValue());
   /*if(tx->op == DECInTxn::Operation::sltu || tx->op == DECInTxn::Operation::geu || tx->op == DECInTxn::Operation::ltu){
