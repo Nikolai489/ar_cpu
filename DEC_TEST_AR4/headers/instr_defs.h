@@ -6,3 +6,4 @@
 #define EBREAK 0x100073
 #define DEBUG 0x7B200073
 #define MRET 0x30200073
+#define DEFAULT 0
