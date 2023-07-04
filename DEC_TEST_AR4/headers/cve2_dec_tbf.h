@@ -63,6 +63,9 @@ class DECOutTxn {
       ecall_instr, ebreak_instr,
       mret_instr, debug_instr,
       csr_access, store_instr;
+  uint32_t imm_i, imm_u,
+           imm_j, imm_s,
+           imm_b;
 };
 
 class DECScoreboard {

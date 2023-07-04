@@ -8,3 +8,5 @@
 #define MRET 0x30200073
 #define CSR 0xE073
 #define STORE 0x18023
+#define UTYPE 0x307037
+#define ITYPE 0xE0008113

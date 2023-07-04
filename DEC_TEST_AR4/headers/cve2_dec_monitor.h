@@ -33,5 +33,10 @@ void DECOutMonitor::monitor() {
   tx->mret_instr = dut->m_core->mret_insn_o;
   tx->csr_access = dut->m_core->csr_access_o;
   tx->store_instr = dut->m_core->data_we_o;
+  tx->imm_i = dut->m_core->imm_i_type_o;
+  tx->imm_b = dut->m_core->imm_b_type_o;
+  tx->imm_u = dut->m_core->imm_u_type_o;
+  tx->imm_j = dut->m_core->imm_j_type_o;
+  tx->imm_s = dut->m_core->imm_s_type_o;
   scb->writeOut(tx);
 }
