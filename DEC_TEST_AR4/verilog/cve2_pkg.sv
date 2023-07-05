@@ -183,7 +183,7 @@ package cve2_pkg ;
     MD_OP_MULH,
     MD_OP_DIV,
     MD_OP_REM
-  } md_op_e;
+  } md_op_e /*verilator public*/;
 
 
   //////////////////////////////////
@@ -196,7 +196,7 @@ package cve2_pkg ;
     CSR_OP_WRITE,
     CSR_OP_SET,
     CSR_OP_CLEAR
-  } csr_op_e;
+  } csr_op_e /*verilator public*/;
 
   // Privileged mode
   typedef enum logic[1:0] {
@@ -204,14 +204,14 @@ package cve2_pkg ;
     PRIV_LVL_H = 2'b10,
     PRIV_LVL_S = 2'b01,
     PRIV_LVL_U = 2'b00
-  } priv_lvl_e;
+  } priv_lvl_e /*verilator public*/;
 
   // Constants for the dcsr.xdebugver fields
   typedef enum logic[3:0] {
     XDEBUGVER_NO     = 4'd0, // no external debug support
     XDEBUGVER_STD    = 4'd4, // external debug according to RISC-V debug spec
     XDEBUGVER_NONSTD = 4'd15 // debug not conforming to RISC-V debug spec
-  } x_debug_ver_e;
+  } x_debug_ver_e /*verilator public*/;
 
   //////////////
   // WB stage //
@@ -222,7 +222,7 @@ package cve2_pkg ;
     WB_INSTR_LOAD,  // Instruction is awaiting load data
     WB_INSTR_STORE, // Instruction is awaiting store response
     WB_INSTR_OTHER  // Instruction doesn't fit into above categories
-  } wb_instr_type_e;
+  } wb_instr_type_e /*verilator public*/;
 
   //////////////
   // ID stage //
@@ -234,19 +234,19 @@ package cve2_pkg ;
     OP_A_FWD,
     OP_A_CURRPC,
     OP_A_IMM
-  } op_a_sel_e;
+  } op_a_sel_e /*verilator public*/;
 
   // Immediate a selection
   typedef enum logic {
     IMM_A_Z,
     IMM_A_ZERO
-  } imm_a_sel_e;
+  } imm_a_sel_e /*verilator public*/;
 
   // Operand b selection
   typedef enum logic {
     OP_B_REG_B,
     OP_B_IMM
-  } op_b_sel_e;
+  } op_b_sel_e /*verilator public*/;
 
   // Immediate b selection
   typedef enum logic [2:0] {
@@ -257,13 +257,13 @@ package cve2_pkg ;
     IMM_B_J,
     IMM_B_INCR_PC,
     IMM_B_INCR_ADDR
-  } imm_b_sel_e;
+  } imm_b_sel_e /*verilator public*/;
 
   // Regfile write data selection
   typedef enum logic {
     RF_WD_EX,
     RF_WD_CSR
-  } rf_wd_sel_e;
+  } rf_wd_sel_e /*verilator public*/;
 
   //////////////
   // IF stage //
@@ -277,7 +277,7 @@ package cve2_pkg ;
     PC_ERET,
     PC_DRET,
     PC_BP
-  } pc_sel_e;
+  } pc_sel_e /*verilator public*/;
 
   // Exception PC mux selection
   typedef enum logic [1:0] {
@@ -285,7 +285,7 @@ package cve2_pkg ;
     EXC_PC_IRQ,
     EXC_PC_DBD,
     EXC_PC_DBG_EXC // Exception while in debug mode
-  } exc_pc_sel_e;
+  } exc_pc_sel_e /*verilator public*/;
 
   // Interrupt requests
   typedef struct packed {
@@ -294,7 +294,7 @@ package cve2_pkg ;
     logic        irq_external;
     logic [14:0] irq_fast; // 15 fast interrupts,
                           // one interrupt is reserved for NMI (not visible through mip/mie)
-  } irqs_t;
+  } irqs_t /*verilator public*/;
 
   // Exception cause
   typedef enum logic [5:0] {
@@ -312,7 +312,7 @@ package cve2_pkg ;
     EXC_CAUSE_STORE_ACCESS_FAULT = {1'b0, 5'd07},
     EXC_CAUSE_ECALL_UMODE        = {1'b0, 5'd08},
     EXC_CAUSE_ECALL_MMODE        = {1'b0, 5'd11}
-  } exc_cause_e;
+  } exc_cause_e /*verilator public*/; 
 
   // Debug cause
   typedef enum logic [2:0] {
@@ -321,7 +321,7 @@ package cve2_pkg ;
     DBG_CAUSE_TRIGGER = 3'h2,
     DBG_CAUSE_HALTREQ = 3'h3,
     DBG_CAUSE_STEP    = 3'h4
-  } dbg_cause_e;
+  } dbg_cause_e /*verilator public*/;
 
   // PMP constants
   parameter int unsigned PMP_MAX_REGIONS      = 16;
@@ -525,7 +525,7 @@ package cve2_pkg ;
     CSR_MHPMCOUNTER31H = 12'hB9F,
     CSR_CPUCTRL        = 12'h7C0,
     CSR_SECURESEED     = 12'h7C1
-  } csr_num_e;
+  } csr_num_e /*verilator public*/;
 
   // CSR pmp-related offsets
   parameter logic [11:0] CSR_OFF_PMP_CFG  = 12'h3A0; // pmp_cfg  @ 12'h3a0 - 12'h3a3
