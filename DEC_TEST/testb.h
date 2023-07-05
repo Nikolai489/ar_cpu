@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <verilated_vcd_c.h>
-
+#include "defines.h"
 #define TBASSERT(TB, A) \
   do {                  \
     if (!A) {           \

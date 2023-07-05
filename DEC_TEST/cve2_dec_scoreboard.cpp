@@ -19,16 +19,6 @@ void DECScoreboard::writeOut(DECOutTxn *tx) {
   in = in_q.front();
   in_q.pop_front();
 
-  /*switch (in->op) {
-    case ALUInTxn::add:
-      if ((in->a + in->b) != tx->result) {
-        printf(ANSI_COLOR_RED "ALU SCOREBOARD: ADD MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a + in->b, tx->result);
-      } else {
-        printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: ADD PASSED\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a + in->b, tx->result);
-      }
-      break;
-  }*/
-
   switch (in->instr) {
     case ILLEGAL:
       if (tx->illegal_instr) {
