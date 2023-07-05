@@ -1,17 +1,15 @@
-#include "cve2_alu_tbf.h"
+#include "Vdr32e_alu.h"
+// #include "Vdr32e_alu___024unit.h"
+#include "../testb.h"
+#include "Vdr32e_alu_dr32e_pkg.h"
+#include "dr32e_alu_tbf.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
-ALUInMonitor::ALUInMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
+ALUInMonitor::ALUInMonitor(TESTB<Vdr32e_alu> *dut, ALUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
 
 void ALUInMonitor::monitor() {
-  // TODO: Monitor at half clock cycle
   ALUInTxn *tx = new ALUInTxn();
   tx->op = ALUInTxn::Operation(dut->m_core->operator_i);
   tx->a = dut->m_core->operand_a_i;
@@ -20,13 +18,12 @@ void ALUInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-ALUOutMonitor::ALUOutMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
+ALUOutMonitor::ALUOutMonitor(TESTB<Vdr32e_alu> *dut, ALUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
 
 void ALUOutMonitor::monitor() {
-  // TODO: Monitor at half clock cycle
   ALUOutTxn *tx = new ALUOutTxn();
   tx->result = dut->m_core->result_o;
   tx->comparison_result = dut->m_core->comparison_result_o;

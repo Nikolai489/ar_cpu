@@ -1,11 +1,10 @@
-#include "cve2_alu_tbf.h"
+#include "Vdr32e_alu.h"
+// #include "Vdr32e_alu___024unit.h"
+#include "Vdr32e_alu_dr32e_pkg.h"
+#include "dr32e_alu_tbf.h"
+#include "../testb.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
-ALUDriver::ALUDriver(TESTB<Vcve2_alu> *dut) {
+ALUDriver::ALUDriver(TESTB<Vdr32e_alu> *dut) {
   this->dut = dut;
 }
 
