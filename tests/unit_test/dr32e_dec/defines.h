@@ -1,0 +1,15 @@
+#define PROBE_DEPTH 99
+
+#define SIM_TIME 200
+
+#define SIM_TIME_STEP 1
+
+#define CLOCK_PERIOD 10
+
+#define TIME_UNIT "ps"
+
+#define TICK_MODE 0
+
+#define UNSIGNED_CEIL 4294967295
+
+#define SIGNED_CEIL 2147483647

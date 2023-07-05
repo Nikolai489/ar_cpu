@@ -1,9 +1,8 @@
-#include "cve2_alu_tbf.h"
-
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
+#include "Vdr32e_alu.h"
+// #include "Vdr32e_alu___024unit.h"
+#include "../testb.h"
+#include "Vdr32e_alu_dr32e_pkg.h"
+#include "dr32e_alu_tbf.h"
 
 void ALUScoreboard::writeIn(ALUInTxn *tx) {
   in_q.push_back(tx);
@@ -18,8 +17,6 @@ void ALUScoreboard::writeOut(ALUOutTxn *tx) {
   ALUInTxn *in;
   in = in_q.front();
   in_q.pop_front();
-
-  // TODO: Fix Scoreboard
 
   switch (in->op) {
     case ALUInTxn::add:

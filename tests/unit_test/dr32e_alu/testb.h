@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <verilated_vcd_c.h>
+
 #include "defines.h"
 
 #define TBASSERT(TB, A) \
@@ -77,7 +78,6 @@ class TESTB {
         m_trace->flush();
       }
     } else {
-      m_core->clk_i ^= 1;
       eval();
       m_trace->dump(m_tick_count);
       m_tick_count += time_step * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
