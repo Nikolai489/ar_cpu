@@ -12,5 +12,6 @@ DECDriver::DECDriver(TESTB<Vcve2_dec> *dut) {
 void DECDriver::drive(DECInTxn *tx) {
   if (tx != NULL) {
     dut->m_core->instr_rdata_i = tx->instr;
+    dut->m_core->instr_rdata_alu_i = tx->instr;
   }
 }

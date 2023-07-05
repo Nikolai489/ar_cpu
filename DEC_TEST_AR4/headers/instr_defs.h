@@ -1,6 +1,6 @@
 #define ILLEGAL 0x0FFFFFFF
 #define JUMP  0xD90006F
-#define BRANCH 0xD9C8063
+#define BRANCH 0x6000063
 #define WFI 0x10500073
 #define ECALL 0x73
 #define EBREAK 0x100073
@@ -9,4 +9,4 @@
 #define CSR 0xE073
 #define STORE 0x18023
 #define UTYPE 0x307037
-#define ITYPE 0xE0008113
+#define ITYPE 0xE000C113
