@@ -1,6 +1,0 @@
-system.cpu.dcache.overallMissRate::total: 0.011140
-system.cpu.dcache.ReadReq.missRate::total: 0.006272
-system.cpu.dcache.SwapReq.missRate::total: 0.090909
-system.cpu.dcache.WriteReq.missRate::total: 0.047059
-system.cpu.icache.overallMissRate::total: 0.001831
-system.cpu.icache.ReadReq.missRate::total: 0.001831
