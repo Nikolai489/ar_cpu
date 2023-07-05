@@ -12,17 +12,17 @@
 #include <iostream>
 #include <memory>
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "cve2_alu_tbf.h"
+#include "Vdr32e_alu.h"
+// #include "Vdr32e_alu___024unit.h"
+#include "Vdr32e_alu_dr32e_pkg.h"
+#include "components/dr32e_alu_tbf.h"
 #include "testb.h"
 #include "verilated.h"
 
 int main(int argc, char **argv) {
   Verilated::commandArgs(argc, argv);
 
-  TESTB<Vcve2_alu> *dut = new TESTB<Vcve2_alu>;
+  TESTB<Vdr32e_alu> *dut = new TESTB<Vdr32e_alu>;
 
   ALUInTxn *tx;
   ALUDriver *drv = new ALUDriver(dut);
@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
   int step_or_clock = (TICK_MODE ? SIM_TIME_STEP : CLOCK_PERIOD);
   int time_or_clocks = (TICK_MODE ? (SIM_TIME / SIM_TIME_STEP) : SIM_TIME);
 
-  dut->openTrace("cve2_alu.vcd");
+  dut->openTrace("dr32e_alu.vcd");
 
   for (unsigned clocks = 0; clocks <= time_or_clocks; clocks++) {
     if (clocks % 10 == 0)
