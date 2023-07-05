@@ -36,24 +36,6 @@ class DECInTxn {
   uint32_t instr;
   int a, b;
   bool first_cycle;
-  /*enum Operation {
-    add = Vcve2_alu_cve2_pkg::alu_op_e::ALU_ADD,
-    sub = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SUB,
-    xorr = Vcve2_alu_cve2_pkg::alu_op_e::ALU_XOR,
-    orr = Vcve2_alu_cve2_pkg::alu_op_e::ALU_OR,
-    andd = Vcve2_alu_cve2_pkg::alu_op_e::ALU_AND,
-    sra = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SRA,
-    srl = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SRL,
-    sll = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SLL,
-    lt = Vcve2_alu_cve2_pkg::alu_op_e::ALU_LT,
-    ltu = Vcve2_alu_cve2_pkg::alu_op_e::ALU_LTU,
-    ge = Vcve2_alu_cve2_pkg::alu_op_e::ALU_GE,
-    geu = Vcve2_alu_cve2_pkg::alu_op_e::ALU_GEU,
-    eq = Vcve2_alu_cve2_pkg::alu_op_e::ALU_EQ,
-    ne = Vcve2_alu_cve2_pkg::alu_op_e::ALU_NE,
-    slt = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SLT,
-    sltu = Vcve2_alu_cve2_pkg::alu_op_e::DEC_SLTU
-  } op;*/
 };
 
 class DECOutTxn {
@@ -115,49 +97,7 @@ class DECOutMonitor {
 class DECSequencer {
  public:
   DECSequencer(void);
-  DECInTxn *generateTxn(void);
+  DECInTxn *generateTxn(int);
 };
-
-
-#include "cve2_dec_driver.h"
-#include "cve2_dec_monitor.h"
-#include "cve2_dec_scoreboard.h"
-#include "cve2_dec_sequencer.h"
-
-
-#define CUSTOM_ARSIMDATA
-
-class ARSimulationData
-{
-public:
-	ARSimulationData(DUT_CLASS_NAME * real_dut) 
-	{
-  		dut = new TESTB<Vcve2_dec>(real_dut);
-  		drv = new DECDriver(dut);
-  		scb = new DECScoreboard();
-  		inMon = new DECInMonitor(dut, scb);
-  		outMon = new DECOutMonitor(dut, scb);
-  		seq = new DECSequencer();
- 	}
-
-	~ARSimulationData()
-	{
-		delete dut;
-		delete drv;
-		delete scb;
-		delete inMon;
-		delete outMon;
-		delete seq;
-	}
- 
-  	TESTB<Vcve2_dec> *dut;
-  	DECInTxn *tx;
-  	DECDriver *drv;
-  	DECScoreboard *scb;
-  	DECInMonitor *inMon;
-  	DECOutMonitor *outMon;
-  	DECSequencer *seq;
-};
-
 
 #endif
