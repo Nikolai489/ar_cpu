@@ -50,7 +50,7 @@
    RV32BBalanced   = 1,
    RV32BOTEarlGrey = 2,
    RV32BFull       = 3
- } rv32b_e;
+ } rv32b_e /* verilator public */;
 
  /////////////
  // Opcodes //
@@ -68,7 +68,7 @@
    OPCODE_JALR     = 7'h67,
    OPCODE_JAL      = 7'h6f,
    OPCODE_SYSTEM   = 7'h73
- } opcode_e;
+ } opcode_e /* verilator public */;
 
 
  ////////////////////
@@ -203,7 +203,7 @@
    CSR_OP_WRITE,
    CSR_OP_SET,
    CSR_OP_CLEAR
- } csr_op_e;
+ } csr_op_e /* verilator public */;
 
  // Privileged mode
  typedef enum logic[1:0] {
@@ -241,19 +241,19 @@
    OP_A_FWD,
    OP_A_CURRPC,
    OP_A_IMM
- } op_a_sel_e;
+ } op_a_sel_e /* verilator public */;
 
  // Immediate a selection
  typedef enum logic {
    IMM_A_Z,
    IMM_A_ZERO
- } imm_a_sel_e;
+ } imm_a_sel_e /* verilator public */;
 
  // Operand b selection
  typedef enum logic {
    OP_B_REG_B,
    OP_B_IMM
- } op_b_sel_e;
+ } op_b_sel_e /* verilator public */;
 
  // Immediate b selection
  typedef enum logic [2:0] {
@@ -264,7 +264,7 @@
    IMM_B_J,
    IMM_B_INCR_PC,
    IMM_B_INCR_ADDR
- } imm_b_sel_e;
+ } imm_b_sel_e /* verilator public */;
 
  // Regfile write data selection
  typedef enum logic {
