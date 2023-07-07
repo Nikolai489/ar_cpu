@@ -7,3 +7,7 @@
 #define BGEU 0xFFFFFFE3
 
 #define BRANCH 0x63
+#define CBRANCH1 0xC001
+#define CBRANCH2 0xE001
+#define CJUMP1 0x2001
+#define CJUMP2 0xA001
