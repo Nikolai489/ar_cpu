@@ -40,4 +40,5 @@ BPInTxn *BPSequencer::generateTxn(int clocks) {
   tx->instr = getScrambledInstr(opcode);
   tx->pc = ((clocks / 10) + 1) * 4;
   tx->valid = 1;
+  return tx;
 }
