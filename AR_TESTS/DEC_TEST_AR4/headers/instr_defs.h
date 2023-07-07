@@ -1,0 +1,19 @@
+#define ILLEGAL 0x0FFFFFFF
+#define JUMP  0xD90006F
+#define BRANCH 0x6000063
+#define WFI 0x10500073
+#define ECALL 0x73
+#define EBREAK 0x100073
+#define DEBUG 0x7B200073
+#define MRET 0x30200073
+#define STORE 0x18023
+#define UTYPE 0x307037
+#define ITYPE 0xE000C113
+#define LOAD  0xFFFFFFE3
+
+#define JUMP_OP 0x6F
+#define BRANCH_OP 0x63
+#define LOAD_OP 0x3
+#define ITYPE_OP 0x13
+#define STORE_OP 0x23
+#define UTYPE_OP 0x37
