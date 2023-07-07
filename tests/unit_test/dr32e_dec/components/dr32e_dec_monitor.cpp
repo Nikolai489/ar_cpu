@@ -53,5 +53,6 @@ void DECOutMonitor::monitor() {
   tx->rf_ra = dut->m_core->rf_raddr_a_o;
   tx->rf_rb = dut->m_core->rf_raddr_b_o;
   tx->rf_we = dut->m_core->rf_we_o;
+  tx->rf_waddr = dut->m_core->rf_waddr_o;
   scb->writeOut(tx);
 }

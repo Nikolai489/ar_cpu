@@ -47,7 +47,7 @@ class DECOutTxn {
       csr_access, store_instr;
   uint32_t imm_i, imm_u,
            imm_j, imm_s,
-           imm_b;
+           imm_b, rf_waddr;
   unsigned char imm_a_sel_o, imm_b_sel_o,
                 op_a_sel_o, op_b_sel_o,
                 bt_a_sel, bt_b_sel, 

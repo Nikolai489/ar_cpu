@@ -1,6 +1,6 @@
 #define PROBE_DEPTH 99
 
-#define SIM_TIME 200
+#define SIM_TIME 500
 
 #define SIM_TIME_STEP 1
 
