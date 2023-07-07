@@ -17,7 +17,7 @@ uint32_t getRandomOp(int clocks){
     return arr2[index];
 }
 
-uint32_t getScrambledInstr(uint32_t inst){
+uint32_t getScrambledInstr(uint32_t inst, int clocks){
   unsigned int randomBits1, randomBits2, randomBits3, result;
   random_device rd;
   mt19937 gen(rd());
@@ -29,36 +29,39 @@ uint32_t getScrambledInstr(uint32_t inst){
   randomBits2 = dis2(gen) << 7;
   result = (result & 0xFFFF83FF) | randomBits2;
   randomBits3 = dis3(gen) << 12;
-  switch (inst)
-  {
-  case JUMP:
-    result = (result & 0xFFFFE0FF) | randomBits3;
-    break;
-  case UTYPE:
-    result = (result & 0xFFFFE0FF) | randomBits3;
-    break;
-  case BRANCH:
-    if(randomBits3 == 0x2000 || randomBits3 == 0x3000)
-      randomBits3 = 0x1000;
-    result = (result & 0xFFFFE0FF) | randomBits3;
-    break;
-  case ITYPE:
-    if(randomBits3 == 0x1000 || randomBits3 == 0x5000)
-      randomBits3 = 0x3000;
-    result = (result & 0xFFFFE0FF) | randomBits3;
-    break;
-  case LOAD:
-    if(randomBits3 == 0x3000 || randomBits3 == 0x6000 || randomBits3 == 0x7000)
-      randomBits3 = 0x4000;
-    result = (result & 0xFFFFE0FF) | randomBits3;
-    break;
-  case STORE:
-    if(randomBits3 > 0x2000)
-      randomBits3 = 0x2000;
-    result = (result & 0xFFFFE0FF) | randomBits3; 
-    break;
-  default: result = inst;
-    break;
+  if(clocks % 40 == 0)
+    result = inst;
+  else{
+    switch (inst & 0x0000007F)
+    {
+    case JUMP_OP:
+      result = (result & 0xFFFFE0FF) | randomBits3;
+      break;
+    case UTYPE_OP:
+      result = (result & 0xFFFFE0FF) | randomBits3;
+      break;
+    case BRANCH_OP:
+      if(randomBits3 == 0x2000 || randomBits3 == 0x3000){
+        randomBits3 = 0x1000;
+      }
+      result = (result & 0xFFFFE0FF) | randomBits3;
+      break;
+    case ITYPE_OP:
+      if(randomBits3 == 0x1000 || randomBits3 == 0x5000)
+        randomBits3 = 0x3000;
+      result = (result & 0xFFFFE0FF) | randomBits3;
+      break;
+    case LOAD_OP:
+      if(randomBits3 == 0x3000 || randomBits3 == 0x6000 || randomBits3 == 0x7000)
+        randomBits3 = 0x4000;
+      result = (result & 0xFFFFE0FF) | randomBits3;
+      break;
+    case STORE_OP:
+      if(randomBits3 > 0x2000)
+        randomBits3 = 0x2000;
+      result = (result & 0xFFFFE0FF) | randomBits3; 
+      break;
+    }
   }
   return result;
 }
@@ -68,6 +71,6 @@ DECInTxn *DECSequencer::generateTxn(int clocks) {
   DECInTxn *tx = new DECInTxn();
   int instr_type;
   instr_type = getRandomOp(clocks);
-  tx->instr = getScrambledInstr(instr_type);
+  tx->instr = getScrambledInstr(instr_type, clocks);
   return tx;
 }
