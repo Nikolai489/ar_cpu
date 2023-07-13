@@ -17,7 +17,7 @@
 
 //`include "prim_assert.sv"
 `include "dr32e_pkg.sv"
-module ibex_branch_predict (
+module dr32e_branch_predict (
   input  logic clk_i,
   input  logic rst_ni,
 
