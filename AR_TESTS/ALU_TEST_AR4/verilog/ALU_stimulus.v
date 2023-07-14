@@ -16,19 +16,19 @@ import cve2_pkg::*;
 module cve2_alu_stimulus #(
   parameter cve2_pkg::rv32b_e RV32B = cve2_pkg::RV32BNone
 ) (
-  input  cve2_pkg::alu_op_e operator_i,
-  input                     clk_i,
-  input  logic [31:0]       operand_a_i,
-  input  logic [31:0]       operand_b_i,
+  output  cve2_pkg::alu_op_e operator_i,
+  output                     clk_i,
+  output  logic [31:0]       operand_a_i,
+  output  logic [31:0]       operand_b_i,
 
-  input  logic              instr_first_cycle_i,
+  output  logic              instr_first_cycle_i,
 
-  input  logic [32:0]       multdiv_operand_a_i,
-  input  logic [32:0]       multdiv_operand_b_i,
+  output  logic [32:0]       multdiv_operand_a_i,
+  output  logic [32:0]       multdiv_operand_b_i,
 
-  input  logic              multdiv_sel_i,
+  output  logic              multdiv_sel_i,
 
-  input  logic [31:0]       imd_val_q_i[2]
+  output  logic [31:0]       imd_val_q_i[2]
   
 );
 
