@@ -3,7 +3,7 @@ import dr32e_pkg::*;
 
 //run_sv2v
 
-module dr32e_branch_predict (
+module dr32e_branch_predict_stimulus (
   output  logic clk_i,
   output  logic rst_ni,
 

@@ -3,7 +3,7 @@
 `include "ibex_fetch_fifo.v"
 
 
- module ibex_prefetch_buffer #(
+ module ibex_prefetch_buffer_monitor #(
     parameter bit ResetAll        = 1'b0
   ) (
     input  logic        clk_i,

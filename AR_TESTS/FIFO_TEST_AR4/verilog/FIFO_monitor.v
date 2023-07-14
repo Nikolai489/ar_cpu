@@ -1,7 +1,7 @@
 //run_sv2v
 `include "rtl/prim_assert.sv"
 
- module ibex_fetch_fifo #(
+ module ibex_fetch_fifo_monitor #(
    parameter int unsigned NUM_REQS = 2,
    parameter bit          ResetAll = 1'b0
  ) (

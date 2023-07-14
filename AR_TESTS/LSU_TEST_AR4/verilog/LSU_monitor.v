@@ -1,5 +1,5 @@
 //run_sv2v
-module dr32e_lsu #(
+module dr32e_lsu_monitor #(
   parameter bit          MemECC       = 1'b0,
   parameter int unsigned MemDataWidth = MemECC ? 32 + 7 : 32
 ) (

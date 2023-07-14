@@ -4,7 +4,7 @@
 `include "ibex_pkg.sv"
 import ibex_pkg::*;
 
-module ibex_compressed_decoder (
+module ibex_compressed_decoder_monitor (
   input  logic        clk_i,
   input  logic        rst_ni,
   input  logic        valid_i,

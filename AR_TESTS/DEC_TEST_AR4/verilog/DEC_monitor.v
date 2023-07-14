@@ -3,7 +3,7 @@
 `include "dr32e_pkg.sv"
 import dr32e_pkg::*;
 
-module dr32e_dec #(
+module dr32e_dec_monitor #(
   parameter bit RV32E               = 0,
   parameter dr32e_pkg::rv32m_e RV32M = dr32e_pkg::RV32MFast,
   parameter dr32e_pkg::rv32b_e RV32B = dr32e_pkg::RV32BNone,

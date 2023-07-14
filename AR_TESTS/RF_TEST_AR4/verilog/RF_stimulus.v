@@ -1,6 +1,6 @@
 //run_sv2v
 
-module ibex_register_file_ff #(
+module ibex_register_file_ff_stimulus #(
   parameter bit                   RV32E             = 0,
   parameter int unsigned          DataWidth         = 32,
   parameter bit                   DummyInstructions = 0,
