@@ -3,7 +3,9 @@
 // This file ONLY is placed into the Public Domain, for any use,
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
+//
 
+//*dut_module*:i:o:stimulus:alu_stimulus:../dut_verilog/dr32e_branch_predict.v
 #include "dr32e_branch_predict_tbf.h"
 
 bool stimulus1 STIMULUS_FUNCTION_PARAMS
