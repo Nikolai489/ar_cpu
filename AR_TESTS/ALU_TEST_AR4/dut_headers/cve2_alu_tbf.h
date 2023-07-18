@@ -84,8 +84,10 @@ class ALUOutTxn {
 class ALUScoreboard {
  private:
   std::deque<ALUInTxn *> in_q;
+  int error_count_;
 
  public:
+  ALUScoreboard();
   void writeIn(ALUInTxn *tx);
   void writeOut(ALUOutTxn *tx);
 };
