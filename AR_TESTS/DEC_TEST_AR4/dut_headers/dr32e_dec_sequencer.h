@@ -1,10 +1,4 @@
 #include "dr32e_dec_tbf.h"
-#include <random>
-#include "Vdr32e_dec.h"
-//#include "Vdr32e_dec___024unit.h"
-#include "Vdr32e_dec_dr32e_pkg.h"
-//#define TIMEUNIT 10
-using namespace std;
 
 uint32_t getRandomOp(){
   uint32_t arr1[] = {ILLEGAL, WFI, ECALL, EBREAK, DEBUG, MRET};

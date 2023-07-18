@@ -5,7 +5,7 @@
 //======================================================================
 //
 
-//*dut_module*:i:o:stimulus:alu_stimulus:../dut_verilog/dr32e_branch_predict.v
+//*dut_module*:i:o:stimulus:alu_stimulus:dr32e_branch_predict:../dut_verilog/dr32e_branch_predict.v
 #include "dr32e_branch_predict_tbf.h"
 
 bool stimulus1 STIMULUS_FUNCTION_PARAMS
