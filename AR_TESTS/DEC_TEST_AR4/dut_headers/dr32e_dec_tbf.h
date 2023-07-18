@@ -16,7 +16,9 @@
 #include <iostream>
 #include <memory>
 #include <deque>
+#include <random>
 
+using namespace std;
 #include "verilated.h"
 
 #define TICK_MODE 0

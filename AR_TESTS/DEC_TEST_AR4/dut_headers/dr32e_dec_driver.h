@@ -1,9 +1,5 @@
 #include "dr32e_dec_tbf.h"
 
-#include "Vdr32e_dec.h"
-//#include "Vdr32e_dec___024unit.h"
-#include "Vdr32e_dec_dr32e_pkg.h"
-
 DECDriver::DECDriver(TESTB<Vdr32e_dec> *dut) {
   this->dut = dut;
 }

@@ -1,9 +1,5 @@
 #include "dr32e_dec_tbf.h"
 
-#include "Vdr32e_dec.h"
-//#include "Vdr32e_dec___024unit.h"
-#include "Vdr32e_dec_dr32e_pkg.h"
-
 DECInMonitor::DECInMonitor(TESTB<Vdr32e_dec> *dut, DECScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;

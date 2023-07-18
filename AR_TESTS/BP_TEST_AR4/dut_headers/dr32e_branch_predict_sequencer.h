@@ -1,5 +1,5 @@
 #include "dr32e_branch_predict_tbf.h"
-using namespace std;
+
 uint32_t getRandomOpcode(){
   uint32_t arr[11] = {JAL, BEQ, BNE, BLT, BGE, BLTU, BGEU, CBRANCH1, CJUMP1, CBRANCH2, CBRANCH2};
   int index = rand() % 11;
