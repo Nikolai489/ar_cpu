@@ -1,6 +1,3 @@
-#include "Vdr32e_branch_predict.h"
-// #include "Vdr32e_branch_predict___024unit.h"
-#include "Vdr32e_branch_predict_dr32e_pkg.h"
 #include "dr32e_branch_predict_tbf.h"
 
 BPInMonitor::BPInMonitor(TESTB<Vdr32e_branch_predict> *dut, BPScoreboard *scb) {
