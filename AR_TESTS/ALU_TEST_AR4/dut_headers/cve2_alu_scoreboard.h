@@ -25,7 +25,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
 
 
   switch (in->op) {
-    case ALUInTxn::add:
+    case ALUInTxn::ALU_ADD:
       if ((in->a + in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: ADD MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a + in->b, tx->result);
         error_count_++;
@@ -34,7 +34,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::sub:
+    case ALUInTxn::ALU_SUB:
       if ((in->a - in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: SUB MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a - in->b, tx->result);
         error_count_++;
@@ -43,7 +43,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::xorr:
+    case ALUInTxn::ALU_XOR:
       if ((in->a ^ in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: XOR MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a ^ in->b, tx->result);
         error_count_++;
@@ -52,7 +52,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::orr:
+    case ALUInTxn::ALU_OR:
       if ((in->a | in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: OR MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a | in->b, tx->result);
         error_count_++;
@@ -61,7 +61,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::andd:
+    case ALUInTxn::ALU_AND:
       if ((in->a & in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: AND MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a & in->b, tx->result);
         error_count_++;
@@ -70,7 +70,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::sra:
+    case ALUInTxn::ALU_SRA:
       if ((in->a >> in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: SRA MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a >> in->b, tx->result);
         error_count_++;
@@ -79,7 +79,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::srl:
+    case ALUInTxn::ALU_SRL:
       if ((((uint32_t)in->a) >> in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: SRL MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, ((uint32_t)in->a) >> in->b, tx->result);
         error_count_++;
@@ -88,7 +88,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::sll:
+    case ALUInTxn::ALU_SLL:
       if ((in->a << in->b) != tx->result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: SLL MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a << in->b, tx->result);
         error_count_++;
@@ -97,7 +97,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::lt:
+    case ALUInTxn::ALU_LT:
       if ((in->a < in->b) != tx->comparison_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: LT MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a < in->b, tx->comparison_result);
         error_count_++;
@@ -106,7 +106,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::ltu:
+    case ALUInTxn::ALU_LTU:
       if ((((uint32_t)in->a) < ((uint32_t)in->b)) != tx->comparison_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: LTU MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, ((uint32_t)in->a) < ((uint32_t)in->b), tx->comparison_result);
         error_count_++;
@@ -115,7 +115,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::eq:
+    case ALUInTxn::ALU_EQ:
       if ((in->a == in->b) != tx->is_equal_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: EQ MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a == in->b, tx->is_equal_result);
         error_count_++;
@@ -124,7 +124,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::ne:
+    case ALUInTxn::ALU_NE:
       if ((in->a != in->b) == tx->is_equal_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: NEQ MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a != in->b, tx->is_equal_result);
         error_count_++;
@@ -133,7 +133,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::ge:
+    case ALUInTxn::ALU_GE:
       if ((in->a >= in->b) != tx->comparison_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: GE MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a >= in->b, tx->comparison_result);
         error_count_++;
@@ -142,7 +142,7 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-    case ALUInTxn::geu:
+    case ALUInTxn::ALU_GEU:
       if ((((uint32_t)in->a) >= ((uint32_t)in->b)) != tx->comparison_result) {
         printf(ANSI_COLOR_RED "ALU SCOREBOARD: GEU MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, ((uint32_t)in->a) >= ((uint32_t)in->b), tx->comparison_result);
         error_count_++;
