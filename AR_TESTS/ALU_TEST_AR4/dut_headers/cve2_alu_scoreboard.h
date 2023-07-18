@@ -151,8 +151,25 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
       }
       break;
 
-      // TODO: ADD SLT and SLTU testing
-  }
+    case ALUInTxn::slt:
+      if(in->a < in->b != tx->comparison_result){
+        printf(ANSI_COLOR_RED "ALU SCOREBOARD: SLT MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a < in->b, tx->comparison_result);
+        error_count_++;
+      }
+      else{
+        printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: SLT MATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->a < in->b, tx->comparison_result);
+      }
+    break;
+    case ALUInTxn::sltu:
+      if(((uint32_t)in->a) < ((uint32_t)in->b) != tx->comparison_result){
+        printf(ANSI_COLOR_RED "ALU SCOREBOARD: SLTU MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, ((uint32_t)in->a) < ((uint32_t)in->b), tx->comparison_result);
+        error_count_++;
+      }
+      else{
+        printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: SLTU MATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, ((uint32_t)in->a) < ((uint32_t)in->b), tx->comparison_result);
+      }
+    break;
+}
 
   //printf((error_count_ > 0) ? ANSI_COLOR_GREEN : ANSI_COLOR_RED) "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
   if(main_stop_time__ - 9 == main_time__){
