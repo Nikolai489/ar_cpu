@@ -4,6 +4,8 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 
+//*dut_module*:a:i:monitor:alu_monitor:../dut_verilog/cve2_alu.v
+
 #include "cve2_alu_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

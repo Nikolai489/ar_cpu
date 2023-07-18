@@ -5,6 +5,8 @@
 //======================================================================
 //
 
+//*dut_module*:i:o:stimulus:alu_stimulus:../dut_verilog/cve2_alu.v
+
 #include "cve2_alu_tbf.h"
 
 bool stimulus1 STIMULUS_FUNCTION_PARAMS
