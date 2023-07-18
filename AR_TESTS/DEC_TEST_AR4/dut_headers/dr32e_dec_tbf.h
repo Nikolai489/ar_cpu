@@ -18,7 +18,6 @@
 #include <deque>
 #include <random>
 
-using namespace std;
 #include "verilated.h"
 
 #define TICK_MODE 0
@@ -26,13 +25,12 @@ using namespace std;
 #define SIGNED_CEIL 2147483647
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_TIME "\x1b[33m"
 #define ANSI_COLOR_RESET "\x1b[0m"
-
-#include "Vdr32e_dec.h"
-//#include "Vdr32e_dec___024unit.h"
-#include "Vdr32e_dec_dr32e_pkg.h"
 #include "testb.h"
 #include "instr_defs.h"
+using namespace std;
+
 class DECInTxn {
  public:
   uint32_t instr;
@@ -61,8 +59,10 @@ class DECOutTxn {
 class DECScoreboard {
  private:
   std::deque<DECInTxn *> in_q;
+  int error_count_;
 
  public:
+  DECScoreboard();
   void writeIn(DECInTxn *tx);
   void writeOut(DECOutTxn *tx);
 };

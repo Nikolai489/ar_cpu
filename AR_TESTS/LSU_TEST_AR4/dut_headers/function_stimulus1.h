@@ -3,7 +3,9 @@
 // This file ONLY is placed into the Public Domain, for any use,
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
+//
 
+//*dut_module*:i:o:stimulus:alu_stimulus:dr32e_dec:../dut_verilog/ddr32e_dec.v
 #include "dr32e_lsu_tbf.h"
 
 bool stimulus1 STIMULUS_FUNCTION_PARAMS

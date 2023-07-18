@@ -1,11 +1,5 @@
 #include "dr32e_lsu_tbf.h"
-#include <random>
-#include "Vdr32e_lsu.h"
-//#include "Vdr32e_lsu___024unit.h"
-//#include "Vdr32e_lsu_dr32e_pkg.h"
-#include "testb.h"
-//#define TIMEUNIT 10
-using namespace std;
+
 int prev_gnt, prev_valid;
 
 LSUSequencer::LSUSequencer(TESTB<Vdr32e_lsu> *dut) {

@@ -1,11 +1,11 @@
 #include "dr32e_lsu_tbf.h"
 
-#include "Vdr32e_lsu.h"
-//#include "Vdr32e_lsu___024unit.h"
-//#include "Vdr32e_lsu_dr32e_pkg.h"
-#include "testb.h"
 int32_t prev_rdata, prev_wdata, prev_addr;
 int offset;
+
+LSUScoreboard::LSUScoreboard(){
+  error_count_ = 0;
+}
 
 void LSUScoreboard::writeIn(LSUInTxn *tx) {
   in_q.push_back(tx);
@@ -24,13 +24,17 @@ void LSUScoreboard::writeOut(LSUOutTxn *tx) {
     if(in->rdata == tx->rdata_o){
       printf(ANSI_COLOR_GREEN "LSU SCOREBOARD: Read Data MATCH \t Data In : %x \t Data Out : %x\n" ANSI_COLOR_RESET, in->rdata, tx->rdata_o);
     }
-    else
+    else{
       printf(ANSI_COLOR_RED "LSU SCOREBOARD: Read Data MISMATCH \t Data In : %x \t Data Out : %x\n" ANSI_COLOR_RESET, in->rdata, tx->rdata_o);
+      error_count_++;
+    }
     if(in->adder_result != 0){
       if((in->adder_result & 0xFFFFFFFC) == tx->addr_o)
         printf(ANSI_COLOR_GREEN "\t\t Address WORD ALIGNED \t Addr : %x\n\n" ANSI_COLOR_RESET, tx->addr_o);
-      else
+      else{
         printf(ANSI_COLOR_RED "\t\t Address WORD MISALIGNED \t Addr : %x\n\n" ANSI_COLOR_RESET, in->adder_result & 0xFFFFFFFC);
+        error_count_++;
+      }
       }
   }
   if(in->wdata != 0){
@@ -50,18 +54,33 @@ void LSUScoreboard::writeOut(LSUOutTxn *tx) {
     }
     if(in->wdata == tx->wdata_o)
       printf(ANSI_COLOR_GREEN "LSU SCOREBOARD: Write Data MATCH \t Write_Data In : %x \t Write_Data Out : %x \n" ANSI_COLOR_RESET, in->wdata, tx->wdata_o);
-    else
+    else{
       printf(ANSI_COLOR_RED "LSU SCOREBOARD: Write Data MISMATCH \t Write_Data In : %x \t Write_Data Out : %x \n" ANSI_COLOR_RESET, in->wdata, tx->wdata_o);
+      error_count_++;
+    }
     if(in->adder_result != 0){
       if((in->adder_result & 0xFFFFFFFC) == tx->addr_o)
         printf(ANSI_COLOR_GREEN "\t\t Address WORD ALIGNED \t Addr : %x\n\n" ANSI_COLOR_RESET, tx->addr_o);
-      else
+      else{
         printf(ANSI_COLOR_RED "\t\t Address WORD MISALIGNED \t Addr : %x\n\n" ANSI_COLOR_RESET, in->adder_result & 0xFFFFFFFC);
+        error_count_++;
+      }
       }
   }
   //prev_rdata = in->rdata;
   //prev_wdata = in->wdata;
   //prev_addr = in->adder_result;
+
+    if(main_stop_time__ - 2 == main_time__){
+    if(error_count_ > 0)
+    {
+      printf(ANSI_COLOR_RED "LSU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+    }
+    else
+    {
+      printf(ANSI_COLOR_GREEN "LSU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+    }
+  }
   delete in;
   delete tx;
 }
