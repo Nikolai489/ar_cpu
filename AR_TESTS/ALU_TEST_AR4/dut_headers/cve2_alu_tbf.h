@@ -35,22 +35,7 @@ class ALUInTxn {
   bool first_cycle;
 
   enum Operation {
-    // add = 0,
-    // sub = 1,
-    // xorr = 2,
-    // orr = 3,
-    // andd = 4,
-    // sra = 8,
-    // srl = 9,
-    // sll = 10,
-    // lt = 25,
-    // ltu = 26,
-    // ge = 27,
-    // geu = 28,
-    // eq = 29,
-    // ne = 30,
-    // slt = 43,
-    // sltu = 44
+
     // Arithmetics
     ALU_ADD, // 0
     ALU_SUB, // 1
