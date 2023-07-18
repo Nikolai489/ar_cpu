@@ -20,7 +20,7 @@ ALUInTxn *ALUSequencer::generateTxn() {
   ALUInTxn *tx = new ALUInTxn();
   // ! Randomize to 5 enum values only
   tx->op = ALUInTxn::Operation(getRandomValue());
-  if(tx->op == ALUInTxn::Operation::sltu || tx->op == ALUInTxn::Operation::geu || tx->op == ALUInTxn::Operation::ltu){
+  if(tx->op == ALUInTxn::Operation::ALU_SLTU || tx->op == ALUInTxn::Operation::ALU_GEU || tx->op == ALUInTxn::Operation::ALU_LTU){
     tx->a = genUnsignedRandom() % UNSIGNED_CEIL;
     tx->b = genUnsignedRandom() % UNSIGNED_CEIL;
   }

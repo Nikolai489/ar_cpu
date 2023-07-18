@@ -5,7 +5,7 @@
 //======================================================================
 //
 
-//*dut_module*:i:o:stimulus:alu_stimulus:../dut_verilog/cve2_alu.v
+//*dut_module*:i:o:stimulus:alu_stimulus:cve2_alu:../dut_verilog/cve2_alu.v
 
 #include "cve2_alu_tbf.h"
 
