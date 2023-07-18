@@ -20,12 +20,12 @@
 
 #include "testb.h"
 #include "instr_defs.h"
-
 #define UNSIGNED_CEIL 4294967295
 #define SIGNED_CEIL 2147483647
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_TIME "\x1b[33m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 using namespace std;
 
@@ -45,8 +45,9 @@ class BPOutTxn {
 class BPScoreboard {
  private:
   std::deque<BPInTxn *> in_q;
-
+  int error_count_;
  public:
+  BPScoreboard();
   void writeIn(BPInTxn *tx);
   void writeOut(BPOutTxn *tx);
 };

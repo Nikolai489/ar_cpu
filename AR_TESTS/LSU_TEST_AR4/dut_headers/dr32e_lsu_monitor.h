@@ -1,10 +1,5 @@
 #include "dr32e_lsu_tbf.h"
 
-#include "Vdr32e_lsu.h"
-//#include "Vdr32e_lsu___024unit.h"
-//#include "Vdr32e_lsu_dr32e_pkg.h"
-#include "testb.h"
-
 LSUInMonitor::LSUInMonitor(TESTB<Vdr32e_lsu> *dut, LSUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;

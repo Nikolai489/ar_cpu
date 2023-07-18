@@ -1,5 +1,8 @@
 #include "dr32e_branch_predict_tbf.h"
 
+BPScoreboard::BPScoreboard() {
+  error_count_ = 0;
+}
 void BPScoreboard::writeIn(BPInTxn *tx) {
   in_q.push_back(tx);
 }
@@ -81,12 +84,24 @@ void BPScoreboard::writeOut(BPOutTxn *tx) {
       printf(ANSI_COLOR_RED "BP SCOREBOARD : Branch prediction MISMATCH \t EXPECTED : TAKEN \t ACTUAL: NOT TAKEN \t INSTR : %x\n" ANSI_COLOR_RESET,in->instr);
     else
       printf(ANSI_COLOR_RED "BP SCOREBOARD : Branch prediction MISMATCH \t EXPECTED : NOT TAKEN \t ACTUAL: TAKEN \t INSTR : %x\n" ANSI_COLOR_RESET,in->instr);
+    error_count_++;
   }
   if(tx->branch_pc == in->pc + branch_imm)
     printf(ANSI_COLOR_GREEN "\t\tTarget PC MATCH \t EXPECTED : %x \t ACTUAL : %x\n\n" ANSI_COLOR_RESET, tx->branch_pc, in->pc + branch_imm);
-  else
+  else{
     printf(ANSI_COLOR_RED "\t\tTarget PC MISMATCH \t EXPECTED : %x \t ACTUAL : %x\n\n" ANSI_COLOR_RESET, tx->branch_pc, in->pc + branch_imm);
-  
+    error_count_++;
+  }
+  if(main_stop_time__ - 9 == main_time__){
+    if(error_count_ > 0)
+    {
+      printf(ANSI_COLOR_RED "BP SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+    }
+    else
+    {
+      printf(ANSI_COLOR_GREEN "BP SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+    }
+  }
   delete in;
   delete tx;
 }

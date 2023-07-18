@@ -16,21 +16,19 @@
 #include <iostream>
 #include <memory>
 #include <deque>
+#include <random>
 
 #include "verilated.h"
-
 #define TICK_MODE 0
 #define UNSIGNED_CEIL 4294967295
 #define SIGNED_CEIL 2147483647
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_TIME "\x1b[33m"
 #define ANSI_COLOR_RESET "\x1b[0m"
-
-#include "Vdr32e_lsu.h"
-//#include "Vdr32e_lsu___024unit.h"
-//#include "Vdr32e_lsu_dr32e_pkg.h"
 #include "testb.h"
-//#include "../instr_defs.h"
+using namespace std;
+
 class LSUInTxn {
  public:
   int32_t rdata, wdata, adder_result, bus_err;
@@ -47,8 +45,9 @@ class LSUOutTxn {
 class LSUScoreboard {
  private:
   std::deque<LSUInTxn *> in_q;
-
+  int error_count_;
  public:
+  LSUScoreboard();
   void writeIn(LSUInTxn *tx);
   void writeOut(LSUOutTxn *tx);
 };
