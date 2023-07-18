@@ -1,11 +1,6 @@
 #include "cve2_alu_tbf.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
-ALUDriver::ALUDriver(TESTB<Vcve2_alu> *dut) {
+ALUDriver::ALUDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

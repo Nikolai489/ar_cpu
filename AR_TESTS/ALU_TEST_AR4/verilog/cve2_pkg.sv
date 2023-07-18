@@ -70,111 +70,111 @@ package cve2_pkg ;
 
   typedef enum logic [6:0] {
     // Arithmetics
-    ALU_ADD,
-    ALU_SUB,
+    ALU_ADD, // 0
+    ALU_SUB, // 1
 
     // Logics
-    ALU_XOR,
-    ALU_OR,
-    ALU_AND,
+    ALU_XOR, // 2
+    ALU_OR, // 3
+    ALU_AND, // 4
     // RV32B
-    ALU_XNOR,
-    ALU_ORN,
-    ALU_ANDN,
+    ALU_XNOR, // 5
+    ALU_ORN, // 6
+    ALU_ANDN, // 7
 
     // Shifts
-    ALU_SRA,
-    ALU_SRL,
-    ALU_SLL,
+    ALU_SRA, // 8
+    ALU_SRL, // 9
+    ALU_SLL, // 10
     // RV32B
-    ALU_SRO,
-    ALU_SLO,
-    ALU_ROR,
-    ALU_ROL,
-    ALU_GREV,
-    ALU_GORC,
-    ALU_SHFL,
-    ALU_UNSHFL,
-    ALU_XPERM_N,
-    ALU_XPERM_B,
-    ALU_XPERM_H,
+    ALU_SRO, // 11
+    ALU_SLO, // 12
+    ALU_ROR, // 13
+    ALU_ROL, // 14
+    ALU_GREV, // 15
+    ALU_GORC, // 16
+    ALU_SHFL, // 17
+    ALU_UNSHFL, // 18
+    ALU_XPERM_N, // 19
+    ALU_XPERM_B, // 20
+    ALU_XPERM_H, // 21
 
     // Address Calculations
     // RV32B
-    ALU_SH1ADD,
-    ALU_SH2ADD,
-    ALU_SH3ADD,
+    ALU_SH1ADD, // 22
+    ALU_SH2ADD, // 23
+    ALU_SH3ADD, // 24
 
     // Comparisons
-    ALU_LT,
-    ALU_LTU,
-    ALU_GE,
-    ALU_GEU,
-    ALU_EQ,
-    ALU_NE,
+    ALU_LT, // 25
+    ALU_LTU, // 26
+    ALU_GE, // 27
+    ALU_GEU, // 28
+    ALU_EQ, // 29
+    ALU_NE, // 30
     // RV32B
-    ALU_MIN,
-    ALU_MINU,
-    ALU_MAX,
-    ALU_MAXU,
+    ALU_MIN, // 31
+    ALU_MINU, // 32
+    ALU_MAX, // 33
+    ALU_MAXU, // 34
 
     // Pack
     // RV32B
-    ALU_PACK,
-    ALU_PACKU,
-    ALU_PACKH,
+    ALU_PACK, // 35
+    ALU_PACKU, // 36
+    ALU_PACKH, // 37
 
     // Sign-Extend
     // RV32B
-    ALU_SEXTB,
-    ALU_SEXTH,
+    ALU_SEXTB, // 38
+    ALU_SEXTH, // 39
 
     // Bitcounting
     // RV32B
-    ALU_CLZ,
-    ALU_CTZ,
-    ALU_CPOP,
+    ALU_CLZ, // 40
+    ALU_CTZ, // 41
+    ALU_CPOP, // 42
 
     // Set lower than
-    ALU_SLT,
-    ALU_SLTU,
+    ALU_SLT, // 43
+    ALU_SLTU, // 44
 
     // Ternary Bitmanip Operations
     // RV32B
-    ALU_CMOV,
-    ALU_CMIX,
-    ALU_FSL,
-    ALU_FSR,
+    ALU_CMOV, // 45
+    ALU_CMIX, // 46
+    ALU_FSL, // 47
+    ALU_FSR, // 48
 
     // Single-Bit Operations
     // RV32B
-    ALU_BSET,
-    ALU_BCLR,
-    ALU_BINV,
-    ALU_BEXT,
+    ALU_BSET, // 49
+    ALU_BCLR, // 50
+    ALU_BINV, // 51
+    ALU_BEXT, // 52
 
     // Bit Compress / Decompress
     // RV32B
-    ALU_BCOMPRESS,
-    ALU_BDECOMPRESS,
+    ALU_BCOMPRESS, // 53
+    ALU_BDECOMPRESS, // 54
 
     // Bit Field Place
     // RV32B
-    ALU_BFP,
+    ALU_BFP, // 55
 
     // Carry-less Multiply
     // RV32B
-    ALU_CLMUL,
-    ALU_CLMULR,
-    ALU_CLMULH,
+    ALU_CLMUL, // 56
+    ALU_CLMULR, // 57
+    ALU_CLMULH, // 58
 
     // Cyclic Redundancy Check
-    ALU_CRC32_B,
-    ALU_CRC32C_B,
-    ALU_CRC32_H,
-    ALU_CRC32C_H,
-    ALU_CRC32_W,
-    ALU_CRC32C_W
+    ALU_CRC32_B, // 59
+    ALU_CRC32C_B, // 60
+    ALU_CRC32_H, // 61
+    ALU_CRC32C_H, // 62
+    ALU_CRC32_W, // 63
+    ALU_CRC32C_W // 64
   } alu_op_e /*verilator public*/;
  
   typedef enum logic [1:0] {

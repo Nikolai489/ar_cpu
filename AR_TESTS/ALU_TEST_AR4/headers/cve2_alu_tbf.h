@@ -26,33 +26,52 @@
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
 #include "testb.h"
 
 class ALUInTxn {
  public:
   int a, b;
   bool first_cycle;
+
   enum Operation {
-    add = Vcve2_alu_cve2_pkg::alu_op_e::ALU_ADD,
-    sub = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SUB,
-    xorr = Vcve2_alu_cve2_pkg::alu_op_e::ALU_XOR,
-    orr = Vcve2_alu_cve2_pkg::alu_op_e::ALU_OR,
-    andd = Vcve2_alu_cve2_pkg::alu_op_e::ALU_AND,
-    sra = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SRA,
-    srl = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SRL,
-    sll = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SLL,
-    lt = Vcve2_alu_cve2_pkg::alu_op_e::ALU_LT,
-    ltu = Vcve2_alu_cve2_pkg::alu_op_e::ALU_LTU,
-    ge = Vcve2_alu_cve2_pkg::alu_op_e::ALU_GE,
-    geu = Vcve2_alu_cve2_pkg::alu_op_e::ALU_GEU,
-    eq = Vcve2_alu_cve2_pkg::alu_op_e::ALU_EQ,
-    ne = Vcve2_alu_cve2_pkg::alu_op_e::ALU_NE,
-    slt = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SLT,
-    sltu = Vcve2_alu_cve2_pkg::alu_op_e::ALU_SLTU
+    add = 0,
+    sub = 1,
+    xorr = 2,
+    orr = 3,
+    andd = 4,
+    sra = 8,
+    srl = 9,
+    sll = 10,
+    lt = 25,
+    ltu = 26,
+    ge = 27,
+    geu = 28,
+    eq = 29,
+    ne = 30,
+    slt = 43,
+    sltu = 44
   } op;
+
+
+/*  enum Operation {
+    add = ENUM_NAMESPACE::alu_op_e::ALU_ADD,
+    sub = ENUM_NAMESPACE::alu_op_e::ALU_SUB,
+    xorr = ENUM_NAMESPACE::alu_op_e::ALU_XOR,
+    orr = ENUM_NAMESPACE::alu_op_e::ALU_OR,
+    andd = ENUM_NAMESPACE::alu_op_e::ALU_AND,
+    sra = ENUM_NAMESPACE::alu_op_e::ALU_SRA,
+    srl = ENUM_NAMESPACE::alu_op_e::ALU_SRL,
+    sll = ENUM_NAMESPACE::alu_op_e::ALU_SLL,
+    lt = ENUM_NAMESPACE::alu_op_e::ALU_LT,
+    ltu = ENUM_NAMESPACE::alu_op_e::ALU_LTU,
+    ge = ENUM_NAMESPACE::alu_op_e::ALU_GE,
+    geu = ENUM_NAMESPACE::alu_op_e::ALU_GEU,
+    eq = ENUM_NAMESPACE::alu_op_e::ALU_EQ,
+    ne = ENUM_NAMESPACE::alu_op_e::ALU_NE,
+    slt = ENUM_NAMESPACE::alu_op_e::ALU_SLT,
+    sltu = ENUM_NAMESPACE::alu_op_e::ALU_SLTU
+  } op;*/
+
 };
 
 class ALUOutTxn {
@@ -73,30 +92,30 @@ class ALUScoreboard {
 
 class ALUDriver {
  private:
-  TESTB<Vcve2_alu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
  public:
-  ALUDriver(TESTB<Vcve2_alu> *dut);
+  ALUDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(ALUInTxn *tx);
 };
 
 class ALUInMonitor {
  private:
-  TESTB<Vcve2_alu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   ALUScoreboard *scb;
 
  public:
-  ALUInMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb);
+  ALUInMonitor(TESTB<DUT_CLASS_NAME> *dut, ALUScoreboard *scb);
   void monitor(void);
 };
 
 class ALUOutMonitor {
  private:
-  TESTB<Vcve2_alu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   ALUScoreboard *scb;
 
  public:
-  ALUOutMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb);
+  ALUOutMonitor(TESTB<DUT_CLASS_NAME> *dut, ALUScoreboard *scb);
   void monitor(void);
 };
 
@@ -120,7 +139,7 @@ class ARSimulationData
 public:
 	ARSimulationData(DUT_CLASS_NAME * real_dut) 
 	{
-  		dut = new TESTB<Vcve2_alu>(real_dut);
+  		dut = new TESTB<DUT_CLASS_NAME>(real_dut);
   		drv = new ALUDriver(dut);
   		scb = new ALUScoreboard();
   		inMon = new ALUInMonitor(dut, scb);
@@ -138,7 +157,7 @@ public:
 		delete seq;
 	}
  
-  	TESTB<Vcve2_alu> *dut;
+  	TESTB<DUT_CLASS_NAME> *dut;
   	ALUInTxn *tx;
   	ALUDriver *drv;
   	ALUScoreboard *scb;

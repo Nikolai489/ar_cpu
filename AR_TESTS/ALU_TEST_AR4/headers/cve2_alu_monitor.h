@@ -1,11 +1,6 @@
 #include "cve2_alu_tbf.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
-ALUInMonitor::ALUInMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
+ALUInMonitor::ALUInMonitor(TESTB<DUT_CLASS_NAME> *dut, ALUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -20,7 +15,7 @@ void ALUInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-ALUOutMonitor::ALUOutMonitor(TESTB<Vcve2_alu> *dut, ALUScoreboard *scb) {
+ALUOutMonitor::ALUOutMonitor(TESTB<DUT_CLASS_NAME> *dut, ALUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

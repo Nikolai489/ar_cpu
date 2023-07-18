@@ -1,10 +1,5 @@
 #include "cve2_alu_tbf.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
 void ALUScoreboard::writeIn(ALUInTxn *tx) {
   in_q.push_back(tx);
 }

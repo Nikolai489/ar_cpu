@@ -3,6 +3,7 @@
 // This file ONLY is placed into the Public Domain, for any use,
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
+//
 
 #include "cve2_alu_tbf.h"
 
@@ -23,7 +24,7 @@ bool stimulus1 STIMULUS_FUNCTION_PARAMS
 			delete ar_sim_data->tx;	
 		}
 
-		dut->clk_i = !dut->clk_i;
+		//dut->clk_i = !dut->clk_i;
 		return true;
 	}
 

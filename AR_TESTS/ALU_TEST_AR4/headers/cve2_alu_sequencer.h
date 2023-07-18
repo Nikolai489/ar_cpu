@@ -1,10 +1,5 @@
 #include "cve2_alu_tbf.h"
 
-#include "Vcve2_alu.h"
-#include "Vcve2_alu___024unit.h"
-#include "Vcve2_alu_cve2_pkg.h"
-#include "testb.h"
-
 int getRandomValue(){
   int arr[16] = {0, 1, 2, 3, 4, 8, 9, 10, 25, 26, 27, 28, 29, 30, 43, 44};
   int index = rand() % 16;

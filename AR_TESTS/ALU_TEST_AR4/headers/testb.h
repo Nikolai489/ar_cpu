@@ -29,7 +29,7 @@ class TESTB {
   TESTB(void) : external_loop(false), m_trace(NULL), m_tick_count(0l) {
     m_core = new VA;
     Verilated::traceEverOn(true);
-    m_core->clk_i = 0;
+    //m_core->clk_i = 0;
     eval();
   }
 
@@ -91,11 +91,11 @@ class TESTB {
                                                                                                                                                                          : throw std::invalid_argument("Invalid time units!\nDefaulting to ps"))) -
                                               2 * (time_step / (float)10) * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
                                                                                                                                                                             : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")))));
-      m_core->clk_i = 1;
+      //m_core->clk_i = 1;
       eval();
       if (m_trace) m_trace->dump((vluint64_t)(time_step * m_tick_count * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
                                                                                                                                                                          : throw std::invalid_argument("Invalid time units!\nDefaulting to ps")))));
-      m_core->clk_i = 0;
+      //m_core->clk_i = 0;
       eval();
       if (m_trace) {
         m_trace->dump((vluint64_t)(time_step * m_tick_count * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
@@ -105,7 +105,7 @@ class TESTB {
         m_trace->flush();
       }
     } else {
-      m_core->clk_i ^= 1;
+      //m_core->clk_i ^= 1;
       eval();
       m_trace->dump(m_tick_count);
       m_tick_count += time_step * ((!strcmp(time_unit, "ps")) ? 1 : (!strcmp(time_unit, "ns") ? 1000 : (!strcmp(time_unit, "us")) ? 1000000
