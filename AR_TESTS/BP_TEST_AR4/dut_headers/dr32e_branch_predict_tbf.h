@@ -45,9 +45,9 @@ class BPOutTxn {
 class BPScoreboard {
  private:
   std::deque<BPInTxn *> in_q;
-  int error_count_;
  public:
   BPScoreboard();
+  int error_count_;
   void writeIn(BPInTxn *tx);
   void writeOut(BPOutTxn *tx);
 };

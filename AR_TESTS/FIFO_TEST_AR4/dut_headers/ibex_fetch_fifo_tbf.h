@@ -62,8 +62,9 @@ class FFOutTxn {
 class FFScoreboard {
  private:
   std::deque<FFInTxn *> in_q;
-  int error_count_;
+
  public:
+  int error_count_;
   FFScoreboard();
   void writeIn(FFInTxn *tx);
   void writeOut(FFOutTxn *tx);

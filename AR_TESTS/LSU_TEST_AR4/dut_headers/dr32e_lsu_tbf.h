@@ -45,8 +45,8 @@ class LSUOutTxn {
 class LSUScoreboard {
  private:
   std::deque<LSUInTxn *> in_q;
-  int error_count_;
  public:
+  int error_count_;
   LSUScoreboard();
   void writeIn(LSUInTxn *tx);
   void writeOut(LSUOutTxn *tx);

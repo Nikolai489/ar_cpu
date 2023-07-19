@@ -1,0 +1,462 @@
+./run.sh: line 3: /home/nikolai/arails/arails_base/arails.shrc: No such file or directory
+rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core
+
+-- Verilator tracing example
+
+-- VERILATE ----------------
+verilator -cc --exe -O2 -x-assign 0 -Wall --trace --assert --coverage -Wno-fatal --timing --relative-includes --top-module ibex_fetch_fifo -f input.vc dut_verilog/ibex_fetch_fifo.sv sim_main.cpp
+
+-- COMPILE -----------------
+make -j 4 -C obj_dir -f ../Makefile_obj
+make[1]: warning: -j4 forced in submake: resetting jobserver mode.
+make[1]: Entering directory '/mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/FIFO_TEST_AR4/obj_dir'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -O2 -fstrict-aliasing -c -o sim_main.o ../sim_main.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_cov.o /usr/local/share/verilator/include/verilated_cov.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_vcd_c.o /usr/local/share/verilator/include/verilated_vcd_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+/usr/bin/python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vibex_fetch_fifo.cpp Vibex_fetch_fifo___024root__DepSet_h3ac0f7e8__0.cpp Vibex_fetch_fifo___024root__DepSet_ha8f83f6d__0.cpp Vibex_fetch_fifo__Trace__0.cpp Vibex_fetch_fifo___024root__Slow.cpp Vibex_fetch_fifo___024root__DepSet_h3ac0f7e8__0__Slow.cpp Vibex_fetch_fifo___024root__DepSet_ha8f83f6d__0__Slow.cpp Vibex_fetch_fifo__Syms.cpp Vibex_fetch_fifo__Trace__0__Slow.cpp > Vibex_fetch_fifo__ALL.cpp
+echo "" > Vibex_fetch_fifo__ALL.verilator_deplist.tmp
+ccache g++ -O2 -fstrict-aliasing  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o Vibex_fetch_fifo__ALL.o Vibex_fetch_fifo__ALL.cpp
+Archive ar -rcs Vibex_fetch_fifo__ALL.a Vibex_fetch_fifo__ALL.o
+In file included from ../sim_main.cpp:7:
+../ARVerilatorTestbench.h: In member function ‘bool ARVerilatorTestbench::runSimulation(int, char**, char**)’:
+../ARVerilatorTestbench.h:132:22: warning: format not a string literal and no format arguments [-Wformat-security]
+  132 |             VL_PRINTF(STD_TO_C_STRING("Enabling waves into logs/" + vcd_file_name + ".vcd...\n"));
+../ARVerilatorTestbench.h:251:9: warning: possible problem detected in invocation of ‘operator delete’ [-Wdelete-incomplete]
+  251 |         delete ar_sim_data;
+      |         ^~~~~~~~~~~~~~~~~~
+../ARVerilatorTestbench.h:123:28: warning: ‘ar_sim_data’ has incomplete type
+  123 |         ARSimulationData * ar_sim_data = createARSimulationData(dut);
+      |                            ^~~~~~~~~~~
+../ARVerilatorTestbench.h:75:7: note: forward declaration of ‘class ARSimulationData’
+   75 | class ARSimulationData;
+      |       ^~~~~~~~~~~~~~~~
+../ARVerilatorTestbench.h:251:9: note: neither the destructor nor the class-specific ‘operator delete’ will be called, even if they are declared when the class is defined
+  251 |         delete ar_sim_data;
+      |         ^~~~~~~~~~~~~~~~~~
+g++     sim_main.o verilated.o verilated_cov.o verilated_vcd_c.o verilated_threads.o Vibex_fetch_fifo__ALL.a    -pthread -lpthread -latomic   -o Vibex_fetch_fifo
+rm Vibex_fetch_fifo__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/FIFO_TEST_AR4/obj_dir'
+
+-- RUN ---------------------
+obj_dir/Vibex_fetch_fifo +trace
+probe depth 99
+period time2e-09
+sim stop time 2e-06
+min step time size 1e-09
+run cycle count 1999
+Enabling waves into logs/ibex_fetch_fifo.vcd...
+vcd time unit : ns
+vcd time resolution : ns
+[33mTime: 10 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 30 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1649760492	ACTUAL: 1649760492
+
+[0m[33mTime: 50 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1365180540	ACTUAL: 1365180540
+
+[0m[33mTime: 70 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 304089172	ACTUAL: 304089172
+
+[0m[33mTime: 90 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 521595368	ACTUAL: 521595368
+
+[0m[33mTime: 110 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 608413784	ACTUAL: -1470618557
+
+[0m[33mTime: 130 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1973594324	ACTUAL: -1462471262
+
+[0m[33mTime: 150 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 170 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1424268980	ACTUAL: 1424268980
+
+[0m[33mTime: 190 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 982906996	ACTUAL: 982906996
+
+[0m[33mTime: 210 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 572660336	ACTUAL: 572660336
+
+[0m[33mTime: 230 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1141616124	ACTUAL: -1375976437
+
+[0m[33mTime: 250 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1585990364	ACTUAL: 1255956104
+
+[0m[33mTime: 270 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 356426808	ACTUAL: -1539828418
+
+[0m[33mTime: 290 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 310 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1780695788	ACTUAL: 1780695788
+
+[0m[33mTime: 330 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 2053999932	ACTUAL: 2053999932
+
+[0m[33mTime: 350 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1411549676	ACTUAL: 1411549676
+
+[0m[33mTime: 370 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1984210012	ACTUAL: 1984210012
+
+[0m[33mTime: 390 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 603570492	ACTUAL: 603570492
+
+[0m[33mTime: 410 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 660260756	ACTUAL: 660260756
+
+[0m[33mTime: 430 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 485560280	ACTUAL: 265821425
+
+[0m[33mTime: 450 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 364228444	ACTUAL: -1352919627
+
+[0m[33mTime: 470 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 221558440	ACTUAL: -1230500556
+
+[0m[33mTime: 490 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 498777856	ACTUAL: -1090511430
+
+[0m[33mTime: 510 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 530 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1600028624	ACTUAL: 2144362334
+
+[0m[33mTime: 550 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 112805732	ACTUAL: 1197737657
+
+[0m[33mTime: 570 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 590 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1573363368	ACTUAL: 1573363368
+
+[0m[33mTime: 610 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1373226340	ACTUAL: 1373226340
+
+[0m[33mTime: 630 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 200747796	ACTUAL: 200747796
+
+[0m[33mTime: 650 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1622597488	ACTUAL: 1622597488
+
+[0m[33mTime: 670 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 338888228	ACTUAL: 338888228
+
+[0m[33mTime: 690 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 269441500	ACTUAL: 269441500
+
+[0m[33mTime: 710 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 730 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 116087764	ACTUAL: 116087764
+
+[0m[33mTime: 750 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1982275856	ACTUAL: 1982275856
+
+[0m[33mTime: 770 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1760281936	ACTUAL: 1760281936
+
+[0m[33mTime: 790 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 971899228	ACTUAL: 971899228
+
+[0m[33mTime: 810 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1875335928	ACTUAL: 1526230983
+
+[0m[33mTime: 830 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 2103318776	ACTUAL: 418938206
+
+[0m[33mTime: 850 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1782436840	ACTUAL: -739743171
+
+[0m[33mTime: 870 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1395235128	ACTUAL: -1724361943
+
+[0m[33mTime: 890 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 680466996	ACTUAL: 439625871
+
+[0m[33mTime: 910 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1096689772	ACTUAL: 678183262
+
+[0m[33mTime: 930 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 601385644	ACTUAL: 1789666264
+
+[0m[33mTime: 950 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1820388464	ACTUAL: -328176512
+
+[0m[33mTime: 970 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1285228804	ACTUAL: 151276699
+
+[0m[33mTime: 990 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1010 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1037127828	ACTUAL: 1037127828
+
+[0m[33mTime: 1030 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 392035568	ACTUAL: -51374243
+
+[0m[33mTime: 1050 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1569229320	ACTUAL: -1979163256
+
+[0m[33mTime: 1070 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1590079444	ACTUAL: -1345036602
+
+[0m[33mTime: 1090 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1402586708	ACTUAL: -967552103
+
+[0m[33mTime: 1110 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 559412924	ACTUAL: -155442857
+
+[0m[33mTime: 1130 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1150 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 201305624	ACTUAL: 201305624
+
+[0m[33mTime: 1170 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 776532036	ACTUAL: 776532036
+
+[0m[33mTime: 1190 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1665947468	ACTUAL: 1665947468
+
+[0m[33mTime: 1210 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 404158660	ACTUAL: 404158660
+
+[0m[33mTime: 1230 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1501252996	ACTUAL: 1501252996
+
+[0m[33mTime: 1250 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1662739668	ACTUAL: 1662739668
+
+[0m[33mTime: 1270 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1704365084	ACTUAL: 1704365084
+
+[0m[33mTime: 1290 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1943327684	ACTUAL: 1943327684
+
+[0m[33mTime: 1310 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1069755936	ACTUAL: 773865411
+
+[0m[33mTime: 1330 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 588219756	ACTUAL: -2056510705
+
+[0m[33mTime: 1350 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1823089412	ACTUAL: 587492522
+
+[0m[33mTime: 1370 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 625032172	ACTUAL: 1005331777
+
+[0m[33mTime: 1390 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1562402336	ACTUAL: 1579179296
+
+[0m[33mTime: 1410 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1430 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 476667372	ACTUAL: 476667372
+
+[0m[33mTime: 1450 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 2001229904	ACTUAL: 2001229904
+
+[0m[33mTime: 1470 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1797073940	ACTUAL: 1797073940
+
+[0m[33mTime: 1490 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 719346228	ACTUAL: 719346228
+
+[0m[33mTime: 1510 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1307565984	ACTUAL: 1307565984
+
+[0m[33mTime: 1530 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 324763920	ACTUAL: 324763920
+
+[0m[33mTime: 1550 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1570 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 780821396	ACTUAL: 780821396
+
+[0m[33mTime: 1590 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 195740084	ACTUAL: 195740084
+
+[0m[33mTime: 1610 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 2006811972	ACTUAL: 2006811972
+
+[0m[33mTime: 1630 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1896306640	ACTUAL: 1473278215
+
+[0m[33mTime: 1650 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1782280524	ACTUAL: 1900833339
+
+[0m[33mTime: 1670 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1371499336	ACTUAL: 1799901631
+
+[0m[33mTime: 1690 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 292218004	ACTUAL: -460058262
+
+[0m[33mTime: 1710 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1858721860	ACTUAL: 1858721860
+
+[0m[33mTime: 1730 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 964445884	ACTUAL: 1186740604
+
+[0m[33mTime: 1750 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1857962504	ACTUAL: 1107848894
+
+[0m[33mTime: 1770 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1737518944	ACTUAL: 1868588944
+
+[0m[33mTime: 1790 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 982936784	ACTUAL: 1825585814
+
+[0m[33mTime: 1810 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 950390868	ACTUAL: -799786843
+
+[0m[33mTime: 1830 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1850 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1242608872	ACTUAL: 1242608872
+
+[0m[33mTime: 1870 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 653448036	ACTUAL: 653448036
+
+[0m[33mTime: 1890 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 364686248	ACTUAL: 364686248
+
+[0m[33mTime: 1910 ns
+[0m[31mFIFO SCOREBOARD:  MISMATCH
+	EXPECTED: 1983690368	ACTUAL: -1233095108
+
+[0m[33mTime: 1930 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1034514500	ACTUAL: 1034514500
+
+[0m[33mTime: 1950 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1775473788	ACTUAL: 1775473788
+
+[0m[33mTime: 1970 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 0	ACTUAL: 0
+
+[0m[33mTime: 1990 ns
+[0m[32mFIFO SCOREBOARD: MATCH
+	EXPECTED: 1671294892	ACTUAL: 1671294892
+
+[0m[31mFIFO SCOREBOARD: '60' Errors Found
+
+[0m
+-- COVERAGE ----------------
+verilator_coverage --annotate logs/annotated logs/coverage.dat
+Total coverage (39/57) 68.00%
+See lines with '%00' in logs/annotated
+
+-- DONE --------------------
+To see waveforms, open logs/ibex_fetch_fifo.vcd in a waveform viewer
+

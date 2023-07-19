@@ -53,8 +53,9 @@ class PBScoreboard
 {
 private:
   std::deque<PBInTxn *> in_q;
-  int error_count_;
+
 public:
+  int error_count_;
   PBScoreboard();
   void writeIn(PBInTxn *tx);
   void writeOut(PBOutTxn *tx);
