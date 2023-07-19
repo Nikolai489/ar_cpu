@@ -289,7 +289,7 @@ module cve2_alu #(
   // if set, reverse operations in first and second cycle.
   assign shift_amt[5] = operand_b_i[5] & shift_funnel;
   //assign shift_amt_compl = 32 - operand_b_i[4:0];
-  assign shift_amt_compl = {1'b0,operand_b_i[4:0]};
+  assign shift_amt_compl = {1'b0,operand_b_i[4:0]};         //fixing ALU shift operation
   always_comb begin
     if (bfp_op) begin
       shift_amt[4:0] = bfp_off;  // length field of bfp control word
