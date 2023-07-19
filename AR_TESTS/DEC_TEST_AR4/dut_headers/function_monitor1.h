@@ -4,7 +4,7 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:dec_monitor:dr32e_dec:../dut_verilog/dr32e_dec.v
-
+//*description*Decoder Monitor : Uses 10 periods per transaction
 #include "dr32e_dec_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

@@ -4,6 +4,8 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:compressed_decoder_monitor:ibex_compressed_decoder:../dut_verilog/ibex_compressed_decoder.v
+//*description*Compressed Decoder Monitor : Uses 10 periods per transaction
+
 #include "ibex_compressed_decoder_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

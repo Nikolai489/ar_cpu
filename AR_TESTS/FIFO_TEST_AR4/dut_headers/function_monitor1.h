@@ -4,6 +4,8 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:fifo_monitor:ibex_fetch_fifo:../dut_verilog/ibex_fetch_fifo.v
+//*description*Fifo Monitor : Uses 10 periods per transaction
+
 #include "ibex_fetch_fifo_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

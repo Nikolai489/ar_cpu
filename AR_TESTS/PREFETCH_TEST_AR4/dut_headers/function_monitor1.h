@@ -4,6 +4,8 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:prefetch_monitor:ibex_prefetch_buffer:../dut_verilog/ibex_prefetch_buffer.v
+//*description*Prefetch Buffer Monitor : Uses 10 periods per transaction
+
 #include "ibex_prefetch_buffer_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS
