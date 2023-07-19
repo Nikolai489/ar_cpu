@@ -44,17 +44,6 @@ void RFScoreboard::writeOut(RFOutTxn *tx) {
     printf(INFO "Writing data:\nRegister Address: x%d\tData: %d\n" RESET, in->write_addr, in->write_data);
     debugInfo(tx);
   }
-
-  if(main_stop_time__ - 9 == main_time__){
-    if(error_count_ > 0)
-    {
-      printf(ANSI_COLOR_RED "PB SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-    else
-    {
-      printf(ANSI_COLOR_GREEN "PB SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-  }
   delete in;
   delete tx;
 }
