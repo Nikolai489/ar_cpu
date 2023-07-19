@@ -14,7 +14,16 @@ bool monitor1 MONITOR_FUNCTION_PARAMS
 		ar_sim_data->inMon->monitor();
       		ar_sim_data->outMon->monitor();
 	}
-
+	if(main_stop_time__ == main_time__){
+		if(ar_sim_data->scb->error_count_ > 0 )
+		{
+		printf(ANSI_COLOR_RED "DEC SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, ar_sim_data->scb->error_count_);
+		}
+		else
+		{
+		printf(ANSI_COLOR_GREEN "DEC SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, ar_sim_data->scb->error_count_);
+		}
+	}
 	return false;
 }
 
