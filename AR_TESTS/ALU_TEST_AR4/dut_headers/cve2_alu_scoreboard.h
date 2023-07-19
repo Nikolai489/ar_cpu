@@ -22,8 +22,6 @@ void ALUScoreboard::writeOut(ALUOutTxn *tx) {
 
 printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
 
-
-
   switch (in->op) {
     case ALUInTxn::ALU_ADD:
       if ((in->a + in->b) != tx->result) {
@@ -172,16 +170,16 @@ printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
 }
 
   //printf((error_count_ > 0) ? ANSI_COLOR_GREEN : ANSI_COLOR_RED) "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-  if(main_stop_time__ - 9 == main_time__){
-    if(error_count_ > 0)
-    {
-      printf(ANSI_COLOR_RED "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-    else
-    {
-      printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-  }
+  // if(main_stop_time__ - 9 == main_time__){
+  //   if(error_count_ > 0)
+  //   {
+  //     printf(ANSI_COLOR_RED "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+  //   }
+  //   else
+  //   {
+  //     printf(ANSI_COLOR_GREEN "ALU SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
+  //   }
+  // }
 
 
   delete in;

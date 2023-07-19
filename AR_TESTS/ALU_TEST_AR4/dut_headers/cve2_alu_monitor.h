@@ -13,6 +13,7 @@ void ALUInMonitor::monitor() {
   tx->b = dut->m_core->operand_b_i;
 
   scb->writeIn(tx);
+
 }
 
 ALUOutMonitor::ALUOutMonitor(TESTB<DUT_CLASS_NAME> *dut, ALUScoreboard *scb) {
@@ -28,4 +29,7 @@ void ALUOutMonitor::monitor() {
   tx->is_equal_result = dut->m_core->is_equal_result_o;
 
   scb->writeOut(tx);
+
 }
+
+
