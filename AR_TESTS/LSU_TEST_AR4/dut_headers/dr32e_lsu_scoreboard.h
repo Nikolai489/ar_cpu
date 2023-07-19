@@ -20,6 +20,7 @@ void LSUScoreboard::writeOut(LSUOutTxn *tx) {
   in = in_q.front();
   in_q.pop_front();
   //printf("Data: %x \t %x \n", in->wdata, tx->wdata_o);
+  printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
   if(in->rdata != 0){
     if(in->rdata == tx->rdata_o){
       printf(ANSI_COLOR_GREEN "LSU SCOREBOARD: Read Data MATCH \t Data In : %x \t Data Out : %x\n" ANSI_COLOR_RESET, in->rdata, tx->rdata_o);

@@ -3,7 +3,7 @@
 // This file ONLY is placed into the Public Domain, for any use,
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
-//*dut_module*:a:i:monitor:alu_monitor:dr32e_lsu:../dut_verilog/dr32e_lsu.v
+//*dut_module*:a:i:monitor:dec_monitor:dr32e_lsu:../dut_verilog/dr32e_lsu.v
 #include "dr32e_lsu_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

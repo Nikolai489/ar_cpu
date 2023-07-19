@@ -197,6 +197,7 @@ void DECScoreboard::writeOut(DECOutTxn *tx) {
       alu_op = alu_op_e::ALU_AND;
       break;
   }
+  printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
   switch(instr_opcode){
     case JUMP_OP:
       if (tx->jump_set) {

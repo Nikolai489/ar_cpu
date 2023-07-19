@@ -20,6 +20,8 @@ endif
 ######################################################################
 # Set up variables
 
+top_v_file_path = dut_verilog/${dut_name}.v
+top_sv_file_path = dut_verilog/${dut_name}.sv
 # If $VERILATOR_ROOT isn't in the environment, we assume it is part of a
 # package inatall, and verilator is in your path. Otherwise find the
 # binary relative to $VERILATOR_ROOT (such as when inside the git sources).
@@ -53,6 +55,9 @@ VERILATOR_FLAGS += --coverage
 #VERILATOR_FLAGS += --gdbbt
 
 VERILATOR_FLAGS += -Wno-fatal
+#VERILATOR_FLAGS += --main
+#VERILATOR_FLAGS += --vpi
+VERILATOR_FLAGS += --timing
 VERILATOR_FLAGS += --relative-includes
 VERILATOR_FLAGS += --top-module ${dut_name}
 
@@ -65,7 +70,12 @@ run:
 
 	@echo
 	@echo "-- VERILATE ----------------"
-	$(VERILATOR) $(VERILATOR_FLAGS) -f input.vc verilog/${dut_name}.v sim_main.cpp
+ifneq ("$(wildcard $(top_sv_file_path))","")
+		$(VERILATOR) $(VERILATOR_FLAGS) -f input.vc $(top_sv_file_path) sim_main.cpp
+else
+		$(VERILATOR) $(VERILATOR_FLAGS) -f input.vc $(top_v_file_path) sim_main.cpp
+endif
+
 
 	@echo
 	@echo "-- COMPILE -----------------"
@@ -77,6 +87,7 @@ run:
 	@echo
 	@echo "-- RUN ---------------------"
 	@mkdir -p logs
+#	obj_dir/V${dut_name} +trace +timing
 	obj_dir/V${dut_name} +trace
 
 	@echo

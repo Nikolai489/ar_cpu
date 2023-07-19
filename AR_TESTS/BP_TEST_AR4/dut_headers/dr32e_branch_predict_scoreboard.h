@@ -73,6 +73,7 @@ void BPScoreboard::writeOut(BPOutTxn *tx) {
     branch_imm = imm_j;
   }
   taken = (branch_instr & (imm_b & 0x80000000)) | (cbranch_instr & (imm_cb & 0x80000000));
+  printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
   if(tx->branch_taken == (in->valid & (jump_instr | cjump_instr | taken))){
     if(tx->branch_taken)
       printf(ANSI_COLOR_GREEN "BP SCOREBOARD : Branch prediction MATCH \t EXPECTED : TAKEN \t ACTUAL: TAKEN \t INSTR : %x\n" ANSI_COLOR_RESET,in->instr);

@@ -2,6 +2,7 @@
 #define ARVERILATORTESTBENCH_H
 
 #include <vector>
+#include <queue>
 
 
 // Include common routines
@@ -13,7 +14,11 @@
 #endif
 
 #include "dut.h"
-#include "defines.h"
+#include "dut_headers/defines.h"
+
+#define EVAL_EVERY_STEP yes
+//#define DEBUG yes
+//#define TIMING_ENABLED yes
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
@@ -22,7 +27,7 @@
 #define STD_TO_C_STRING(a) std::string(a).c_str()
 #define STR(a) #a
 
-#define PERIODS(a) ((vluint64_t) (ar_period * a))
+#define PERIODS(a) (std::max((vluint64_t) 4, (vluint64_t) (ar_period * a)))
 
 #define STR(a) #a
 
@@ -75,7 +80,6 @@ typedef bool (*ARMonitorFunction)(DUT_CLASS_NAME *, const vluint64_t &, ARSimula
 // Current simulation time (64-bit unsigned)
 vluint64_t main_time__;
 vluint64_t main_stop_time__;
-
 
 ARSimulationData * createARSimulationData(DUT_CLASS_NAME * dut);
 
@@ -137,10 +141,60 @@ public:
         }
     #endif
 
+    #if TIMING_ENABLED
+	std::queue<vluint64_t> event_queue;
+	if(event_queue.empty())
+	{
+            std::cout << "initial queue size empty" << std::endl;
+	}
+	else
+	{
+       	    std::cout << "initial queue size " << event_queue.size() << std::endl;
+	}
+    #endif
+
         // Simulate until $finish
         while (!Verilated::gotFinish() && main_time__ <= main_stop_time__) {
-            //std::cout << "starting cycle " << main_time__ << std::endl;
+	    #ifdef DEBUG
+            std::cout << "starting cycle " << main_time__ << std::endl;
+	    #endif
+ 
+    	    #if TIMING_ENABLED
+            if(dut->eventsPending())
+	    {
+		const int next_event_time = dut->nextTimeSlot();
+		if(event_queue.back() != next_event_time)
+		{
+			event_queue.push(next_event_time);	
+            		std::cout << "pushing on to event queue size" << std::endl;
+		}
+	    }
+    	    #endif
+
+	    #ifdef EVAL_EVERY_STEP
+            bool change = true;
+	    #else
             bool change = (main_time__ == 0 || main_time__ == main_stop_time__);
+    	    #endif
+
+    	    #if TIMING_ENABLED
+	    const bool is_event_time = (!event_queue.empty() && main_time__ == event_queue.front());
+	    if(is_event_time)
+	    {
+		event_queue.pop();
+		change = true;
+            	std::cout << "popping off of event queue size" << std::endl;
+	    }
+	    if(event_queue.empty())
+	    {
+            	std::cout << "queue size empty" << std::endl;
+	    }
+	    else
+	    {
+            	std::cout << "queue size " << event_queue.size() << std::endl;
+	    }
+    	    #endif
+
             const int stimulus_count = stimulus_functions_vector_.size();
             for(int stimulus_index = 0; stimulus_index < stimulus_count; stimulus_index++)
             {
@@ -234,7 +288,7 @@ public:
 
 static ARVerilatorTestbench ar_verilator_testbench__;
 
-#include "functions.h"
+#include "dut_headers/functions.h"
 
 
 #ifndef CUSTOM_ARSIMDATA
