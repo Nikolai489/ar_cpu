@@ -25,11 +25,11 @@ void PBScoreboard::writeOut(PBOutTxn *tx)
   if (in->instr_rdata != tx->rdata_out)
   {
     printf(ANSI_COLOR_RED "PB SCOREBOARD:  MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->instr_rdata, tx->rdata_out);
+    error_count_++;
   }
   else
   {
     printf(ANSI_COLOR_GREEN "PB SCOREBOARD: MATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->instr_rdata, tx->rdata_out);
-    error_count_++;
   }
   delete in;
   delete tx;

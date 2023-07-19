@@ -66,9 +66,7 @@ PBInTxn *PBSequencer::generateTxn()
     tx->branch = 1;
     tx->addr = genUnsignedRandomDivisibleBy4() % UNSIGNED_CEIL;
     tx->req = 1;
-    tx->ready = 1;
     tx->instr_rvalid = 1;
-    tx->instr_grant = 1;
     tx->instr_rdata = getRandom();
   }
 
@@ -88,18 +86,14 @@ PBInTxn *PBSequencer::generateTxn()
 
     tx->rst = 1;
     tx->req = 1;
-    tx->ready = 1;
     tx->instr_rvalid = 1;
-    tx->instr_grant = 1;
     tx->addr = genUnsignedRandomDivisibleBy4() % UNSIGNED_CEIL;
   }
 
   else
   {
     tx->req = 1;
-    tx->ready = 1;
     tx->instr_rvalid = 1;
-    tx->instr_grant = 1;
     tx->instr_rdata = getRandom();
   }
 

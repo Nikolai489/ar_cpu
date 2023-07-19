@@ -11,7 +11,7 @@ int getRandomValue2 () {
 }
 
 int getRandomData () {
-  return rand() % 1111100;
+  return rand() % 1100;
 }
 
 
@@ -64,7 +64,6 @@ FFInTxn *FFSequencer::generateTxn() {
     tx->in_valid = 1;
     tx->in_addr = genRandomDivisibleBy4() % UNSIGNED_CEIL;
     tx->in_rdata = genRandomDivisibleBy4() % UNSIGNED_CEIL;
-    tx->out_ready = 1;
   }
 
   else if ((main_time__ % 100) == 0){
@@ -81,7 +80,7 @@ FFInTxn *FFSequencer::generateTxn() {
     tx -> in_err = 0;
     tx->in_valid = 1;
     tx->in_addr = genSignedRandom() % SIGNED_CEIL;
-    tx->in_rdata = genRandomDivisibleBy4() % UNSIGNED_CEIL;
+    tx->in_rdata = getRandomData () % UNSIGNED_CEIL;
   }
 
 

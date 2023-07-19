@@ -24,8 +24,8 @@ void FFScoreboard::writeOut(FFOutTxn *tx) {
   printf(ANSI_COLOR_TIME "Time: %ld %s\n" ANSI_COLOR_RESET,main_time__,TIME_UNIT);
   if (in->in_rdata != tx->out_rdata) {
         printf(ANSI_COLOR_RED "FIFO SCOREBOARD:  MISMATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->in_rdata, tx->out_rdata);
-      } else {
         error_count_++;
+      } else {
         printf(ANSI_COLOR_GREEN "FIFO SCOREBOARD: MATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->in_rdata, tx->out_rdata);
       }
   delete in;
