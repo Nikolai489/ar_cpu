@@ -1,0 +1,593 @@
+./run.sh: line 3: /home/nikolai/arails/arails_base/arails.shrc: No such file or directory
+rm -rf obj_dir logs *.log *.dmp *.vpd coverage.dat core
+
+-- Verilator tracing example
+
+-- VERILATE ----------------
+verilator -cc --exe -O2 -x-assign 0 -Wall --trace --assert --coverage -Wno-fatal --timing --relative-includes --top-module dr32e_dec -f input.vc dut_verilog/dr32e_dec.sv sim_main.cpp
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:326:25: Parameter is not used: 'ExcCauseIrqSoftwareM'
+                                                                                                               : ... In instance dr32e_dec
+  326 |  localparam exc_cause_t ExcCauseIrqSoftwareM =
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+                      ... For warning description see https://verilator.org/warn/UNUSEDPARAM?v=5.012
+                      ... Use "/* verilator lint_off UNUSEDPARAM */" and lint_on around source to disable this message.
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:328:25: Parameter is not used: 'ExcCauseIrqTimerM'
+                                                                                                               : ... In instance dr32e_dec
+  328 |  localparam exc_cause_t ExcCauseIrqTimerM =
+      |                         ^~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:330:25: Parameter is not used: 'ExcCauseIrqExternalM'
+                                                                                                               : ... In instance dr32e_dec
+  330 |  localparam exc_cause_t ExcCauseIrqExternalM =
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:332:25: Parameter is not used: 'ExcCauseIrqNm'
+                                                                                                               : ... In instance dr32e_dec
+  332 |  localparam exc_cause_t ExcCauseIrqNm =
+      |                         ^~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:335:25: Parameter is not used: 'ExcCauseInsnAddrMisa'
+                                                                                                               : ... In instance dr32e_dec
+  335 |  localparam exc_cause_t ExcCauseInsnAddrMisa =
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:337:25: Parameter is not used: 'ExcCauseInstrAccessFault'
+                                                                                                               : ... In instance dr32e_dec
+  337 |  localparam exc_cause_t ExcCauseInstrAccessFault =
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:339:25: Parameter is not used: 'ExcCauseIllegalInsn'
+                                                                                                               : ... In instance dr32e_dec
+  339 |  localparam exc_cause_t ExcCauseIllegalInsn =
+      |                         ^~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:341:25: Parameter is not used: 'ExcCauseBreakpoint'
+                                                                                                               : ... In instance dr32e_dec
+  341 |  localparam exc_cause_t ExcCauseBreakpoint =
+      |                         ^~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:343:25: Parameter is not used: 'ExcCauseLoadAccessFault'
+                                                                                                               : ... In instance dr32e_dec
+  343 |  localparam exc_cause_t ExcCauseLoadAccessFault  =
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:345:25: Parameter is not used: 'ExcCauseStoreAccessFault'
+                                                                                                               : ... In instance dr32e_dec
+  345 |  localparam exc_cause_t ExcCauseStoreAccessFault =
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:347:25: Parameter is not used: 'ExcCauseEcallUMode'
+                                                                                                               : ... In instance dr32e_dec
+  347 |  localparam exc_cause_t ExcCauseEcallUMode =
+      |                         ^~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:349:25: Parameter is not used: 'ExcCauseEcallMMode'
+                                                                                                               : ... In instance dr32e_dec
+  349 |  localparam exc_cause_t ExcCauseEcallMMode =
+      |                         ^~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:370:25: Parameter is not used: 'BUS_W'
+                                                                                                               : ... In instance dr32e_dec
+  370 |  parameter int unsigned BUS_W            = $clog2(BUS_BYTES);
+      |                         ^~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:378:25: Parameter is not used: 'IC_LINE_BEATS_W'
+                                                                                                               : ... In instance dr32e_dec
+  378 |  parameter int unsigned IC_LINE_BEATS_W  = $clog2(IC_LINE_BEATS);
+      |                         ^~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:380:25: Parameter is not used: 'IC_INDEX_HI'
+                                                                                                               : ... In instance dr32e_dec
+  380 |  parameter int unsigned IC_INDEX_HI      = IC_INDEX_W + IC_LINE_W - 1;
+      |                         ^~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:381:25: Parameter is not used: 'IC_TAG_SIZE'
+                                                                                                               : ... In instance dr32e_dec
+  381 |  parameter int unsigned IC_TAG_SIZE      = ADDR_W - IC_INDEX_W - IC_LINE_W + 1;  
+      |                         ^~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:382:25: Parameter is not used: 'IC_OUTPUT_BEATS'
+                                                                                                               : ... In instance dr32e_dec
+  382 |  parameter int unsigned IC_OUTPUT_BEATS  = (BUS_BYTES / 2);  
+      |                         ^~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:388:25: Parameter is not used: 'PMP_MAX_REGIONS'
+                                                                                                               : ... In instance dr32e_dec
+  388 |  parameter int unsigned PMP_MAX_REGIONS      = 16;
+      |                         ^~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:389:25: Parameter is not used: 'PMP_CFG_W'
+                                                                                                               : ... In instance dr32e_dec
+  389 |  parameter int unsigned PMP_CFG_W            = 8;
+      |                         ^~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:392:25: Parameter is not used: 'PMP_I'
+                                                                                                               : ... In instance dr32e_dec
+  392 |  parameter int unsigned PMP_I  = 0;
+      |                         ^~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:393:25: Parameter is not used: 'PMP_I2'
+                                                                                                               : ... In instance dr32e_dec
+  393 |  parameter int unsigned PMP_I2 = 1;
+      |                         ^~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:394:25: Parameter is not used: 'PMP_D'
+                                                                                                               : ... In instance dr32e_dec
+  394 |  parameter int unsigned PMP_D  = 2;
+      |                         ^~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:594:25: Parameter is not used: 'CSR_OFF_PMP_CFG'
+                                                                                                               : ... In instance dr32e_dec
+  594 |  parameter logic [11:0] CSR_OFF_PMP_CFG  = 12'h3A0;  
+      |                         ^~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:595:25: Parameter is not used: 'CSR_OFF_PMP_ADDR'
+                                                                                                               : ... In instance dr32e_dec
+  595 |  parameter logic [11:0] CSR_OFF_PMP_ADDR = 12'h3B0;  
+      |                         ^~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:598:25: Parameter is not used: 'CSR_MSTATUS_MIE_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  598 |  parameter int unsigned CSR_MSTATUS_MIE_BIT      = 3;
+      |                         ^~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:599:25: Parameter is not used: 'CSR_MSTATUS_MPIE_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  599 |  parameter int unsigned CSR_MSTATUS_MPIE_BIT     = 7;
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:600:25: Parameter is not used: 'CSR_MSTATUS_MPP_BIT_LOW'
+                                                                                                               : ... In instance dr32e_dec
+  600 |  parameter int unsigned CSR_MSTATUS_MPP_BIT_LOW  = 11;
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:601:25: Parameter is not used: 'CSR_MSTATUS_MPP_BIT_HIGH'
+                                                                                                               : ... In instance dr32e_dec
+  601 |  parameter int unsigned CSR_MSTATUS_MPP_BIT_HIGH = 12;
+      |                         ^~~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:602:25: Parameter is not used: 'CSR_MSTATUS_MPRV_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  602 |  parameter int unsigned CSR_MSTATUS_MPRV_BIT     = 17;
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:603:25: Parameter is not used: 'CSR_MSTATUS_TW_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  603 |  parameter int unsigned CSR_MSTATUS_TW_BIT       = 21;
+      |                         ^~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:606:24: Parameter is not used: 'CSR_MISA_MXL'
+                                                                                                               : ... In instance dr32e_dec
+  606 |  parameter logic [1:0] CSR_MISA_MXL = 2'd1;  
+      |                        ^~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:609:25: Parameter is not used: 'CSR_MSIX_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  609 |  parameter int unsigned CSR_MSIX_BIT      = 3;
+      |                         ^~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:610:25: Parameter is not used: 'CSR_MTIX_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  610 |  parameter int unsigned CSR_MTIX_BIT      = 7;
+      |                         ^~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:611:25: Parameter is not used: 'CSR_MEIX_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  611 |  parameter int unsigned CSR_MEIX_BIT      = 11;
+      |                         ^~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:612:25: Parameter is not used: 'CSR_MFIX_BIT_LOW'
+                                                                                                               : ... In instance dr32e_dec
+  612 |  parameter int unsigned CSR_MFIX_BIT_LOW  = 16;
+      |                         ^~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:613:25: Parameter is not used: 'CSR_MFIX_BIT_HIGH'
+                                                                                                               : ... In instance dr32e_dec
+  613 |  parameter int unsigned CSR_MFIX_BIT_HIGH = 30;
+      |                         ^~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:616:25: Parameter is not used: 'CSR_MSECCFG_MML_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  616 |  parameter int unsigned CSR_MSECCFG_MML_BIT  = 0;
+      |                         ^~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:617:25: Parameter is not used: 'CSR_MSECCFG_MMWP_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  617 |  parameter int unsigned CSR_MSECCFG_MMWP_BIT = 1;
+      |                         ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:618:25: Parameter is not used: 'CSR_MSECCFG_RLB_BIT'
+                                                                                                               : ... In instance dr32e_dec
+  618 |  parameter int unsigned CSR_MSECCFG_RLB_BIT  = 2;
+      |                         ^~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:623:26: Parameter is not used: 'CSR_MVENDORID_VALUE'
+                                                                                                               : ... In instance dr32e_dec
+  623 |  localparam logic [31:0] CSR_MVENDORID_VALUE  = 32'b0;
+      |                          ^~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:629:26: Parameter is not used: 'CSR_MARCHID_VALUE'
+                                                                                                               : ... In instance dr32e_dec
+  629 |  localparam logic [31:0] CSR_MARCHID_VALUE = {1'b0, 31'd22};
+      |                          ^~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:635:26: Parameter is not used: 'CSR_MIMPID_VALUE'
+                                                                                                               : ... In instance dr32e_dec
+  635 |  localparam logic [31:0] CSR_MIMPID_VALUE = 32'b0;
+      |                          ^~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:640:26: Parameter is not used: 'CSR_MCONFIGPTR_VALUE'
+                                                                                                               : ... In instance dr32e_dec
+  640 |  localparam logic [31:0] CSR_MCONFIGPTR_VALUE = 32'b0;
+      |                          ^~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:647:24: Parameter is not used: 'RndCnstLfsrSeedDefault'
+                                                                                                               : ... In instance dr32e_dec
+  647 |  parameter lfsr_seed_t RndCnstLfsrSeedDefault = 32'hac533bf4;
+      |                        ^~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:648:24: Parameter is not used: 'RndCnstLfsrPermDefault'
+                                                                                                               : ... In instance dr32e_dec
+  648 |  parameter lfsr_perm_t RndCnstLfsrPermDefault = {
+      |                        ^~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:651:41: Parameter is not used: 'RndCnstIbexKeyDefault'
+                                                                                                               : ... In instance dr32e_dec
+  651 |  parameter logic [SCRAMBLE_KEY_W-1:0]   RndCnstIbexKeyDefault =
+      |                                         ^~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:653:41: Parameter is not used: 'RndCnstIbexNonceDefault'
+                                                                                                               : ... In instance dr32e_dec
+  653 |  parameter logic [SCRAMBLE_NONCE_W-1:0] RndCnstIbexNonceDefault =
+      |                                         ^~~~~~~~~~~~~~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:664:24: Parameter is not used: 'IbexMuBiOn'
+                                                                                                               : ... In instance dr32e_dec
+  664 |  parameter ibex_mubi_t IbexMuBiOn  = 4'b0101;
+      |                        ^~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+%Warning-UNUSEDPARAM: /mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/dut_verilog/dr32e_pkg.sv:665:24: Parameter is not used: 'IbexMuBiOff'
+                                                                                                               : ... In instance dr32e_dec
+  665 |  parameter ibex_mubi_t IbexMuBiOff = 4'b1010;
+      |                        ^~~~~~~~~~~
+                      dut_verilog/dr32e_dec.sv:15:1: ... note: In file included from dr32e_dec.sv
+
+-- COMPILE -----------------
+make -j 4 -C obj_dir -f ../Makefile_obj
+make[1]: warning: -j4 forced in submake: resetting jobserver mode.
+make[1]: Entering directory '/mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/obj_dir'
+ccache g++  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -O2 -fstrict-aliasing -c -o sim_main.o ../sim_main.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated.o /usr/local/share/verilator/include/verilated.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_cov.o /usr/local/share/verilator/include/verilated_cov.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_vcd_c.o /usr/local/share/verilator/include/verilated_vcd_c.cpp
+ccache g++ -Os  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o verilated_threads.o /usr/local/share/verilator/include/verilated_threads.cpp
+/usr/bin/python3 /usr/local/share/verilator/bin/verilator_includer -DVL_INCLUDE_OPT=include Vdr32e_dec.cpp Vdr32e_dec___024root__DepSet_h3f611bfc__0.cpp Vdr32e_dec___024root__DepSet_hc511bfe4__0.cpp Vdr32e_dec__Trace__0.cpp Vdr32e_dec___024root__Slow.cpp Vdr32e_dec___024root__DepSet_h3f611bfc__0__Slow.cpp Vdr32e_dec___024root__DepSet_hc511bfe4__0__Slow.cpp Vdr32e_dec_dr32e_pkg__Slow.cpp Vdr32e_dec_dr32e_pkg__DepSet_h9b4aca72__0__Slow.cpp Vdr32e_dec__Syms.cpp Vdr32e_dec__Trace__0__Slow.cpp > Vdr32e_dec__ALL.cpp
+echo "" > Vdr32e_dec__ALL.verilator_deplist.tmp
+ccache g++ -O2 -fstrict-aliasing  -I.  -MMD -I/usr/local/share/verilator/include -I/usr/local/share/verilator/include/vltstd -DVM_COVERAGE=1 -DVM_SC=0 -DVM_TRACE=1 -DVM_TRACE_FST=0 -DVM_TRACE_VCD=1 -faligned-new -fcf-protection=none -Wno-bool-operation -Wno-sign-compare -Wno-uninitialized -Wno-unused-but-set-variable -Wno-unused-parameter -Wno-unused-variable -Wno-shadow       -MMD -MP -DVL_DEBUG=1 --std=c++20 -c -o Vdr32e_dec__ALL.o Vdr32e_dec__ALL.cpp
+Archive ar -rcs Vdr32e_dec__ALL.a Vdr32e_dec__ALL.o
+In file included from ../sim_main.cpp:7:
+../ARVerilatorTestbench.h: In member function ‘bool ARVerilatorTestbench::runSimulation(int, char**, char**)’:
+../ARVerilatorTestbench.h:132:22: warning: format not a string literal and no format arguments [-Wformat-security]
+  132 |             VL_PRINTF(STD_TO_C_STRING("Enabling waves into logs/" + vcd_file_name + ".vcd...\n"));
+../ARVerilatorTestbench.h:251:9: warning: possible problem detected in invocation of ‘operator delete’ [-Wdelete-incomplete]
+  251 |         delete ar_sim_data;
+      |         ^~~~~~~~~~~~~~~~~~
+../ARVerilatorTestbench.h:123:28: warning: ‘ar_sim_data’ has incomplete type
+  123 |         ARSimulationData * ar_sim_data = createARSimulationData(dut);
+      |                            ^~~~~~~~~~~
+../ARVerilatorTestbench.h:75:7: note: forward declaration of ‘class ARSimulationData’
+   75 | class ARSimulationData;
+      |       ^~~~~~~~~~~~~~~~
+../ARVerilatorTestbench.h:251:9: note: neither the destructor nor the class-specific ‘operator delete’ will be called, even if they are declared when the class is defined
+  251 |         delete ar_sim_data;
+      |         ^~~~~~~~~~~~~~~~~~
+g++     sim_main.o verilated.o verilated_cov.o verilated_vcd_c.o verilated_threads.o Vdr32e_dec__ALL.a    -pthread -lpthread -latomic   -o Vdr32e_dec
+rm Vdr32e_dec__ALL.verilator_deplist.tmp
+make[1]: Leaving directory '/mnt/d/GradStuff/AnalogRails/ar_cpu/AR_TESTS/DEC_TEST_AR4/obj_dir'
+
+-- RUN ---------------------
+obj_dir/Vdr32e_dec +trace
+probe depth 99
+period time2e-09
+sim stop time 1e-06
+min step time size 1e-09
+run cycle count 999
+Enabling waves into logs/dr32e_dec.vcd...
+vcd time unit : ns
+vcd time resolution : ns
+[33mTime: 10 ns
+[0m[32mDEC SCOREBOARD: WFI instruction successfully detected		 Input Instruction -> 0x10500073
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 5 	 rf_we : 0
+
+[0m[33mTime: 30 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x6e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 10 	 rf_addr_b : 3 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :44
+
+[0m[33mTime: 50 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x2905b000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : b 	 rf_addr_b : 10 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 70 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x17467063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : c 	 rf_addr_b : 14
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x160
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 90 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x69efd0e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1f 	 rf_addr_b : 1e
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xe80
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 110 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x53a990e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 13 	 rf_addr_b : 1a
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xd20
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 130 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x716
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1c 	 rf_addr_b : 16 	  rd : 1 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :44
+
+[0m[33mTime: 150 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x3add606f
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1a 	 rf_addr_b : d 	  rd : 0 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0xd6bac
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 170 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x68b06000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : b 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 190 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x8410e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 8 	 rf_addr_b : 8
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x800
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 210 ns
+[0m[32mDEC SCOREBOARD: Syscall instruction successfully detected		 Input Instruction -> 0x73
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 0 	 rf_we : 0
+
+[0m[33mTime: 230 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x48381063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 10 	 rf_addr_b : 3
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x480
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 250 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x38fd20a3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1a 	 rf_addr_b : f
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x381
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 0 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 270 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x34089063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 11 	 rf_addr_b : 0
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x340
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 290 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x79f470e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 8 	 rf_addr_b : 1f
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xf80
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 310 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x776
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 16 	 rf_addr_b : 16 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :0
+
+[0m[33mTime: 330 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x654310ef
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 6 	 rf_addr_b : 14 	  rd : 1 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0x31654
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 350 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x388df0ef
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1b 	 rf_addr_b : 8 	  rd : 1 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0xdf388
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 370 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x734
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1b 	 rf_addr_b : 14 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :2
+
+[0m[33mTime: 390 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x3e4
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 15 	 rf_addr_b : 4 	  rd : 1 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :0
+
+[0m[33mTime: 410 ns
+[0m[32mDEC SCOREBOARD: Return from exception successfully detected		 Input Instruction -> 0x30200073
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 2 	 rf_we : 0
+
+[0m[33mTime: 430 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x27489023
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 11 	 rf_addr_b : 14
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x260
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 1 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 450 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x7d8a8000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 15 	 rf_addr_b : 18 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 470 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x1eedf000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1b 	 rf_addr_b : e 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 490 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x5a61a0a3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 3 	 rf_addr_b : 6
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x5a1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 0 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 510 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x6453a023
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 7 	 rf_addr_b : 5
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x640
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 0 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 530 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x59332023
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 6 	 rf_addr_b : 13
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x580
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 0 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 550 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x3f77e0e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : f 	 rf_addr_b : 17
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xbe0
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 570 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x11e79063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : f 	 rf_addr_b : 1e
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x100
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 590 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x3951f063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 3 	 rf_addr_b : 15
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x380
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 610 ns
+[0m[32mDEC SCOREBOARD: Return from exception successfully detected		 Input Instruction -> 0x30200073
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 2 	 rf_we : 0
+
+[0m[33mTime: 630 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x493050ef
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 13 	  rd : 1 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0x5c92
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 650 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x66c0306f
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : c 	  rd : 0 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0x366c
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 670 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x487d006f
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1a 	 rf_addr_b : 7 	  rd : 0 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0xd0c86
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 690 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x3ebf0e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 17 	 rf_addr_b : 1e
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x820
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 710 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x4c3ed000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1d 	 rf_addr_b : 3 	  rd : 1 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 730 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x315bd063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 17 	 rf_addr_b : 15
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x300
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 750 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x527
+[0m[32m		RF Signals MATCH 	 rf_addr_a : e 	 rf_addr_b : 7 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :3
+
+[0m[33mTime: 770 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x746cd063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 19 	 rf_addr_b : 6
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x740
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 790 ns
+[0m[32mDEC SCOREBOARD: I-TYPE immediate values MATCH		 IMM_I -> 0x6dd
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1c 	 rf_addr_b : 1d 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 0  op_a_sel : 0  op_b_sel : 1  op :44
+
+[0m[33mTime: 810 ns
+[0m[32mDEC SCOREBOARD: Trap instruction successfully detected		 Input Instruction -> 0x100073
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 1 	 rf_we : 0
+
+[0m[33mTime: 830 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x24204000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 2 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 850 ns
+[0m[32mDEC SCOREBOARD: U-TYPE immediate values MATCH		 IMM_U -> 0x6209e000
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 13 	 rf_addr_b : 0 	  rd : 0 	 rf_we : 1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 3  op_a_sel : 3  op_b_sel : 1  op :0
+
+[0m[33mTime: 870 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x763f60e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1e 	 rf_addr_b : 3
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xf60
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 890 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x37b610a3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : c 	 rf_addr_b : 1b
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x361
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 1 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 910 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x2e995063
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 12 	 rf_addr_b : 9
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0x2e0
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 930 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x6f7000a3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 0 	 rf_addr_b : 17
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x6e1
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 2 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 950 ns
+[0m[32mDEC SCOREBOARD: Store instruction successfully detected		 Input Instruction -> 0x7d8f1023
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1e 	 rf_addr_b : 18
+[0m[32m		Store immediate values MATCH		 IMM_S -> 0x7c0
+[0m[32m		ALU signals MATCH 	 imm_a_sel : 1  imm_b_sel : 1  op_a_sel : 0  op_b_sel : 1  op :0
+[0m[32m		Data Signals MATCH	 data_req : 1 data_type : 1 data_we : 1 data_sign_ext : 0
+
+[0m[33mTime: 970 ns
+[0m[32mDEC SCOREBOARD: Branch instruction successfully detected		 Input Instruction -> 0x638910e3
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 12 	 rf_addr_b : 18
+[0m[32m		Branch immediate values MATCH		 IMM_B -> 0xe20
+[0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[33mTime: 990 ns
+[0m[32mDEC SCOREBOARD: Jump instruction successfully detected		 Input Instruction -> 0x386f10ef
+[0m[32m		RF Signals MATCH 	 rf_addr_a : 1e 	 rf_addr_b : 6 	  rd : 1 	 rf_we : 1
+[0m[32m		Jump immediate values MATCH		 IMM_J -> 0xf1386
+ [0m[32m		ALU signals MATCH 	 imm_b_sel : 5  op_a_sel : 2  op_b_sel : 1  op :0
+
+[0m[32mDEC SCOREBOARD: '0' Errors Found
+
+[0m
+-- COVERAGE ----------------
+verilator_coverage --annotate logs/annotated logs/coverage.dat
+Total coverage (102/633) 16.00%
+See lines with '%00' in logs/annotated
+
+-- DONE --------------------
+To see waveforms, open logs/dr32e_dec.vcd in a waveform viewer
+

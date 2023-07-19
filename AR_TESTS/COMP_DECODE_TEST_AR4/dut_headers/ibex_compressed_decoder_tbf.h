@@ -105,8 +105,8 @@ class CompressedDecScoreboard
 {
 private:
   std::deque<CompressedDecInTxn *> in_q;
-  int error_count_;
 public:
+  int error_count_;
   CompressedDecScoreboard();
   void writeIn(CompressedDecInTxn *tx);
   void writeOut(CompressedDecOutTxn *tx);

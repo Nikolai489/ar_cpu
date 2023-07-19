@@ -59,9 +59,9 @@ class DECOutTxn {
 class DECScoreboard {
  private:
   std::deque<DECInTxn *> in_q;
-  int error_count_;
 
  public:
+  int error_count_;
   DECScoreboard();
   void writeIn(DECInTxn *tx);
   void writeOut(DECOutTxn *tx);

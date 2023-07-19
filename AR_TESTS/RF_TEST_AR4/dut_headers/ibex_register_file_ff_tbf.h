@@ -41,8 +41,9 @@ class RFScoreboard
 {
 private:
   std::deque<RFInTxn *> in_q;
-  int error_count_;
+
 public:
+  int error_count_;
   RFScoreboard();
   void writeIn(RFInTxn *tx);
   void writeOut(RFOutTxn *tx);
