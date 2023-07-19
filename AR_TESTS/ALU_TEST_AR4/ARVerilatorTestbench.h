@@ -108,7 +108,9 @@ public:
         std::cout << "period time" << period_time << std::endl;
         std::cout << "sim stop time " << sim_stop_time << std::endl;
         std::cout << "min step time size " << min_step_time << std::endl;
-        std::cout << "run cycle count " << main_stop_time__ << std::endl;
+        std::cout << "run step count " << main_stop_time__ << std::endl;
+        std::cout << "run steps per cycle count " << ar_period_cycle_count  << std::endl;
+        std::cout << "run cycle count " << (main_stop_time__ / ar_period_cycle_count)  << std::endl;
 
         // Prevent unused variable warnings
         if (0 && argc && argv && env) {}
@@ -216,10 +218,7 @@ public:
                 const int monitor_count = monitor_functions_vector_.size();
                 for(int monitor_index = 0; monitor_index < monitor_count; monitor_index++)
                 {
-                    if(monitor_functions_vector_[monitor_index](dut, main_time__, ar_sim_data))
-                    {
-                        change = true;
-                    }
+                    monitor_functions_vector_[monitor_index](dut, main_time__, ar_sim_data);
                 }
             }
 
@@ -230,6 +229,12 @@ public:
 
             main_time__++;  // Time passes...
             //std::cout << "finishing cycle " << main_time__ << std::endl;
+        }
+
+        const int monitor_count = monitor_functions_vector_.size();
+        for(int monitor_index = 0; monitor_index < monitor_count; monitor_index++)
+        {
+            monitor_functions_vector_[monitor_index](dut, main_stop_time__, ar_sim_data);
         }
 
         // Final model cleanup
