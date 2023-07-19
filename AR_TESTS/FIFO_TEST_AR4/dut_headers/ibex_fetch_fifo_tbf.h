@@ -71,30 +71,30 @@ class FFScoreboard {
 
 class FFDriver {
  private:
-  TESTB<Vibex_fetch_fifo> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
  public:
-  FFDriver(TESTB<Vibex_fetch_fifo> *dut);
+  FFDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(FFInTxn *tx);
 };
 
 class FFInMonitor {
  private:
-  TESTB<Vibex_fetch_fifo> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   FFScoreboard *scb;
 
  public:
-  FFInMonitor(TESTB<Vibex_fetch_fifo> *dut, FFScoreboard *scb);
+  FFInMonitor(TESTB<DUT_CLASS_NAME> *dut, FFScoreboard *scb);
   void monitor(void);
 };
 
 class FFOutMonitor {
  private:
-  TESTB<Vibex_fetch_fifo> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   FFScoreboard *scb;
 
  public:
-  FFOutMonitor(TESTB<Vibex_fetch_fifo> *dut, FFScoreboard *scb);
+  FFOutMonitor(TESTB<DUT_CLASS_NAME> *dut, FFScoreboard *scb);
   void monitor(void);
 };
 
@@ -118,7 +118,7 @@ class ARSimulationData
 public:
 	ARSimulationData(DUT_CLASS_NAME * real_dut) 
 	{
-  		dut = new TESTB<Vibex_fetch_fifo>(real_dut);
+  		dut = new TESTB<DUT_CLASS_NAME>(real_dut);
   		drv = new FFDriver(dut);
   		scb = new FFScoreboard();
   		inMon = new FFInMonitor(dut, scb);
@@ -136,7 +136,7 @@ public:
 		delete seq;
 	}
  
-  	TESTB<Vibex_fetch_fifo> *dut;
+  	TESTB<DUT_CLASS_NAME> *dut;
   	FFInTxn *tx;
   	FFDriver *drv;
   	FFScoreboard *scb;

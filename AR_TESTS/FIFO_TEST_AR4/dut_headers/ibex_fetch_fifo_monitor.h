@@ -1,6 +1,6 @@
 #include "ibex_fetch_fifo_tbf.h"
 
-FFInMonitor::FFInMonitor(TESTB<Vibex_fetch_fifo> *dut, FFScoreboard *scb)
+FFInMonitor::FFInMonitor(TESTB<DUT_CLASS_NAME> *dut, FFScoreboard *scb)
 {
   this->dut = dut;
   this->scb = scb;
@@ -20,7 +20,7 @@ void FFInMonitor::monitor()
   scb->writeIn(tx);
 }
 
-FFOutMonitor::FFOutMonitor(TESTB<Vibex_fetch_fifo> *dut, FFScoreboard *scb)
+FFOutMonitor::FFOutMonitor(TESTB<DUT_CLASS_NAME> *dut, FFScoreboard *scb)
 {
   this->dut = dut;
   this->scb = scb;

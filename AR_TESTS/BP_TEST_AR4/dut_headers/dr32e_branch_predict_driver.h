@@ -1,6 +1,6 @@
 #include "dr32e_branch_predict_tbf.h"
 
-BPDriver::BPDriver(TESTB<Vdr32e_branch_predict> *dut) {
+BPDriver::BPDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

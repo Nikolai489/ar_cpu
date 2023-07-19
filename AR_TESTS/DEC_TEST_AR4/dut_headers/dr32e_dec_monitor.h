@@ -1,6 +1,6 @@
 #include "dr32e_dec_tbf.h"
 
-DECInMonitor::DECInMonitor(TESTB<Vdr32e_dec> *dut, DECScoreboard *scb) {
+DECInMonitor::DECInMonitor(TESTB<DUT_CLASS_NAME> *dut, DECScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -11,7 +11,7 @@ void DECInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-DECOutMonitor::DECOutMonitor(TESTB<Vdr32e_dec> *dut, DECScoreboard *scb) {
+DECOutMonitor::DECOutMonitor(TESTB<DUT_CLASS_NAME> *dut, DECScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

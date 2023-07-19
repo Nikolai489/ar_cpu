@@ -54,30 +54,30 @@ class BPScoreboard {
 
 class BPDriver {
  private:
-  TESTB<Vdr32e_branch_predict> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
  public:
-  BPDriver(TESTB<Vdr32e_branch_predict> *dut);
+  BPDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(BPInTxn *tx);
 };
 
 class BPInMonitor {
  private:
-  TESTB<Vdr32e_branch_predict> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   BPScoreboard *scb;
 
  public:
-  BPInMonitor(TESTB<Vdr32e_branch_predict> *dut, BPScoreboard *scb);
+  BPInMonitor(TESTB<DUT_CLASS_NAME> *dut, BPScoreboard *scb);
   void monitor(void);
 };
 
 class BPOutMonitor {
  private:
-  TESTB<Vdr32e_branch_predict> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   BPScoreboard *scb;
 
  public:
-  BPOutMonitor(TESTB<Vdr32e_branch_predict> *dut, BPScoreboard *scb);
+  BPOutMonitor(TESTB<DUT_CLASS_NAME> *dut, BPScoreboard *scb);
   void monitor(void);
 };
 
@@ -100,7 +100,7 @@ class ARSimulationData
 public:
 	ARSimulationData(DUT_CLASS_NAME * real_dut) 
 	{
-  		dut = new TESTB<Vdr32e_branch_predict>(real_dut);
+  		dut = new TESTB<DUT_CLASS_NAME>(real_dut);
   		drv = new BPDriver(dut);
   		scb = new BPScoreboard();
   		inMon = new BPInMonitor(dut, scb);
@@ -118,7 +118,7 @@ public:
 		delete seq;
 	}
  
-  	TESTB<Vdr32e_branch_predict> *dut;
+  	TESTB<DUT_CLASS_NAME> *dut;
   	BPInTxn *tx;
   	BPDriver *drv;
   	BPScoreboard *scb;

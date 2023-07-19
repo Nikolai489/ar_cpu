@@ -1,6 +1,6 @@
 #include "ibex_register_file_ff_tbf.h"
 
-RFDriver::RFDriver(TESTB<Vibex_register_file_ff> *dut) {
+RFDriver::RFDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

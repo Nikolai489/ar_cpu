@@ -1,6 +1,6 @@
 #include "ibex_prefetch_buffer_tbf.h"
 
-PBInMonitor::PBInMonitor(TESTB<Vibex_prefetch_buffer> *dut, PBScoreboard *scb)
+PBInMonitor::PBInMonitor(TESTB<DUT_CLASS_NAME> *dut, PBScoreboard *scb)
 {
   this->dut = dut;
   this->scb = scb;
@@ -23,7 +23,7 @@ void PBInMonitor::monitor()
   scb->writeIn(tx);
 }
 
-PBOutMonitor::PBOutMonitor(TESTB<Vibex_prefetch_buffer> *dut, PBScoreboard *scb)
+PBOutMonitor::PBOutMonitor(TESTB<DUT_CLASS_NAME> *dut, PBScoreboard *scb)
 {
   this->dut = dut;
   this->scb = scb;

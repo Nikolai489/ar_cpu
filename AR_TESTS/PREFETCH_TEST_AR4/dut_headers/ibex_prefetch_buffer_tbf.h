@@ -63,32 +63,32 @@ public:
 class PBDriver
 {
 private:
-  TESTB<Vibex_prefetch_buffer> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
 public:
-  PBDriver(TESTB<Vibex_prefetch_buffer> *dut);
+  PBDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(PBInTxn *tx);
 };
 
 class PBInMonitor
 {
 private:
-  TESTB<Vibex_prefetch_buffer> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   PBScoreboard *scb;
 
 public:
-  PBInMonitor(TESTB<Vibex_prefetch_buffer> *dut, PBScoreboard *scb);
+  PBInMonitor(TESTB<DUT_CLASS_NAME> *dut, PBScoreboard *scb);
   void monitor(void);
 };
 
 class PBOutMonitor
 {
 private:
-  TESTB<Vibex_prefetch_buffer> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   PBScoreboard *scb;
 
 public:
-  PBOutMonitor(TESTB<Vibex_prefetch_buffer> *dut, PBScoreboard *scb);
+  PBOutMonitor(TESTB<DUT_CLASS_NAME> *dut, PBScoreboard *scb);
   void monitor(void);
 };
 
@@ -111,7 +111,7 @@ class ARSimulationData
 public:
   ARSimulationData(DUT_CLASS_NAME *real_dut)
   {
-    dut = new TESTB<Vibex_prefetch_buffer>(real_dut);
+    dut = new TESTB<DUT_CLASS_NAME>(real_dut);
     drv = new PBDriver(dut);
     scb = new PBScoreboard();
     inMon = new PBInMonitor(dut, scb);
@@ -129,7 +129,7 @@ public:
     delete seq;
   }
 
-  TESTB<Vibex_prefetch_buffer> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   PBInTxn *tx;
   PBDriver *drv;
   PBScoreboard *scb;

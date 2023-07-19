@@ -1,6 +1,6 @@
 #include "dr32e_lsu_tbf.h"
 
-LSUDriver::LSUDriver(TESTB<Vdr32e_lsu> *dut) {
+LSUDriver::LSUDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

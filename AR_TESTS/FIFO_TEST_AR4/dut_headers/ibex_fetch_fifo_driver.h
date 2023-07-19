@@ -1,6 +1,6 @@
 #include "ibex_fetch_fifo_tbf.h"
 
-FFDriver::FFDriver(TESTB<Vibex_fetch_fifo> *dut)
+FFDriver::FFDriver(TESTB<DUT_CLASS_NAME> *dut)
 {
   this->dut = dut;
 }

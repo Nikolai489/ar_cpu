@@ -1,6 +1,6 @@
 #include "dr32e_branch_predict_tbf.h"
 
-BPInMonitor::BPInMonitor(TESTB<Vdr32e_branch_predict> *dut, BPScoreboard *scb) {
+BPInMonitor::BPInMonitor(TESTB<DUT_CLASS_NAME> *dut, BPScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -14,7 +14,7 @@ void BPInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-BPOutMonitor::BPOutMonitor(TESTB<Vdr32e_branch_predict> *dut, BPScoreboard *scb) {
+BPOutMonitor::BPOutMonitor(TESTB<DUT_CLASS_NAME> *dut, BPScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

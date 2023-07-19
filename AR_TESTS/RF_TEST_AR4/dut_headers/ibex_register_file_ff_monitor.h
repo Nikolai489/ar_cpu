@@ -1,6 +1,6 @@
 #include "ibex_register_file_ff_tbf.h"
 
-RFInMonitor::RFInMonitor(TESTB<Vibex_register_file_ff> *dut, RFScoreboard *scb) {
+RFInMonitor::RFInMonitor(TESTB<DUT_CLASS_NAME> *dut, RFScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -16,7 +16,7 @@ void RFInMonitor::monitor() {
   scb->writeIn(in_tx);
 }
 
-RFOutMonitor::RFOutMonitor(TESTB<Vibex_register_file_ff> *dut, RFScoreboard *scb) {
+RFOutMonitor::RFOutMonitor(TESTB<DUT_CLASS_NAME> *dut, RFScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

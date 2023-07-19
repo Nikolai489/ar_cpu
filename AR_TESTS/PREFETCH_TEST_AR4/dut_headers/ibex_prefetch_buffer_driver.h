@@ -1,6 +1,6 @@
 #include "ibex_prefetch_buffer_tbf.h"
 
-PBDriver::PBDriver(TESTB<Vibex_prefetch_buffer> *dut) {
+PBDriver::PBDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

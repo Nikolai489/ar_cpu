@@ -54,38 +54,38 @@ class LSUScoreboard {
 
 class LSUDriver {
  private:
-  TESTB<Vdr32e_lsu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
  public:
-  LSUDriver(TESTB<Vdr32e_lsu> *dut);
+  LSUDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(LSUInTxn *tx);
 };
 
 class LSUInMonitor {
  private:
-  TESTB<Vdr32e_lsu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   LSUScoreboard *scb;
 
  public:
-  LSUInMonitor(TESTB<Vdr32e_lsu> *dut, LSUScoreboard *scb);
+  LSUInMonitor(TESTB<DUT_CLASS_NAME> *dut, LSUScoreboard *scb);
   void monitor(void);
 };
 
 class LSUOutMonitor {
  private:
-  TESTB<Vdr32e_lsu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   LSUScoreboard *scb;
 
  public:
-  LSUOutMonitor(TESTB<Vdr32e_lsu> *dut, LSUScoreboard *scb);
+  LSUOutMonitor(TESTB<DUT_CLASS_NAME> *dut, LSUScoreboard *scb);
   void monitor(void);
 };
 
 class LSUSequencer {
   private:
-  TESTB<Vdr32e_lsu> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
  public:
-  LSUSequencer(TESTB<Vdr32e_lsu> *dut);
+  LSUSequencer(TESTB<DUT_CLASS_NAME> *dut);
   LSUInTxn *generateTxn(void);
   LSUInTxn *driveCtrlSignals(void);
 };
@@ -103,7 +103,7 @@ class ARSimulationData
 public:
 	ARSimulationData(DUT_CLASS_NAME * real_dut) 
 	{
-  		dut = new TESTB<Vdr32e_lsu>(real_dut);
+  		dut = new TESTB<DUT_CLASS_NAME>(real_dut);
   		drv = new LSUDriver(dut);
   		scb = new LSUScoreboard();
   		inMon = new LSUInMonitor(dut, scb);
@@ -121,7 +121,7 @@ public:
 		delete seq;
 	}
  
-  	TESTB<Vdr32e_lsu> *dut;
+  	TESTB<DUT_CLASS_NAME> *dut;
   	LSUInTxn *tx;
   	LSUDriver *drv;
   	LSUScoreboard *scb;

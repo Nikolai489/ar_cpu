@@ -51,32 +51,32 @@ public:
 class RFDriver
 {
 private:
-  TESTB<Vibex_register_file_ff> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
 public:
-  RFDriver(TESTB<Vibex_register_file_ff> *dut);
+  RFDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(RFInTxn *tx);
 };
 
 class RFInMonitor
 {
 private:
-  TESTB<Vibex_register_file_ff> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   RFScoreboard *scb;
 
 public:
-  RFInMonitor(TESTB<Vibex_register_file_ff> *dut, RFScoreboard *scb);
+  RFInMonitor(TESTB<DUT_CLASS_NAME> *dut, RFScoreboard *scb);
   void monitor();
 };
 
 class RFOutMonitor
 {
 private:
-  TESTB<Vibex_register_file_ff> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   RFScoreboard *scb;
 
 public:
-  RFOutMonitor(TESTB<Vibex_register_file_ff> *dut, RFScoreboard *scb);
+  RFOutMonitor(TESTB<DUT_CLASS_NAME> *dut, RFScoreboard *scb);
   void monitor();
 };
 
@@ -99,7 +99,7 @@ class ARSimulationData
 public:
   ARSimulationData(DUT_CLASS_NAME *real_dut)
   {
-    dut = new TESTB<Vibex_register_file_ff>(real_dut);
+    dut = new TESTB<DUT_CLASS_NAME>(real_dut);
     drv = new RFDriver(dut);
     scb = new RFScoreboard();
     inMon = new RFInMonitor(dut, scb);
@@ -117,7 +117,7 @@ public:
     delete seq;
   }
 
-  TESTB<Vibex_register_file_ff> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   RFInTxn *tx;
   RFDriver *drv;
   RFScoreboard *scb;
