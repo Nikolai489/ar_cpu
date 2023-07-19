@@ -4,6 +4,8 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:rf_monitor:ibex_register_file_ff:../dut_verilog/ibex_register_file_ff.v
+//*description*Register File Monitor : Uses 10 periods per transaction
+
 #include "ibex_register_file_ff_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS

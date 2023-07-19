@@ -5,6 +5,7 @@
 //======================================================================
 
 //*dut_module*:a:i:monitor:alu_monitor:cve2_alu:../dut_verilog/cve2_alu.v
+//*description*ALU Monitor : Uses 10 periods per transaction
 
 #include "cve2_alu_tbf.h"
 

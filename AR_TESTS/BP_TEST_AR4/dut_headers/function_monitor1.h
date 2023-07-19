@@ -4,6 +4,7 @@
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
 //*dut_module*:a:i:monitor:branch_predict_monitor:dr32e_branch_predict:../dut_verilog/dr32e_branch_predict.v
+//*description*Branch Predictor Monitor : Uses 10 periods per transaction
 #include "dr32e_branch_predict_tbf.h"
 
 bool monitor1 MONITOR_FUNCTION_PARAMS
