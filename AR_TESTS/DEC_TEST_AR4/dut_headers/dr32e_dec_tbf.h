@@ -69,30 +69,30 @@ class DECScoreboard {
 
 class DECDriver {
  private:
-  TESTB<Vdr32e_dec> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
  public:
-  DECDriver(TESTB<Vdr32e_dec> *dut);
+  DECDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(DECInTxn *tx);
 };
 
 class DECInMonitor {
  private:
-  TESTB<Vdr32e_dec> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   DECScoreboard *scb;
 
  public:
-  DECInMonitor(TESTB<Vdr32e_dec> *dut, DECScoreboard *scb);
+  DECInMonitor(TESTB<DUT_CLASS_NAME> *dut, DECScoreboard *scb);
   void monitor(void);
 };
 
 class DECOutMonitor {
  private:
-  TESTB<Vdr32e_dec> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   DECScoreboard *scb;
 
  public:
-  DECOutMonitor(TESTB<Vdr32e_dec> *dut, DECScoreboard *scb);
+  DECOutMonitor(TESTB<DUT_CLASS_NAME> *dut, DECScoreboard *scb);
   void monitor(void);
 };
 
@@ -115,7 +115,7 @@ class ARSimulationData
 public:
 	ARSimulationData(DUT_CLASS_NAME * real_dut) 
 	{
-  		dut = new TESTB<Vdr32e_dec>(real_dut);
+  		dut = new TESTB<DUT_CLASS_NAME>(real_dut);
   		drv = new DECDriver(dut);
   		scb = new DECScoreboard();
   		inMon = new DECInMonitor(dut, scb);
@@ -133,7 +133,7 @@ public:
 		delete seq;
 	}
  
-  	TESTB<Vdr32e_dec> *dut;
+  	TESTB<DUT_CLASS_NAME> *dut;
   	DECInTxn *tx;
   	DECDriver *drv;
   	DECScoreboard *scb;

@@ -1,6 +1,6 @@
 #include "ibex_compressed_decoder_tbf.h"
 
-CompressedDecInMonitor::CompressedDecInMonitor(TESTB<Vibex_compressed_decoder> *dut, CompressedDecScoreboard *scb) {
+CompressedDecInMonitor::CompressedDecInMonitor(TESTB<DUT_CLASS_NAME> *dut, CompressedDecScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -12,7 +12,7 @@ void CompressedDecInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-CompressedDecOutMonitor::CompressedDecOutMonitor(TESTB<Vibex_compressed_decoder> *dut, CompressedDecScoreboard *scb) {
+CompressedDecOutMonitor::CompressedDecOutMonitor(TESTB<DUT_CLASS_NAME> *dut, CompressedDecScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

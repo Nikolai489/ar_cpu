@@ -1,6 +1,6 @@
 #include "dr32e_lsu_tbf.h"
 
-LSUInMonitor::LSUInMonitor(TESTB<Vdr32e_lsu> *dut, LSUScoreboard *scb) {
+LSUInMonitor::LSUInMonitor(TESTB<DUT_CLASS_NAME> *dut, LSUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }
@@ -20,7 +20,7 @@ void LSUInMonitor::monitor() {
   scb->writeIn(tx);
 }
 
-LSUOutMonitor::LSUOutMonitor(TESTB<Vdr32e_lsu> *dut, LSUScoreboard *scb) {
+LSUOutMonitor::LSUOutMonitor(TESTB<DUT_CLASS_NAME> *dut, LSUScoreboard *scb) {
   this->dut = dut;
   this->scb = scb;
 }

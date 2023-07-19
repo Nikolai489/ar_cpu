@@ -22,7 +22,7 @@ std::string generateBinary(int len, bool avoidAllZeros = false) {
   return randomString;
 }
 
-CompressedDecDriver::CompressedDecDriver(TESTB<Vibex_compressed_decoder> *dut) {
+CompressedDecDriver::CompressedDecDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

@@ -115,32 +115,32 @@ public:
 class CompressedDecDriver
 {
 private:
-  TESTB<Vibex_compressed_decoder> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
 
 public:
-  CompressedDecDriver(TESTB<Vibex_compressed_decoder> *dut);
+  CompressedDecDriver(TESTB<DUT_CLASS_NAME> *dut);
   void drive(CompressedDecInTxn *tx);
 };
 
 class CompressedDecInMonitor
 {
 private:
-  TESTB<Vibex_compressed_decoder> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   CompressedDecScoreboard *scb;
 
 public:
-  CompressedDecInMonitor(TESTB<Vibex_compressed_decoder> *dut, CompressedDecScoreboard *scb);
+  CompressedDecInMonitor(TESTB<DUT_CLASS_NAME> *dut, CompressedDecScoreboard *scb);
   void monitor(void);
 };
 
 class CompressedDecOutMonitor
 {
 private:
-  TESTB<Vibex_compressed_decoder> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   CompressedDecScoreboard *scb;
 
 public:
-  CompressedDecOutMonitor(TESTB<Vibex_compressed_decoder> *dut, CompressedDecScoreboard *scb);
+  CompressedDecOutMonitor(TESTB<DUT_CLASS_NAME> *dut, CompressedDecScoreboard *scb);
   void monitor(void);
 };
 
@@ -163,7 +163,7 @@ class ARSimulationData
 public:
   ARSimulationData(DUT_CLASS_NAME *real_dut)
   {
-    dut = new TESTB<Vibex_compressed_decoder>(real_dut);
+    dut = new TESTB<DUT_CLASS_NAME>(real_dut);
     drv = new CompressedDecDriver(dut);
     scb = new CompressedDecScoreboard();
     inMon = new CompressedDecInMonitor(dut, scb);
@@ -181,7 +181,7 @@ public:
     delete seq;
   }
 
-  TESTB<Vibex_compressed_decoder> *dut;
+  TESTB<DUT_CLASS_NAME> *dut;
   CompressedDecInTxn *tx;
   CompressedDecDriver *drv;
   CompressedDecScoreboard *scb;

@@ -2,7 +2,7 @@
 
 int prev_gnt, prev_valid;
 
-LSUSequencer::LSUSequencer(TESTB<Vdr32e_lsu> *dut) {
+LSUSequencer::LSUSequencer(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 

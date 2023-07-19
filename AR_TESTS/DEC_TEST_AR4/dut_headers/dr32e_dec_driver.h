@@ -1,6 +1,6 @@
 #include "dr32e_dec_tbf.h"
 
-DECDriver::DECDriver(TESTB<Vdr32e_dec> *dut) {
+DECDriver::DECDriver(TESTB<DUT_CLASS_NAME> *dut) {
   this->dut = dut;
 }
 
