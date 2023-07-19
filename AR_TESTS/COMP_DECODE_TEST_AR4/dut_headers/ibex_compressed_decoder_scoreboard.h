@@ -27,17 +27,6 @@ void CompressedDecScoreboard::writeOut(CompressedDecOutTxn *tx) {
     printf(ANSI_COLOR_RED "COMP_DEC SCOREBOARD: COMPRESSED DECODER TEST FAILURE\n\tEXPECTED: %d\tACTUAL: %d\tIS_COMPRESSED: %d\tILLEGAL: %d\n\n" ANSI_COLOR_RESET, in->decoded, tx->instr_out, tx->is_compressed, tx->illegal);
     error_count_++;
   }
-
-  if(main_stop_time__ - 9 == main_time__){
-    if(error_count_ > 0)
-    {
-      printf(ANSI_COLOR_RED "COMP_DEC SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-    else
-    {
-      printf(ANSI_COLOR_GREEN "COMP_DEC SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-  }
   delete in;
   delete tx;
 }

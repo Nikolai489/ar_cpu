@@ -31,17 +31,6 @@ void PBScoreboard::writeOut(PBOutTxn *tx)
     printf(ANSI_COLOR_GREEN "PB SCOREBOARD: MATCH\n\tEXPECTED: %d\tACTUAL: %d\n\n" ANSI_COLOR_RESET, in->instr_rdata, tx->rdata_out);
     error_count_++;
   }
-
-  if(main_stop_time__ - 9 == main_time__){
-    if(error_count_ > 0)
-    {
-      printf(ANSI_COLOR_RED "PB SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-    else
-    {
-      printf(ANSI_COLOR_GREEN "PB SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-  }
   delete in;
   delete tx;
 }

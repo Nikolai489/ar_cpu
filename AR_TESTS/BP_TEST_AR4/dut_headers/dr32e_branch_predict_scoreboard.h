@@ -93,16 +93,6 @@ void BPScoreboard::writeOut(BPOutTxn *tx) {
     printf(ANSI_COLOR_RED "\t\tTarget PC MISMATCH \t EXPECTED : %x \t ACTUAL : %x\n\n" ANSI_COLOR_RESET, tx->branch_pc, in->pc + branch_imm);
     error_count_++;
   }
-  if(main_stop_time__ - 9 == main_time__){
-    if(error_count_ > 0)
-    {
-      printf(ANSI_COLOR_RED "BP SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-    else
-    {
-      printf(ANSI_COLOR_GREEN "BP SCOREBOARD: '%d' Errors Found\n\n" ANSI_COLOR_RESET, error_count_);
-    }
-  }
   delete in;
   delete tx;
 }
