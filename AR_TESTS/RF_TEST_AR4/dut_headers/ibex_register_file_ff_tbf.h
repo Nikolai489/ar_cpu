@@ -34,7 +34,7 @@ class RFOutTxn
 {
 public:
   int read_data_1, read_data_2;
-  VlUnpacked<IData, 32UL> rf;
+  int rf[32];
 };
 
 class RFScoreboard
