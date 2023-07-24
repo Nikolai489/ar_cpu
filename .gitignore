@@ -4,3 +4,5 @@
 tests/unit_test/*/obj_dir
 tests/unit_test/*/*.vcd
 tests/unit_test/*/*.bin
+AR_TESTS/*/obj_dir
+AR_TESTS/*/logs
