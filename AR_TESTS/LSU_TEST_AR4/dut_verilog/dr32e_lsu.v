@@ -31,8 +31,10 @@ module dr32e_lsu #(
   output logic [31:0]             data_addr_o,
   output logic                    data_we_o,
   output logic [3:0]              data_be_o,
-  output logic [MemDataWidth-1:0] data_wdata_o,
-  input  logic [MemDataWidth-1:0] data_rdata_i,
+  //output logic [MemDataWidth-1:0] data_wdata_o,
+  //input  logic [MemDataWidth-1:0] data_rdata_i,
+  output logic [31:0] data_wdata_o,
+  input  logic [31:0] data_rdata_i,
 
   // signals to/from ID/EX stage
   input  logic         lsu_we_i,             // write enable                     -> from ID/EX
