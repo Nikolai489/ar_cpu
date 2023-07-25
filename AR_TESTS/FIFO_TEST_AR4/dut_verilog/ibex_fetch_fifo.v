@@ -21,7 +21,8 @@
  
    // control signals
    input  logic                clear_i,   // clears the contents of the FIFO
-   output logic [NUM_REQS-1:0] busy_o,
+  //output logic [NUM_REQS-1:0] busy_o,
+  output logic [1:0] busy_o,
  
    // input port
    input  logic                in_valid_i,

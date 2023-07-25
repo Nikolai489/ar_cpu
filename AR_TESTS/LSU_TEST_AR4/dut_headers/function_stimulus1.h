@@ -5,7 +5,7 @@
 //======================================================================
 //
 
-//*dut_module*:i:o:stimulus:dec_stimulus:dr32e_dec:../dut_verilog/ddr32e_dec.v
+//*dut_module*:i:o:stimulus:lsu_stimulus:dr32e_lsu:../dut_verilog/dr32e_lsu.v
 #include "dr32e_lsu_tbf.h"
 
 bool stimulus1 STIMULUS_FUNCTION_PARAMS

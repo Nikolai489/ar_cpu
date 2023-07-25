@@ -28,16 +28,19 @@ module ibex_register_file_ff #(
 
   //Read port R1
   input  logic [4:0]           raddr_a_i,
-  output logic [DataWidth-1:0] rdata_a_o,
+  //output logic [DataWidth-1:0] rdata_a_o,
+  output logic [31:0] rdata_a_o,
 
   //Read port R2
   input  logic [4:0]           raddr_b_i,
-  output logic [DataWidth-1:0] rdata_b_o,
+  //output logic [DataWidth-1:0] rdata_b_o,
+  output logic [31:0] rdata_b_o,
 
 
   // Write port W1
   input  logic [4:0]           waddr_a_i,
-  input  logic [DataWidth-1:0] wdata_a_i,
+  //input  logic [DataWidth-1:0] wdata_a_i,
+  input  logic [31:0] wdata_a_i,
   input  logic                 we_a_i,
 
   // This indicates whether spurious WE are detected.

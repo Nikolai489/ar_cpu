@@ -3,7 +3,7 @@
 // This file ONLY is placed into the Public Domain, for any use,
 // without warranty, 2017 by Wilson Snyder.
 //======================================================================
-//*dut_module*:i:o:stimulus:rf_stimulus:ibex_register_file_ff:../dut_verilog/ibex_register_file_ff.v
+//*dut_module*:i:o:stimulus:register_file_stimulus:ibex_register_file_ff:../dut_verilog/ibex_register_file_ff.v
 
 #include "ibex_register_file_ff_tbf.h"
 
