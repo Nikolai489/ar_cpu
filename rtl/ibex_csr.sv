@@ -7,7 +7,7 @@
  */
 
 `include "prim_assert.sv"
-
+`include "ibex_csr_body.sv"
 module ibex_csr #(
   parameter int unsigned    Width      = 32,
   parameter bit             ShadowCopy = 1'b0,
@@ -23,35 +23,19 @@ module ibex_csr #(
   output logic             rd_error_o
 );
 
-  logic [Width-1:0] rdata_q;
+ibex_csr_body #(
+  .Width(Width),
+  .ShadowCopy(ShadowCopy),
+  .ResetValue(ResetValue)
+)
+csr_body (
+  .clk_i(clk_i),
+  .rst_ni(rst_ni),
 
-  always_ff @(posedge clk_i or negedge rst_ni) begin
-    if (!rst_ni) begin
-      rdata_q <= ResetValue;
-    end else if (wr_en_i) begin
-      rdata_q <= wr_data_i;
-    end
-  end
+  .wr_data_i(wr_data_i),
+  .wr_en_i(wr_en_i),
+  .rd_data_o(rd_data_o),
 
-  assign rd_data_o = rdata_q;
-
-  if (ShadowCopy) begin : gen_shadow
-    logic [Width-1:0] shadow_q;
-
-    always_ff @(posedge clk_i or negedge rst_ni) begin
-      if (!rst_ni) begin
-        shadow_q <= ~ResetValue;
-      end else if (wr_en_i) begin
-        shadow_q <= ~wr_data_i;
-      end
-    end
-
-    assign rd_error_o = rdata_q != ~shadow_q;
-
-  end else begin : gen_no_shadow
-    assign rd_error_o = 1'b0;
-  end
-
-  `ASSERT_KNOWN(IbexCSREnValid, wr_en_i)
-
+  .rd_error_o(rd_error_o)
+)
 endmodule
