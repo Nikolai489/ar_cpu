@@ -12,7 +12,7 @@
 /**
  * Top level module of the ibex RISC-V core
  */
-module ibex_top import ibex_pkg::*; #(
+module ibex_top_body import ibex_pkg::*; #(
   parameter bit          PMPEnable        = 1'b0,
   parameter int unsigned PMPGranularity   = 0,
   parameter int unsigned PMPNumRegions    = 4,

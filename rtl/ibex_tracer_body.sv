@@ -34,7 +34,7 @@
  * to the one produced by objdump. This simplifies the correlation between the static program
  * information from the objdump-generated disassembly, and the runtime information from this tracer.
  */
-module ibex_tracer (
+module ibex_tracer_body (
   input logic        clk_i,
   input logic        rst_ni,
 

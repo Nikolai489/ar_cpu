@@ -11,7 +11,8 @@
  * This register file is designed to make FPGA synthesis tools infer RAM primitives. For Xilinx
  * FPGA architectures, it will produce RAM32M primitives. Other vendors have not yet been tested.
  */
-module ibex_register_file_fpga #(
+`include "ibex_register_file_fpga_body.sv"
+ module ibex_register_file_fpga #(
     parameter bit                   RV32E             = 0,
     parameter int unsigned          DataWidth         = 32,
     parameter bit                   DummyInstructions = 0,
@@ -41,57 +42,34 @@ module ibex_register_file_fpga #(
   output logic                 err_o
 );
 
-  localparam int ADDR_WIDTH = RV32E ? 4 : 5;
-  localparam int NUM_WORDS = 2 ** ADDR_WIDTH;
+ibex_register_file_fpga_body #(
+.RV32E(RV32E),             
+.DataWidth(DataWidth),      
+.DummyInstructions(DummyInstructions), 
+.WrenCheck(WrenCheck),       
+.WordZeroVal(WordZeroVal)     
+)
+register_file_fpga_body(
+.clk_i(clk_i),
+.rst_ni(rst_ni),
 
-  logic [DataWidth-1:0] mem[NUM_WORDS];
-  logic we; // write enable if writing to any register other than R0
+.test_en_i(test_en_i),
+.dummy_instr_id_i(dummy_instr_id_i),
+.dummy_instr_wb_i(dummy_instr_wb_i),
 
-  // async_read a
-  assign rdata_a_o = (raddr_a_i == '0) ? '0 : mem[raddr_a_i];
+  //Read port R1
+.raddr_a_i(raddr_a_i),
+.rdata_a_o(rdata_a_o),
+  //Read port R2
+.raddr_b_i(raddr_b_i),
+.rdata_b_o(rdata_b_o),
+  // Write port W1
+.waddr_a_i(waddr_a_i),
+.wdata_a_i(wdata_a_i),
+.we_a_i(we_a_i),
 
-  // async_read b
-  assign rdata_b_o = (raddr_b_i == '0) ? '0 : mem[raddr_b_i];
-
-  // we select
-  assign we = (waddr_a_i == '0) ? 1'b0 : we_a_i;
-
-  // SEC_CM: DATA_REG_SW.GLITCH_DETECT
-  // This checks for spurious WE strobes on the regfile.
-  if (WrenCheck) begin : gen_wren_check
-    // Since the FPGA uses a memory macro, there is only one write-enable strobe to check.
-    assign err_o = we && !we_a_i;
-  end else begin : gen_no_wren_check
-    assign err_o = 1'b0;
-  end
-
-  // Note that the SystemVerilog LRM requires variables on the LHS of assignments within
-  // "always_ff" to not be written to by any other process. However, to enable the initialization
-  // of the inferred RAM32M primitives with non-zero values, below "initial" procedure is needed.
-  // Therefore, we use "always" instead of the generally preferred "always_ff" for the synchronous
-  // write procedure.
-  always @(posedge clk_i) begin : sync_write
-    if (we == 1'b1) begin
-      mem[waddr_a_i] <= wdata_a_i;
-    end
-  end : sync_write
-
-  // Make sure we initialize the BRAM with the correct register reset value.
-  initial begin
-    for (int k = 0; k < NUM_WORDS; k++) begin
-      mem[k] = WordZeroVal;
-    end
-  end
-
-  // Reset not used in this register file version
-  logic unused_rst_ni;
-  assign unused_rst_ni = rst_ni;
-
-  // Dummy instruction changes not relevant for FPGA implementation
-  logic unused_dummy_instr;
-  assign unused_dummy_instr = dummy_instr_id_i ^ dummy_instr_wb_i;
-  // Test enable signal not used in FPGA implementation
-  logic unused_test_en;
-  assign unused_test_en = test_en_i;
+  // This indicates whether spurious WE are detected.
+.err_o(err_o)
+);
 
 endmodule

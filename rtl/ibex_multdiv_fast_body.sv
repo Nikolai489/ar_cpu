@@ -14,7 +14,7 @@
 
 `include "prim_assert.sv"
 
-module ibex_multdiv_fast #(
+module ibex_multdiv_fast_body #(
   parameter ibex_pkg::rv32m_e RV32M = ibex_pkg::RV32MFast
   ) (
   input  logic             clk_i,

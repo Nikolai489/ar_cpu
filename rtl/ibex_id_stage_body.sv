@@ -17,7 +17,7 @@
 `include "prim_assert.sv"
 `include "dv_fcov_macros.svh"
 
-module ibex_id_stage #(
+module ibex_id_stage_body #(
   parameter bit               RV32E           = 0,
   parameter ibex_pkg::rv32m_e RV32M           = ibex_pkg::RV32MFast,
   parameter ibex_pkg::rv32b_e RV32B           = ibex_pkg::RV32BNone,
