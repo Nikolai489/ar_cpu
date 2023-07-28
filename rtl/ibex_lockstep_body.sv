@@ -8,7 +8,7 @@
 // LockstepOffset cycles.
 
 // SEC_CM: LOGIC.SHADOW
-module ibex_lockstep import ibex_pkg::*; #(
+module ibex_lockstep_body import ibex_pkg::*; #(
   parameter int unsigned LockstepOffset    = 2,
   parameter bit          PMPEnable         = 1'b0,
   parameter int unsigned PMPGranularity    = 0,

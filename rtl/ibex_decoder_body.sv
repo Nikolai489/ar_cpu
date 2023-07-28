@@ -13,7 +13,7 @@
 
 `include "prim_assert.sv"
 
-module ibex_decoder #(
+module ibex_decoder_body #(
   parameter bit RV32E               = 0,
   parameter ibex_pkg::rv32m_e RV32M = ibex_pkg::RV32MFast,
   parameter ibex_pkg::rv32b_e RV32B = ibex_pkg::RV32BNone,

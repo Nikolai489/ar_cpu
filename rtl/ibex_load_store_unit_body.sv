@@ -14,7 +14,7 @@
 `include "prim_assert.sv"
 `include "dv_fcov_macros.svh"
 
-module ibex_load_store_unit #(
+module ibex_load_store_unit_body #(
   parameter bit          MemECC       = 1'b0,
   parameter int unsigned MemDataWidth = MemECC ? 32 + 7 : 32
 ) (

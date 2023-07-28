@@ -14,7 +14,7 @@
 `include "prim_assert.sv"
 `include "dv_fcov_macros.svh"
 
-module ibex_wb_stage #(
+module ibex_wb_stage_body #(
   parameter bit ResetAll          = 1'b0,
   parameter bit WritebackStage    = 1'b0,
   parameter bit DummyInstructions = 1'b0

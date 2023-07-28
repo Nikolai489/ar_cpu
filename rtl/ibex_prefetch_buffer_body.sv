@@ -9,7 +9,7 @@
  * Prefetch Buffer that caches instructions. This cuts overly long critical
  * paths to the instruction cache.
  */
-module ibex_prefetch_buffer #(
+module ibex_prefetch_buffer_body #(
   parameter bit ResetAll        = 1'b0
 ) (
   input  logic        clk_i,

@@ -11,7 +11,7 @@
 
 `include "prim_assert.sv"
 
-module ibex_multdiv_slow
+module ibex_multdiv_slow_body
 (
   input  logic             clk_i,
   input  logic             rst_ni,
