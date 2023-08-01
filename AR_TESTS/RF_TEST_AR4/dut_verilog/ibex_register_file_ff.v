@@ -45,38 +45,39 @@ module ibex_register_file_ff #(
 
   // This indicates whether spurious WE are detected.
   output logic                 err_o,
-  output logic [31:0] rf_reg_0,
-  output logic [31:0] rf_reg_1,
-  output logic [31:0] rf_reg_2,
-  output logic [31:0] rf_reg_3,
-  output logic [31:0] rf_reg_4,
-  output logic [31:0] rf_reg_5,
-  output logic [31:0] rf_reg_6,
-  output logic [31:0] rf_reg_7,
-  output logic [31:0] rf_reg_8,
-  output logic [31:0] rf_reg_9,
-  output logic [31:0] rf_reg_10,
-  output logic [31:0] rf_reg_11,
-  output logic [31:0] rf_reg_12,
-  output logic [31:0] rf_reg_13,
-  output logic [31:0] rf_reg_14,
-  output logic [31:0] rf_reg_15,
-  output logic [31:0] rf_reg_16,
-  output logic [31:0] rf_reg_17,
-  output logic [31:0] rf_reg_18,
-  output logic [31:0] rf_reg_19,
-  output logic [31:0] rf_reg_20,
-  output logic [31:0] rf_reg_21,
-  output logic [31:0] rf_reg_22,
-  output logic [31:0] rf_reg_23,
-  output logic [31:0] rf_reg_24,
-  output logic [31:0] rf_reg_25,
-  output logic [31:0] rf_reg_26,
-  output logic [31:0] rf_reg_27,
-  output logic [31:0] rf_reg_28,
-  output logic [31:0] rf_reg_29,
-  output logic [31:0] rf_reg_30,
-  output logic [31:0] rf_reg_31
+  output logic [31:0] rf_reg_o[32]
+  // output logic [31:0] rf_reg_0,
+  // output logic [31:0] rf_reg_1,
+  // output logic [31:0] rf_reg_2,
+  // output logic [31:0] rf_reg_3,
+  // output logic [31:0] rf_reg_4,
+  // output logic [31:0] rf_reg_5,
+  // output logic [31:0] rf_reg_6,
+  // output logic [31:0] rf_reg_7,
+  // output logic [31:0] rf_reg_8,
+  // output logic [31:0] rf_reg_9,
+  // output logic [31:0] rf_reg_10,
+  // output logic [31:0] rf_reg_11,
+  // output logic [31:0] rf_reg_12,
+  // output logic [31:0] rf_reg_13,
+  // output logic [31:0] rf_reg_14,
+  // output logic [31:0] rf_reg_15,
+  // output logic [31:0] rf_reg_16,
+  // output logic [31:0] rf_reg_17,
+  // output logic [31:0] rf_reg_18,
+  // output logic [31:0] rf_reg_19,
+  // output logic [31:0] rf_reg_20,
+  // output logic [31:0] rf_reg_21,
+  // output logic [31:0] rf_reg_22,
+  // output logic [31:0] rf_reg_23,
+  // output logic [31:0] rf_reg_24,
+  // output logic [31:0] rf_reg_25,
+  // output logic [31:0] rf_reg_26,
+  // output logic [31:0] rf_reg_27,
+  // output logic [31:0] rf_reg_28,
+  // output logic [31:0] rf_reg_29,
+  // output logic [31:0] rf_reg_30,
+  // output logic [31:0] rf_reg_31
 
 );
 
@@ -85,38 +86,38 @@ module ibex_register_file_ff #(
 
   logic [DataWidth-1:0] rf_reg   [NUM_WORDS] /*verilator public_flat */;
 
-  assign rf_reg_0 = rf_reg [0];
-  assign rf_reg_1 = rf_reg [1];
-  assign rf_reg_2 = rf_reg [2];
-  assign rf_reg_3 = rf_reg [3];
-  assign rf_reg_4 = rf_reg [4];
-  assign rf_reg_5 = rf_reg [5];
-  assign rf_reg_6 = rf_reg [6];
-  assign rf_reg_7 = rf_reg [7];
-  assign rf_reg_8 = rf_reg [8];
-  assign rf_reg_9 = rf_reg [9];
-  assign rf_reg_10 = rf_reg [10];
-  assign rf_reg_11 = rf_reg [11];
-  assign rf_reg_12 = rf_reg [12];
-  assign rf_reg_13 = rf_reg [13];
-  assign rf_reg_14 = rf_reg [14];
-  assign rf_reg_15 = rf_reg [15];
-  assign rf_reg_16 = rf_reg [16];
-  assign rf_reg_17 = rf_reg [17];
-  assign rf_reg_18 = rf_reg [18];
-  assign rf_reg_19 = rf_reg [19];
-  assign rf_reg_20 = rf_reg [20];
-  assign rf_reg_21 = rf_reg [21];
-  assign rf_reg_22 = rf_reg [22];
-  assign rf_reg_23 = rf_reg [23];
-  assign rf_reg_24 = rf_reg [24];
-  assign rf_reg_25 = rf_reg [25];
-  assign rf_reg_26 = rf_reg [26];
-  assign rf_reg_27 = rf_reg [27];
-  assign rf_reg_28 = rf_reg [28];
-  assign rf_reg_29 = rf_reg [29];
-  assign rf_reg_30 = rf_reg [30];
-  assign rf_reg_31 = rf_reg [31];
+  assign rf_reg_o[0] = rf_reg[0];
+  assign rf_reg_o[1] = rf_reg[1];
+  assign rf_reg_o[2] = rf_reg[2];
+  assign rf_reg_o[3] = rf_reg[3];
+  assign rf_reg_o[4] = rf_reg[4];
+  assign rf_reg_o[5] = rf_reg[5];
+  assign rf_reg_o[6] = rf_reg[6];
+  assign rf_reg_o[7] = rf_reg[7];
+  assign rf_reg_o[8] = rf_reg[8];
+  assign rf_reg_o[9] = rf_reg[9];
+  assign rf_reg_o[10] = rf_reg[10];
+  assign rf_reg_o[11] = rf_reg[11];
+  assign rf_reg_o[12] = rf_reg[12];
+  assign rf_reg_o[13] = rf_reg[13];
+  assign rf_reg_o[14] = rf_reg[14];
+  assign rf_reg_o[15] = rf_reg[15];
+  assign rf_reg_o[16] = rf_reg[16];
+  assign rf_reg_o[17] = rf_reg[17];
+  assign rf_reg_o[18] = rf_reg[18];
+  assign rf_reg_o[19] = rf_reg[19];
+  assign rf_reg_o[20] = rf_reg[20];
+  assign rf_reg_o[21] = rf_reg[21];
+  assign rf_reg_o[22] = rf_reg[22];
+  assign rf_reg_o[23] = rf_reg[23];
+  assign rf_reg_o[24] = rf_reg[24];
+  assign rf_reg_o[25] = rf_reg[25];
+  assign rf_reg_o[26] = rf_reg[26];
+  assign rf_reg_o[27] = rf_reg[27];
+  assign rf_reg_o[28] = rf_reg[28];
+  assign rf_reg_o[29] = rf_reg[29];
+  assign rf_reg_o[30] = rf_reg[30];
+  assign rf_reg_o[31] = rf_reg[31];
 
   logic [NUM_WORDS-1:0] we_a_dec;
 
