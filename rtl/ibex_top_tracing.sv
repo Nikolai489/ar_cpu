@@ -5,7 +5,7 @@
 /**
  * Top level module of the ibex RISC-V core with tracing enabled
  */
-`include "ibex_top_tracing_body.sv"
+
 module ibex_top_tracing import ibex_pkg::*; #(
   parameter bit          PMPEnable        = 1'b0,
   parameter int unsigned PMPGranularity   = 0,
@@ -91,87 +91,216 @@ module ibex_top_tracing import ibex_pkg::*; #(
 
 );
 
-ibex_top_tracing_body #(
-.PMPEnable(PMPEnable),
-.PMPGranularity(PMPGranularity),
-.PMPNumRegions(PMPNumRegions),
-.MHPMCounterNum(MHPMCounterNum),
-.MHPMCounterWidth(MHPMCounterWidth),
-.RV32E(RV32E),
-.RV32M(RV32M),
-.RV32B(RV32B),
-.RegFile(RegFile),
-.BranchTargetALU(BranchTargetALU),
-.WritebackStage(WritebackStage),
-.ICache(ICache),
-.ICacheECC(ICacheECC),
-.BranchPredictor(BranchPredictor),
-.DbgTriggerEn(DbgTriggerEn),
-.DbgHwBreakNum(DbgHwBreakNum),
-.SecureIbex(SecureIbex),
-.ICacheScramble(ICacheScramble),
-.RndCnstLfsrSeed(RndCnstLfsrSeed),
-.RndCnstLfsrPerm(RndCnstLfsrPerm),
-.DmHaltAddr(DmHaltAddr),
-.DmExceptionAddr(DmExceptionAddr)
-)
-top_tracing_body (
-.clk_i(clk_i),
-.rst_ni(rst_ni),
+  // ibex_tracer relies on the signals from the RISC-V Formal Interface
+  `ifndef RVFI
+    $fatal("Fatal error: RVFI needs to be defined globally.");
+  `endif
 
-.test_en_i(test_en_i),   
-.scan_rst_ni(scan_rst_ni),
-.ram_cfg_i(ram_cfg_i),
+  logic        rvfi_valid;
+  logic [63:0] rvfi_order;
+  logic [31:0] rvfi_insn;
+  logic        rvfi_trap;
+  logic        rvfi_halt;
+  logic        rvfi_intr;
+  logic [ 1:0] rvfi_mode;
+  logic [ 1:0] rvfi_ixl;
+  logic [ 4:0] rvfi_rs1_addr;
+  logic [ 4:0] rvfi_rs2_addr;
+  logic [ 4:0] rvfi_rs3_addr;
+  logic [31:0] rvfi_rs1_rdata;
+  logic [31:0] rvfi_rs2_rdata;
+  logic [31:0] rvfi_rs3_rdata;
+  logic [ 4:0] rvfi_rd_addr;
+  logic [31:0] rvfi_rd_wdata;
+  logic [31:0] rvfi_pc_rdata;
+  logic [31:0] rvfi_pc_wdata;
+  logic [31:0] rvfi_mem_addr;
+  logic [ 3:0] rvfi_mem_rmask;
+  logic [ 3:0] rvfi_mem_wmask;
+  logic [31:0] rvfi_mem_rdata;
+  logic [31:0] rvfi_mem_wdata;
+  logic [31:0] rvfi_ext_mip;
+  logic        rvfi_ext_nmi;
+  logic        rvfi_ext_nmi_int;
+  logic        rvfi_ext_debug_req;
+  logic        rvfi_ext_debug_mode;
+  logic        rvfi_ext_rf_wr_suppress;
+  logic [63:0] rvfi_ext_mcycle;
+
+  logic [31:0] rvfi_ext_mhpmcounters [10];
+  logic [31:0] rvfi_ext_mhpmcountersh [10];
+  logic        rvfi_ext_ic_scr_key_valid;
+  logic        rvfi_ext_irq_valid;
+
+  logic [31:0] unused_perf_regs [10];
+  logic [31:0] unused_perf_regsh [10];
 
 
-.hart_id_i(hart_id_i),
-.boot_addr_i(boot_addr_i),
+  logic [31:0] unused_rvfi_ext_mip;
+  logic        unused_rvfi_ext_nmi;
+  logic        unused_rvfi_ext_nmi_int;
+  logic        unused_rvfi_ext_debug_req;
+  logic        unused_rvfi_ext_debug_mode;
+  logic        unused_rvfi_ext_rf_wr_suppress;
+  logic [63:0] unused_rvfi_ext_mcycle;
+  logic        unused_rvfi_ext_ic_scr_key_valid;
+  logic        unused_rvfi_ext_irq_valid;
 
-  // Instruction memory interface
-.instr_req_o(instr_req_o),
-.instr_gnt_i(instr_gnt_i),
-.instr_rvalid_i(instr_rvalid_i),
-.instr_addr_o(instr_addr_o),
-.instr_rdata_i(instr_rdata_i),
-.instr_rdata_intg_i(instr_rdata_intg_i),
-.instr_err_i(instr_err_i),
+  // Tracer doesn't use these signals, though other modules may probe down into tracer to observe
+  // them.
+  assign unused_rvfi_ext_mip = rvfi_ext_mip;
+  assign unused_rvfi_ext_nmi = rvfi_ext_nmi;
+  assign unused_rvfi_ext_nmi_int = rvfi_ext_nmi_int;
+  assign unused_rvfi_ext_debug_req = rvfi_ext_debug_req;
+  assign unused_rvfi_ext_debug_mode = rvfi_ext_debug_mode;
+  assign unused_rvfi_ext_rf_wr_suppress = rvfi_ext_rf_wr_suppress;
+  assign unused_rvfi_ext_mcycle = rvfi_ext_mcycle;
+  assign unused_perf_regs = rvfi_ext_mhpmcounters;
+  assign unused_perf_regsh = rvfi_ext_mhpmcountersh;
+  assign unused_rvfi_ext_ic_scr_key_valid = rvfi_ext_ic_scr_key_valid;
+  assign unused_rvfi_ext_irq_valid = rvfi_ext_irq_valid;
 
-  // Data memory interface
-.data_req_o(data_req_o),
-.data_gnt_i(data_gnt_i),
-.data_rvalid_i(data_rvalid_i),
-.data_we_o(data_we_o),
-.data_be_o(data_be_o),
-.data_addr_o(data_addr_o),
-.data_wdata_o(data_wdata_o),
-.data_wdata_intg_o(data_wdata_intg_o),
-.data_rdata_i(data_rdata_i),
-.data_rdata_intg_i(data_rdata_intg_i),
-.data_err_i(data_err_i),
+  ibex_top #(
+    .PMPEnable        ( PMPEnable        ),
+    .PMPGranularity   ( PMPGranularity   ),
+    .PMPNumRegions    ( PMPNumRegions    ),
+    .MHPMCounterNum   ( MHPMCounterNum   ),
+    .MHPMCounterWidth ( MHPMCounterWidth ),
+    .RV32E            ( RV32E            ),
+    .RV32M            ( RV32M            ),
+    .RV32B            ( RV32B            ),
+    .RegFile          ( RegFile          ),
+    .BranchTargetALU  ( BranchTargetALU  ),
+    .ICache           ( ICache           ),
+    .ICacheECC        ( ICacheECC        ),
+    .BranchPredictor  ( BranchPredictor  ),
+    .DbgTriggerEn     ( DbgTriggerEn     ),
+    .DbgHwBreakNum    ( DbgHwBreakNum    ),
+    .WritebackStage   ( WritebackStage   ),
+    .SecureIbex       ( SecureIbex       ),
+    .ICacheScramble   ( ICacheScramble   ),
+    .RndCnstLfsrSeed  ( RndCnstLfsrSeed  ),
+    .RndCnstLfsrPerm  ( RndCnstLfsrPerm  ),
+    .DmHaltAddr       ( DmHaltAddr       ),
+    .DmExceptionAddr  ( DmExceptionAddr  )
+  ) u_ibex_top (
+    .clk_i,
+    .rst_ni,
 
-  // Interrupt inputs
-.irq_software_i(irq_software_i),
-.irq_timer_i(irq_timer_i),
-.irq_external_i(irq_external_i),
-.irq_fast_i(irq_fast_i),
-.irq_nm_i(irq_nm_i),      
+    .test_en_i,
+    .scan_rst_ni,
+    .ram_cfg_i,
 
-  // Scrambling Interface
-.scramble_key_valid_i(scramble_key_valid_i),
-.scramble_key_i(scramble_key_i),
-.scramble_nonce_i(scramble_nonce_i),
-.scramble_req_o(scramble_req_o),
+    .hart_id_i,
+    .boot_addr_i,
 
-  // Debug Interface
-.debug_req_i(debug_req_i),
-.crash_dump_o(crash_dump_o),
-.double_fault_seen_o(double_fault_seen_o),
+    .instr_req_o,
+    .instr_gnt_i,
+    .instr_rvalid_i,
+    .instr_addr_o,
+    .instr_rdata_i,
+    .instr_rdata_intg_i,
+    .instr_err_i,
 
-  // CPU Control Signals
-.fetch_enable_i(fetch_enable_i),
-.alert_minor_o(alert_minor_o),
-.alert_major_internal_o(alert_major_internal_o),
-.alert_major_bus_o(alert_major_bus_o),
-.core_sleep_o(core_sleep_o)
-);
+    .data_req_o,
+    .data_gnt_i,
+    .data_rvalid_i,
+    .data_we_o,
+    .data_be_o,
+    .data_addr_o,
+    .data_wdata_o,
+    .data_wdata_intg_o,
+    .data_rdata_i,
+    .data_rdata_intg_i,
+    .data_err_i,
+
+    .irq_software_i,
+    .irq_timer_i,
+    .irq_external_i,
+    .irq_fast_i,
+    .irq_nm_i,
+
+    .scramble_key_valid_i,
+    .scramble_key_i,
+    .scramble_nonce_i,
+    .scramble_req_o,
+
+    .debug_req_i,
+    .crash_dump_o,
+    .double_fault_seen_o,
+
+    .rvfi_valid,
+    .rvfi_order,
+    .rvfi_insn,
+    .rvfi_trap,
+    .rvfi_halt,
+    .rvfi_intr,
+    .rvfi_mode,
+    .rvfi_ixl,
+    .rvfi_rs1_addr,
+    .rvfi_rs2_addr,
+    .rvfi_rs3_addr,
+    .rvfi_rs1_rdata,
+    .rvfi_rs2_rdata,
+    .rvfi_rs3_rdata,
+    .rvfi_rd_addr,
+    .rvfi_rd_wdata,
+    .rvfi_pc_rdata,
+    .rvfi_pc_wdata,
+    .rvfi_mem_addr,
+    .rvfi_mem_rmask,
+    .rvfi_mem_wmask,
+    .rvfi_mem_rdata,
+    .rvfi_mem_wdata,
+    .rvfi_ext_mip,
+    .rvfi_ext_nmi,
+    .rvfi_ext_nmi_int,
+    .rvfi_ext_debug_req,
+    .rvfi_ext_debug_mode,
+    .rvfi_ext_rf_wr_suppress,
+    .rvfi_ext_mcycle,
+    .rvfi_ext_mhpmcounters,
+    .rvfi_ext_mhpmcountersh,
+    .rvfi_ext_ic_scr_key_valid,
+    .rvfi_ext_irq_valid,
+
+    .fetch_enable_i,
+    .alert_minor_o,
+    .alert_major_internal_o,
+    .alert_major_bus_o,
+    .core_sleep_o
+  );
+
+  ibex_tracer
+  u_ibex_tracer (
+    .clk_i,
+    .rst_ni,
+
+    .hart_id_i,
+
+    .rvfi_valid,
+    .rvfi_order,
+    .rvfi_insn,
+    .rvfi_trap,
+    .rvfi_halt,
+    .rvfi_intr,
+    .rvfi_mode,
+    .rvfi_ixl,
+    .rvfi_rs1_addr,
+    .rvfi_rs2_addr,
+    .rvfi_rs3_addr,
+    .rvfi_rs1_rdata,
+    .rvfi_rs2_rdata,
+    .rvfi_rs3_rdata,
+    .rvfi_rd_addr,
+    .rvfi_rd_wdata,
+    .rvfi_pc_rdata,
+    .rvfi_pc_wdata,
+    .rvfi_mem_addr,
+    .rvfi_mem_rmask,
+    .rvfi_mem_wmask,
+    .rvfi_mem_rdata,
+    .rvfi_mem_wdata
+  );
+
 endmodule

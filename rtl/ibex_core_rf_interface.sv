@@ -1,19 +1,9 @@
-// Copyright lowRISC contributors.
-// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.
-// Licensed under the Apache License, Version 2.0, see LICENSE for details.
-// SPDX-License-Identifier: Apache-2.0
-
-`ifdef RISCV_FORMAL
-  `define RVFI
-`endif
-
 `include "prim_assert.sv"
 `include "dv_fcov_macros.svh"
-
-/**
- * Top level module of the ibex RISC-V core
- */
-module ibex_core_body import ibex_pkg::*; #(
+/* verilator lint_off MODDUP */
+/* verilator lint_off UNUSEDSIGNAL */
+/* verilator lint_off UNDRIVEN */
+module ibex_core_rf_interface import ibex_pkg::*;#(
   parameter bit          PMPEnable         = 1'b0,
   parameter int unsigned PMPGranularity    = 0,
   parameter int unsigned PMPNumRegions     = 4,
@@ -25,25 +15,17 @@ module ibex_core_body import ibex_pkg::*; #(
   parameter bit          BranchTargetALU   = 1'b0,
   parameter bit          WritebackStage    = 1'b0,
   parameter bit          ICache            = 1'b0,
-  parameter bit          ICacheECC         = 1'b0,
-  parameter int unsigned BusSizeECC        = BUS_SIZE,
-  parameter int unsigned TagSizeECC        = IC_TAG_SIZE,
-  parameter int unsigned LineSizeECC       = IC_LINE_SIZE,
   parameter bit          BranchPredictor   = 1'b0,
   parameter bit          DbgTriggerEn      = 1'b0,
   parameter int unsigned DbgHwBreakNum     = 1,
   parameter bit          ResetAll          = 1'b0,
-  parameter lfsr_seed_t  RndCnstLfsrSeed   = RndCnstLfsrSeedDefault,
-  parameter lfsr_perm_t  RndCnstLfsrPerm   = RndCnstLfsrPermDefault,
   parameter bit          SecureIbex        = 1'b0,
   parameter bit          DummyInstructions = 1'b0,
   parameter bit          RegFileECC        = 1'b0,
   parameter int unsigned RegFileDataWidth  = 32,
   parameter bit          MemECC            = 1'b0,
-  parameter int unsigned MemDataWidth      = MemECC ? 32 + 7 : 32,
-  parameter int unsigned DmHaltAddr        = 32'h1A110800,
-  parameter int unsigned DmExceptionAddr   = 32'h1A110808
-) (
+  parameter int unsigned MemDataWidth      = MemECC ? 32 + 7 : 32
+  )(
   // Clock and Reset
   input  logic                         clk_i,
   input  logic                         rst_ni,
@@ -52,15 +34,9 @@ module ibex_core_body import ibex_pkg::*; #(
   input  logic [31:0]                  boot_addr_i,
 
   // Instruction memory interface
-  output logic                         instr_req_o,
-  input  logic                         instr_gnt_i,
-  input  logic                         instr_rvalid_i,
-  output logic [31:0]                  instr_addr_o,
   input  logic [MemDataWidth-1:0]      instr_rdata_i,
-  input  logic                         instr_err_i,
 
   // Data memory interface
-  output logic                         data_req_o,
   input  logic                         data_gnt_i,
   input  logic                         data_rvalid_i,
   output logic                         data_we_o,
@@ -80,20 +56,6 @@ module ibex_core_body import ibex_pkg::*; #(
   output logic [RegFileDataWidth-1:0]  rf_wdata_wb_ecc_o,
   input  logic [RegFileDataWidth-1:0]  rf_rdata_a_ecc_i,
   input  logic [RegFileDataWidth-1:0]  rf_rdata_b_ecc_i,
-
-  // RAMs interface
-  output logic [IC_NUM_WAYS-1:0]       ic_tag_req_o,
-  output logic                         ic_tag_write_o,
-  output logic [IC_INDEX_W-1:0]        ic_tag_addr_o,
-  output logic [TagSizeECC-1:0]        ic_tag_wdata_o,
-  input  logic [TagSizeECC-1:0]        ic_tag_rdata_i [IC_NUM_WAYS],
-  output logic [IC_NUM_WAYS-1:0]       ic_data_req_o,
-  output logic                         ic_data_write_o,
-  output logic [IC_INDEX_W-1:0]        ic_data_addr_o,
-  output logic [LineSizeECC-1:0]       ic_data_wdata_o,
-  input  logic [LineSizeECC-1:0]       ic_data_rdata_i [IC_NUM_WAYS],
-  input  logic                         ic_scr_key_valid_i,
-  output logic                         ic_scr_key_req_o,
 
   // Interrupt inputs
   input  logic                         irq_software_i,
@@ -156,375 +118,220 @@ module ibex_core_body import ibex_pkg::*; #(
   output logic                         alert_minor_o,
   output logic                         alert_major_internal_o,
   output logic                         alert_major_bus_o,
-  output ibex_mubi_t                   core_busy_o
-);
-
-  localparam int unsigned PMPNumChan      = 3;
-  // SEC_CM: CORE.DATA_REG_SW.SCA
-  localparam bit          DataIndTiming     = SecureIbex;
-  localparam bit          PCIncrCheck       = SecureIbex;
-  localparam bit          ShadowCSR         = 1'b0;
+  output ibex_mubi_t                   core_busy_o,  
 
   // IF/ID signals
-  logic        dummy_instr_id;
-  logic        instr_valid_id;
-  logic        instr_new_id;
-  logic [31:0] instr_rdata_id;                 // Instruction sampled inside IF stage
-  logic [31:0] instr_rdata_alu_id;             // Instruction sampled inside IF stage (replicated to
+  input logic                          dummy_instr_id,
+  input logic                          instr_valid_id,
+  input logic                          instr_new_id,
+  input logic [31:0]                   instr_rdata_id,                // Instruction sampled inside IF stage
+  input logic [31:0]                   instr_rdata_alu_id,             // Instruction sampled inside IF stage (replicated to
                                                // ease fan-out)
-  logic [15:0] instr_rdata_c_id;               // Compressed instruction sampled inside IF stage
-  logic        instr_is_compressed_id;
-  logic        instr_perf_count_id;
-  logic        instr_bp_taken_id;
-  logic        instr_fetch_err;                // Bus error on instr fetch
-  logic        instr_fetch_err_plus2;          // Instruction error is misaligned
-  logic        illegal_c_insn_id;              // Illegal compressed instruction sent to ID stage
-  logic [31:0] pc_if;                          // Program counter in IF stage
-  logic [31:0] pc_id;                          // Program counter in ID stage
-  logic [31:0] pc_wb;                          // Program counter in WB stage
-  logic [33:0] imd_val_d_ex[2];                // Intermediate register for multicycle Ops
-  logic [33:0] imd_val_q_ex[2];                // Intermediate register for multicycle Ops
-  logic [1:0]  imd_val_we_ex;
+  input logic [15:0]                   instr_rdata_c_id,               // Compressed instruction sampled inside IF stage
+  input logic                          instr_is_compressed_id,
+  output logic                          instr_perf_count_id,
+  input logic                          instr_bp_taken_id,
+  input logic                          instr_fetch_err,                // Bus error on instr fetch
+  input logic                          instr_fetch_err_plus2,         // Instruction error is misaligned
+  input logic                          illegal_c_insn_id,              // Illegal compressed instruction sent to ID stage
+  input logic [31:0]                   pc_if,                          // Program counter in IF stage
+  input logic [31:0]                   pc_id,                          // Program counter in ID stage
+  output logic [31:0]                   pc_wb,                          // Program counter in WB stage
+  output logic [33:0]                   imd_val_d_ex[2],                // Intermediate register for multicycle Ops
+  output logic [33:0]                   imd_val_q_ex[2],                // Intermediate register for multicycle Ops
+  output logic [1:0]                    imd_val_we_ex,
 
-  logic        data_ind_timing;
-  logic        dummy_instr_en;
-  logic [2:0]  dummy_instr_mask;
-  logic        dummy_instr_seed_en;
-  logic [31:0] dummy_instr_seed;
-  logic        icache_enable;
-  logic        icache_inval;
-  logic        icache_ecc_error;
-  logic        pc_mismatch_alert;
-  logic        csr_shadow_err;
+  output logic                          data_ind_timing,
+  output logic                          dummy_instr_en,
+  output logic [2:0]                    dummy_instr_mask,
+  output logic                          dummy_instr_seed_en,
+  output logic [31:0]                   dummy_instr_seed,
+  output logic                          icache_enable,
+  output logic                          icache_inval,
+  output logic                          icache_ecc_error,
+  output logic                          pc_mismatch_alert,
+  output logic                          csr_shadow_err,
 
-  logic        instr_first_cycle_id;
-  logic        instr_valid_clear;
-  logic        pc_set;
-  logic        nt_branch_mispredict;
-  logic [31:0] nt_branch_addr;
-  pc_sel_e     pc_mux_id;                      // Mux selector for next PC
-  exc_pc_sel_e exc_pc_mux_id;                  // Mux selector for exception PC
-  exc_cause_t  exc_cause;                      // Exception cause
+  output logic                          instr_first_cycle_id,
+  output logic                          instr_valid_clear,
+  output logic                          pc_set,
+  output logic                          nt_branch_mispredict,
+  output logic [31:0]                   nt_branch_addr,
+  output pc_sel_e                       pc_mux_id,                      // Mux selector for next PC
+  output exc_pc_sel_e                   exc_pc_mux_id,                 // Mux selector for exception PC
+  output exc_cause_t                    exc_cause,                     // Exception cause
 
-  logic        instr_intg_err;
-  logic        lsu_load_err;
-  logic        lsu_store_err;
-  logic        lsu_load_resp_intg_err;
-  logic        lsu_store_resp_intg_err;
+  input logic                          instr_intg_err,
+  output logic                          lsu_load_err,
+  output logic                          lsu_store_err,
+  output logic                          lsu_load_resp_intg_err,
+  output logic                          lsu_store_resp_intg_err,
 
   // LSU signals
-  logic        lsu_addr_incr_req;
-  logic [31:0] lsu_addr_last;
+  output logic                          lsu_addr_incr_req,
+  output logic [31:0]                   lsu_addr_last,
+  output logic                          unused_rf_ren_a,
+  output logic                          unused_rf_ren_b,
+  output logic                          unused_rf_rd_a_wb_match,
+  output logic                          unused_rf_rd_b_wb_match,
 
   // Jump and branch target and decision (EX->IF)
-  logic [31:0] branch_target_ex;
-  logic        branch_decision;
+  output logic [31:0]                   branch_target_ex,
+  output logic                          branch_decision,
 
   // Core busy signals
-  logic        ctrl_busy;
-  logic        if_busy;
-  logic        lsu_busy;
+  output logic                          ctrl_busy,
+  output logic                          lsu_busy,
 
   // Register File
-  logic [4:0]  rf_raddr_a;
-  logic [31:0] rf_rdata_a;
-  logic [4:0]  rf_raddr_b;
-  logic [31:0] rf_rdata_b;
-  logic        rf_ren_a;
-  logic        rf_ren_b;
-  logic [4:0]  rf_waddr_wb;
-  logic [31:0] rf_wdata_wb;
+  output logic [4:0]                    rf_raddr_a,
+  output logic [31:0]                   rf_rdata_a,
+  output logic [4:0]                    rf_raddr_b,
+  output logic [31:0]                   rf_rdata_b,
+  output logic                          rf_ren_a,
+  output logic                          rf_ren_b,
+  output logic [4:0]                    rf_waddr_wb,
+  output logic [31:0]                   rf_wdata_wb,
   // Writeback register write data that can be used on the forwarding path (doesn't factor in memory
   // read data as this is too late for the forwarding path)
-  logic [31:0] rf_wdata_fwd_wb;
-  logic [31:0] rf_wdata_lsu;
-  logic        rf_we_wb;
-  logic        rf_we_lsu;
-  logic        rf_ecc_err_comb;
+  output logic [31:0]                   rf_wdata_fwd_wb,
+  output logic [31:0]                   rf_wdata_lsu,
+  output logic                          rf_we_wb,
+  output logic                          rf_we_lsu,
+  output logic                          rf_ecc_err_comb,
 
-  logic [4:0]  rf_waddr_id;
-  logic [31:0] rf_wdata_id;
-  logic        rf_we_id;
-  logic        rf_rd_a_wb_match;
-  logic        rf_rd_b_wb_match;
+  output logic [4:0]                    rf_waddr_id,
+  output logic [31:0]                   rf_wdata_id,
+  output logic                          rf_we_id,
+  output logic                          rf_rd_a_wb_match,
+  output logic                          rf_rd_b_wb_match,
 
   // ALU Control
-  alu_op_e     alu_operator_ex;
-  logic [31:0] alu_operand_a_ex;
-  logic [31:0] alu_operand_b_ex;
+  output alu_op_e                       alu_operator_ex,
+  output logic [31:0]                   alu_operand_a_ex,
+  output logic [31:0]                   alu_operand_b_ex,
 
-  logic [31:0] bt_a_operand;
-  logic [31:0] bt_b_operand;
+  output logic [31:0]                   bt_a_operand,
+  output logic [31:0]                   bt_b_operand,
 
-  logic [31:0] alu_adder_result_ex;    // Used to forward computed address to LSU
-  logic [31:0] result_ex;
+  output logic [31:0]                   alu_adder_result_ex,    // Used to forward computed address to LSU
+  output logic [31:0]                   result_ex,
 
   // Multiplier Control
-  logic        mult_en_ex;
-  logic        div_en_ex;
-  logic        mult_sel_ex;
-  logic        div_sel_ex;
-  md_op_e      multdiv_operator_ex;
-  logic [1:0]  multdiv_signed_mode_ex;
-  logic [31:0] multdiv_operand_a_ex;
-  logic [31:0] multdiv_operand_b_ex;
-  logic        multdiv_ready_id;
+  output logic                          mult_en_ex,
+  output logic                          div_en_ex,
+  output logic                          mult_sel_ex,
+  output logic                          div_sel_ex,
+  output md_op_e                        multdiv_operator_ex,
+  output logic [1:0]                    multdiv_signed_mode_ex,
+  output logic [31:0]                   multdiv_operand_a_ex,
+  output logic [31:0]                   multdiv_operand_b_ex,
+  output logic                          multdiv_ready_id,
 
   // CSR control
-  logic        csr_access;
-  csr_op_e     csr_op;
-  logic        csr_op_en;
-  csr_num_e    csr_addr;
-  logic [31:0] csr_rdata;
-  logic [31:0] csr_wdata;
-  logic        illegal_csr_insn_id;    // CSR access to non-existent register,
+  output logic                          csr_access,
+  output csr_op_e                       csr_op,
+  output logic                          csr_op_en,
+  output csr_num_e                      csr_addr,
+  output logic [31:0]                   csr_rdata,
+  output logic [31:0]                   csr_wdata,
+  output logic                          illegal_csr_insn_id,   // CSR access to non-existent register,
                                        // with wrong priviledge level,
                                        // or missing write permissions
 
   // Data Memory Control
-  logic        lsu_we;
-  logic [1:0]  lsu_type;
-  logic        lsu_sign_ext;
-  logic        lsu_req;
-  logic [31:0] lsu_wdata;
-  logic        lsu_req_done;
+  output logic                          lsu_we,
+  output logic [1:0]                    lsu_type,
+  output logic                          lsu_sign_ext,
+  output logic                          lsu_req,
+  output logic [31:0]                   lsu_wdata,
+  output logic                          lsu_req_done,
 
   // stall control
-  logic        id_in_ready;
-  logic        ex_valid;
+  output logic                          id_in_ready,
+  output logic                          ex_valid,
 
-  logic        lsu_resp_valid;
-  logic        lsu_resp_err;
+  output logic                          lsu_resp_valid,
+  input logic                          lsu_resp_err,
 
   // Signals between instruction core interface and pipe (if and id stages)
-  logic        instr_req_int;          // Id stage asserts a req to instruction core interface
-  logic        instr_req_gated;
-  logic        instr_exec;
+  output logic                          instr_req_int,         // Id stage asserts a req to instruction core interface
+  input logic                          instr_exec,
 
   // Writeback stage
-  logic           en_wb;
-  wb_instr_type_e instr_type_wb;
-  logic           ready_wb;
-  logic           rf_write_wb;
-  logic           outstanding_load_wb;
-  logic           outstanding_store_wb;
-  logic           dummy_instr_wb;
+  output logic                          en_wb,
+  output wb_instr_type_e                instr_type_wb,
+  output logic                          ready_wb,
+  output logic                          rf_write_wb,
+  output logic                          outstanding_load_wb,
+  output logic                          outstanding_store_wb,
+  output logic                          dummy_instr_wb,
 
   // Interrupts
-  logic        nmi_mode;
-  irqs_t       irqs;
-  logic        csr_mstatus_mie;
-  logic [31:0] csr_mepc, csr_depc;
+  output logic                          nmi_mode,
+  output irqs_t                         irqs,
+  output logic                          csr_mstatus_mie,
+  output logic [31:0]                   csr_mepc,
+  output logic [31:0]                   csr_depc,
 
   // PMP signals
-  logic [33:0]  csr_pmp_addr [PMPNumRegions];
-  pmp_cfg_t     csr_pmp_cfg  [PMPNumRegions];
-  pmp_mseccfg_t csr_pmp_mseccfg;
-  logic         pmp_req_err  [PMPNumChan];
-  logic         data_req_out;
+  output logic [33:0]                   csr_pmp_addr [PMPNumRegions],
+  output pmp_cfg_t                      csr_pmp_cfg  [PMPNumRegions],
+  output pmp_mseccfg_t                  csr_pmp_mseccfg,
+  output logic                          pmp_req_err  [3],
+  output logic                          data_req_out,
 
-  logic        csr_save_if;
-  logic        csr_save_id;
-  logic        csr_save_wb;
-  logic        csr_restore_mret_id;
-  logic        csr_restore_dret_id;
-  logic        csr_save_cause;
-  logic        csr_mtvec_init;
-  logic [31:0] csr_mtvec;
-  logic [31:0] csr_mtval;
-  logic        csr_mstatus_tw;
-  priv_lvl_e   priv_mode_id;
-  priv_lvl_e   priv_mode_lsu;
+  output logic                          csr_save_if,
+  output logic                          csr_save_id,
+  output logic                          csr_save_wb,
+  output logic                          csr_restore_mret_id,
+  output logic                          csr_restore_dret_id,
+  output logic                          csr_save_cause,
+  output logic                          csr_mtvec_init,
+  output logic [31:0]                   csr_mtvec,
+  output logic [31:0]                   csr_mtval,
+  output logic                          csr_mstatus_tw,
+  output priv_lvl_e                     priv_mode_id,
+  output priv_lvl_e                     priv_mode_lsu,
 
   // debug mode and dcsr configuration
-  logic        debug_mode;
-  logic        debug_mode_entering;
-  dbg_cause_e  debug_cause;
-  logic        debug_csr_save;
-  logic        debug_single_step;
-  logic        debug_ebreakm;
-  logic        debug_ebreaku;
-  logic        trigger_match;
+  output logic                          debug_mode,
+  output logic                          debug_mode_entering,
+  output dbg_cause_e                    debug_cause,
+  output logic                          debug_csr_save,
+  output logic                          debug_single_step,
+  output logic                          debug_ebreakm,
+  output logic                          debug_ebreaku,
+  output logic                          trigger_match,
 
   // signals relating to instruction movements between pipeline stages
   // used by performance counters and RVFI
-  logic        instr_id_done;
-  logic        instr_done_wb;
+  output logic                          instr_id_done,
+  output logic                          instr_done_wb,
 
-  logic        perf_instr_ret_wb;
-  logic        perf_instr_ret_compressed_wb;
-  logic        perf_instr_ret_wb_spec;
-  logic        perf_instr_ret_compressed_wb_spec;
-  logic        perf_iside_wait;
-  logic        perf_dside_wait;
-  logic        perf_mul_wait;
-  logic        perf_div_wait;
-  logic        perf_jump;
-  logic        perf_branch;
-  logic        perf_tbranch;
-  logic        perf_load;
-  logic        perf_store;
+  output logic                          perf_instr_ret_wb,
+  output logic                          perf_instr_ret_compressed_wb,
+  output logic                          perf_instr_ret_wb_spec,
+  output logic                          perf_instr_ret_compressed_wb_spec,
+  output logic                          perf_iside_wait,
+  output logic                          perf_dside_wait,
+  output logic                          perf_mul_wait,
+  output logic                          perf_div_wait,
+  output logic                          perf_jump,
+  output logic                          perf_branch,
+  output logic                          perf_tbranch,
+  output logic                          perf_load,
+  output logic                          perf_store,
 
   // for RVFI
-  logic        illegal_insn_id, unused_illegal_insn_id; // ID stage sees an illegal instruction
-
-  //////////////////////
-  // Clock management //
-  //////////////////////
-
-  // Before going to sleep, wait for I- and D-side
-  // interfaces to finish ongoing operations.
-  if (SecureIbex) begin : g_core_busy_secure
-    // For secure Ibex, the individual bits of core_busy_o are generated from different copies of
-    // the various busy signal.
-    localparam int unsigned NumBusySignals = 3;
-    localparam int unsigned NumBusyBits = $bits(ibex_mubi_t) * NumBusySignals;
-    logic [NumBusyBits-1:0] busy_bits_buf;
-    prim_buf #(
-      .Width(NumBusyBits)
-    ) u_fetch_enable_buf (
-      .in_i ({$bits(ibex_mubi_t){ctrl_busy, if_busy, lsu_busy}}),
-      .out_o(busy_bits_buf)
-    );
-
-    // Set core_busy_o to IbexMuBiOn if even a single input is high.
-    for (genvar i = 0; i < $bits(ibex_mubi_t); i++) begin : g_core_busy_bits
-      if (IbexMuBiOn[i] == 1'b1) begin : g_pos
-        assign core_busy_o[i] =  |busy_bits_buf[i*NumBusySignals +: NumBusySignals];
-      end else begin : g_neg
-        assign core_busy_o[i] = ~|busy_bits_buf[i*NumBusySignals +: NumBusySignals];
-      end
-    end
-  end else begin : g_core_busy_non_secure
-    // For non secure Ibex, synthesis is allowed to optimize core_busy_o.
-    assign core_busy_o = (ctrl_busy || if_busy || lsu_busy) ? IbexMuBiOn : IbexMuBiOff;
-  end
-
-  //////////////
-  // IF stage //
-  //////////////
-
-  ibex_if_stage #(
-    .DmHaltAddr       (DmHaltAddr),
-    .DmExceptionAddr  (DmExceptionAddr),
-    .DummyInstructions(DummyInstructions),
-    .ICache           (ICache),
-    .ICacheECC        (ICacheECC),
-    .BusSizeECC       (BusSizeECC),
-    .TagSizeECC       (TagSizeECC),
-    .LineSizeECC      (LineSizeECC),
-    .PCIncrCheck      (PCIncrCheck),
-    .ResetAll         (ResetAll),
-    .RndCnstLfsrSeed  (RndCnstLfsrSeed),
-    .RndCnstLfsrPerm  (RndCnstLfsrPerm),
-    .BranchPredictor  (BranchPredictor),
-    .MemECC           (MemECC),
-    .MemDataWidth     (MemDataWidth)
-  ) if_stage_i (
-    .clk_i (clk_i),
-    .rst_ni(rst_ni),
-
-    .boot_addr_i(boot_addr_i),
-    .req_i      (instr_req_gated),  // instruction request control
-
-    // instruction cache interface
-    .instr_req_o       (instr_req_o),
-    .instr_addr_o      (instr_addr_o),
-    .instr_gnt_i       (instr_gnt_i),
-    .instr_rvalid_i    (instr_rvalid_i),
-    .instr_rdata_i     (instr_rdata_i),
-    .instr_bus_err_i   (instr_err_i),
-    .instr_intg_err_o  (instr_intg_err),
-
-    .ic_tag_req_o      (ic_tag_req_o),
-    .ic_tag_write_o    (ic_tag_write_o),
-    .ic_tag_addr_o     (ic_tag_addr_o),
-    .ic_tag_wdata_o    (ic_tag_wdata_o),
-    .ic_tag_rdata_i    (ic_tag_rdata_i),
-    .ic_data_req_o     (ic_data_req_o),
-    .ic_data_write_o   (ic_data_write_o),
-    .ic_data_addr_o    (ic_data_addr_o),
-    .ic_data_wdata_o   (ic_data_wdata_o),
-    .ic_data_rdata_i   (ic_data_rdata_i),
-    .ic_scr_key_valid_i(ic_scr_key_valid_i),
-    .ic_scr_key_req_o  (ic_scr_key_req_o),
-
-    // outputs to ID stage
-    .instr_valid_id_o        (instr_valid_id),
-    .instr_new_id_o          (instr_new_id),
-    .instr_rdata_id_o        (instr_rdata_id),
-    .instr_rdata_alu_id_o    (instr_rdata_alu_id),
-    .instr_rdata_c_id_o      (instr_rdata_c_id),
-    .instr_is_compressed_id_o(instr_is_compressed_id),
-    .instr_bp_taken_o        (instr_bp_taken_id),
-    .instr_fetch_err_o       (instr_fetch_err),
-    .instr_fetch_err_plus2_o (instr_fetch_err_plus2),
-    .illegal_c_insn_id_o     (illegal_c_insn_id),
-    .dummy_instr_id_o        (dummy_instr_id),
-    .pc_if_o                 (pc_if),
-    .pc_id_o                 (pc_id),
-    .pmp_err_if_i            (pmp_req_err[PMP_I]),
-    .pmp_err_if_plus2_i      (pmp_req_err[PMP_I2]),
-
-    // control signals
-    .instr_valid_clear_i   (instr_valid_clear),
-    .pc_set_i              (pc_set),
-    .pc_mux_i              (pc_mux_id),
-    .nt_branch_mispredict_i(nt_branch_mispredict),
-    .exc_pc_mux_i          (exc_pc_mux_id),
-    .exc_cause             (exc_cause),
-    .dummy_instr_en_i      (dummy_instr_en),
-    .dummy_instr_mask_i    (dummy_instr_mask),
-    .dummy_instr_seed_en_i (dummy_instr_seed_en),
-    .dummy_instr_seed_i    (dummy_instr_seed),
-    .icache_enable_i       (icache_enable),
-    .icache_inval_i        (icache_inval),
-    .icache_ecc_error_o    (icache_ecc_error),
-
-    // branch targets
-    .branch_target_ex_i(branch_target_ex),
-    .nt_branch_addr_i  (nt_branch_addr),
-
-    // CSRs
-    .csr_mepc_i      (csr_mepc),  // exception return address
-    .csr_depc_i      (csr_depc),  // debug return address
-    .csr_mtvec_i     (csr_mtvec),  // trap-vector base address
-    .csr_mtvec_init_o(csr_mtvec_init),
-
-    // pipeline stalls
-    .id_in_ready_i(id_in_ready),
-
-    .pc_mismatch_alert_o(pc_mismatch_alert),
-    .if_busy_o          (if_busy)
+  output logic                          illegal_insn_id,
+  output logic                          unused_illegal_insn_id, // ID stage sees an illegal instruction
+  input logic                          ic_scr_key_valid_i
   );
-
-  // Core is waiting for the ISide when ID/EX stage is ready for a new instruction but none are
-  // available
-  assign perf_iside_wait = id_in_ready & ~instr_valid_id;
-
-  // Multi-bit fetch enable used when SecureIbex == 1. When SecureIbex == 0 only use the bottom-bit
-  // of fetch_enable_i. Ensure the multi-bit encoding has the bottom bit set for on and unset for
-  // off so IbexMuBiOn/IbexMuBiOff can be used without needing to know the value of SecureIbex.
-  `ASSERT_INIT(IbexMuBiSecureOnBottomBitSet,    IbexMuBiOn[0] == 1'b1)
-  `ASSERT_INIT(IbexMuBiSecureOffBottomBitClear, IbexMuBiOff[0] == 1'b0)
-
-  // fetch_enable_i can be used to stop the core fetching new instructions
-  if (SecureIbex) begin : g_instr_req_gated_secure
-    // For secure Ibex fetch_enable_i must be a specific multi-bit pattern to enable instruction
-    // fetch
-    // SEC_CM: FETCH.CTRL.LC_GATED
-    assign instr_req_gated = instr_req_int & (fetch_enable_i == IbexMuBiOn);
-    assign instr_exec      = fetch_enable_i == IbexMuBiOn;
-  end else begin : g_instr_req_gated_non_secure
-    // For non secure Ibex only the bottom bit of fetch enable is considered
-    logic unused_fetch_enable;
-    assign unused_fetch_enable = ^fetch_enable_i[$bits(ibex_mubi_t)-1:1];
-
-    assign instr_req_gated = instr_req_int & fetch_enable_i[0];
-    assign instr_exec      = fetch_enable_i[0];
-  end
-
-  //////////////
+  /* verilator lint_off UNDRIVEN */
+  /* verilator lint_off UNUSEDSIGNAL */  
+  /* verilator lint_on MODDUP */
+ //////////////
   // ID stage //
   //////////////
 
@@ -533,7 +340,7 @@ module ibex_core_body import ibex_pkg::*; #(
     .RV32M          (RV32M),
     .RV32B          (RV32B),
     .BranchTargetALU(BranchTargetALU),
-    .DataIndTiming  (DataIndTiming),
+    .DataIndTiming  (SecureIbex),
     .WritebackStage (WritebackStage),
     .BranchPredictor(BranchPredictor),
     .MemECC         (MemECC)
@@ -688,9 +495,6 @@ module ibex_core_body import ibex_pkg::*; #(
     .instr_id_done_o  (instr_id_done)
   );
 
-  // for RVFI only
-  assign unused_illegal_insn_id = illegal_insn_id;
-
   ibex_ex_block #(
     .RV32M          (RV32M),
     .RV32B          (RV32B),
@@ -735,13 +539,6 @@ module ibex_core_body import ibex_pkg::*; #(
 
     .ex_valid_o(ex_valid)
   );
-
-  /////////////////////
-  // Load/store unit //
-  /////////////////////
-
-  assign data_req_o   = data_req_out & ~pmp_req_err[PMP_D];
-  assign lsu_resp_err = lsu_load_err | lsu_store_err;
 
   ibex_load_store_unit #(
     .MemECC(MemECC),
@@ -839,7 +636,6 @@ module ibex_core_body import ibex_pkg::*; #(
 
     .instr_done_wb_o(instr_done_wb)
   );
-
   /////////////////////////////
   // Register file interface //
   /////////////////////////////
@@ -889,8 +685,6 @@ module ibex_core_body import ibex_pkg::*; #(
     assign rf_ecc_err_comb = instr_valid_id & (rf_ecc_err_a_id | rf_ecc_err_b_id);
 
   end else begin : gen_no_regfile_ecc
-    logic unused_rf_ren_a, unused_rf_ren_b;
-    logic unused_rf_rd_a_wb_match, unused_rf_rd_b_wb_match;
 
     assign unused_rf_ren_a         = rf_ren_a;
     assign unused_rf_ren_b         = rf_ren_b;
@@ -1006,9 +800,9 @@ module ibex_core_body import ibex_pkg::*; #(
   ibex_cs_registers #(
     .DbgTriggerEn     (DbgTriggerEn),
     .DbgHwBreakNum    (DbgHwBreakNum),
-    .DataIndTiming    (DataIndTiming),
+    .DataIndTiming    (SecureIbex),
     .DummyInstructions(DummyInstructions),
-    .ShadowCSR        (ShadowCSR),
+    .ShadowCSR        (0),
     .ICache           (ICache),
     .MHPMCounterNum   (MHPMCounterNum),
     .MHPMCounterWidth (MHPMCounterWidth),
@@ -1121,9 +915,9 @@ module ibex_core_body import ibex_pkg::*; #(
 
   if (PMPEnable) begin : g_pmp
     logic [31:0] pc_if_inc;
-    logic [33:0] pmp_req_addr [PMPNumChan];
-    pmp_req_e    pmp_req_type [PMPNumChan];
-    priv_lvl_e   pmp_priv_lvl [PMPNumChan];
+    logic [33:0] pmp_req_addr [3];
+    pmp_req_e    pmp_req_type [3];
+    priv_lvl_e   pmp_priv_lvl [3];
 
     assign pc_if_inc            = pc_if + 32'd2;
     assign pmp_req_addr[PMP_I]  = {2'b00, pc_if};
@@ -1138,7 +932,7 @@ module ibex_core_body import ibex_pkg::*; #(
 
     ibex_pmp #(
       .PMPGranularity(PMPGranularity),
-      .PMPNumChan    (PMPNumChan),
+      .PMPNumChan    (3),
       .PMPNumRegions (PMPNumRegions)
     ) pmp_i (
       // Interface to CSRs
