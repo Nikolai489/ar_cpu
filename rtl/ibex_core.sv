@@ -12,6 +12,7 @@
 `include "ibex_core_clk_mgmt.sv"
 `include "ibex_core_if_helper.sv"
 `include "ibex_core_rf_interface.sv"
+
 /**
  * Top level module of the ibex RISC-V core
  */
@@ -561,7 +562,7 @@ ibex_core_rf_interface #(
   .rf_wdata_wb_ecc_o(rf_wdata_wb_ecc_o),
   .rf_rdata_a_ecc_i(rf_rdata_a_ecc_i),
   .rf_rdata_b_ecc_i(rf_rdata_b_ecc_i),
-
+  
   // Interrupt inputs
   .irq_software_i(irq_software_i),
   .irq_timer_i(irq_timer_i),

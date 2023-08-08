@@ -6,7 +6,7 @@
  * Top level module of the ibex RISC-V core with tracing enabled
  */
 
- module ibex_top_tracing import ibex_pkg::*; #(
+module ibex_top_tracing_body import ibex_pkg::*; #(
   parameter bit          PMPEnable        = 1'b0,
   parameter int unsigned PMPGranularity   = 0,
   parameter int unsigned PMPNumRegions    = 4,
@@ -91,6 +91,11 @@
 
 );
 
+  // ibex_tracer relies on the signals from the RISC-V Formal Interface
+  `ifndef RVFI
+    $fatal("Fatal error: RVFI needs to be defined globally.");
+  `endif
+
   logic        rvfi_valid;
   logic [63:0] rvfi_order;
   logic [31:0] rvfi_insn;
@@ -141,30 +146,19 @@
   logic        unused_rvfi_ext_ic_scr_key_valid;
   logic        unused_rvfi_ext_irq_valid;
 
-  ibex_top_tracing_assigns u_ibex_top_tracing_assigns(
-    .rvfi_ext_mip(rvfi_ext_mip),
-    .rvfi_ext_nmi(rvfi_ext_nmi),
-    .rvfi_ext_nmi_int(rvfi_ext_nmi_int),
-    .rvfi_ext_debug_req(rvfi_ext_debug_req),
-    .rvfi_ext_debug_mode(rvfi_ext_debug_mode),
-    .rvfi_ext_rf_wr_suppress(rvfi_ext_rf_wr_suppress),
-    .rvfi_ext_mcycle(rvfi_ext_mcycle),
-    .rvfi_ext_mhpmcounters(rvfi_ext_mhpmcounters),
-    .rvfi_ext_mhpmcountersh(rvfi_ext_mhpmcountersh),
-    .rvfi_ext_ic_scr_key_valid(rvfi_ext_ic_scr_key_valid),
-    .rvfi_ext_irq_valid(rvfi_ext_irq_valid),
-    .unused_perf_regs(unused_perf_regs),
-    .unused_perf_regsh(unused_perf_regsh),
-    .unused_rvfi_ext_mip(unused_rvfi_ext_mip),
-    .unused_rvfi_ext_nmi(unused_rvfi_ext_nmi),
-    .unused_rvfi_ext_nmi_int(unused_rvfi_ext_nmi_int),
-    .unused_rvfi_ext_debug_req(unused_rvfi_ext_debug_req),
-    .unused_rvfi_ext_debug_mode(unused_rvfi_ext_debug_mode),
-    .unused_rvfi_ext_rf_wr_suppress(unused_rvfi_ext_rf_wr_suppress),
-    .unused_rvfi_ext_mcycle(unused_rvfi_ext_mcycle),
-    .unused_rvfi_ext_ic_scr_key_valid(unused_rvfi_ext_ic_scr_key_valid),
-    .unused_rvfi_ext_irq_valid(unused_rvfi_ext_irq_valid)
-  );
+  // Tracer doesn't use these signals, though other modules may probe down into tracer to observe
+  // them.
+  assign unused_rvfi_ext_mip = rvfi_ext_mip;
+  assign unused_rvfi_ext_nmi = rvfi_ext_nmi;
+  assign unused_rvfi_ext_nmi_int = rvfi_ext_nmi_int;
+  assign unused_rvfi_ext_debug_req = rvfi_ext_debug_req;
+  assign unused_rvfi_ext_debug_mode = rvfi_ext_debug_mode;
+  assign unused_rvfi_ext_rf_wr_suppress = rvfi_ext_rf_wr_suppress;
+  assign unused_rvfi_ext_mcycle = rvfi_ext_mcycle;
+  assign unused_perf_regs = rvfi_ext_mhpmcounters;
+  assign unused_perf_regsh = rvfi_ext_mhpmcountersh;
+  assign unused_rvfi_ext_ic_scr_key_valid = rvfi_ext_ic_scr_key_valid;
+  assign unused_rvfi_ext_irq_valid = rvfi_ext_irq_valid;
 
   ibex_top #(
     .PMPEnable        ( PMPEnable        ),
@@ -308,6 +302,5 @@
     .rvfi_mem_rdata,
     .rvfi_mem_wdata
   );
-
 
 endmodule
